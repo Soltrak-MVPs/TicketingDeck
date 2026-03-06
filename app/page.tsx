@@ -8,6 +8,10 @@ import { SidebarNav } from "@/components/sidebar-nav"
 import { TopBar } from "@/components/top-bar"
 import { PanelCanvas } from "@/components/panel-canvas"
 import { GeneralDataDashboard } from "@/components/general-data-dashboard"
+import { StrategicInitiativesDashboard } from "@/components/strategic-initiatives-dashboard"
+import { StrategicPipelineDashboard } from "@/components/strategic-pipeline-dashboard"
+import { StrategicStatusDashboard } from "@/components/strategic-status-dashboard"
+import { InitiativeFichaDashboard } from "@/components/initiative-ficha-dashboard"
 
 // ─── Metadatos de cada panel ─────────────────────────────────────────────────
 
@@ -20,7 +24,7 @@ interface PanelMeta {
   tags?: string[]
   area: Area
   /** Si tiene componente propio, se renderiza en lugar del PanelCanvas */
-  component?: "AnalystDashboard" | "RequesterDashboard" | "GeneralDataDashboard"
+  component?: "AnalystDashboard" | "RequesterDashboard" | "GeneralDataDashboard" | "StrategicInitiativesDashboard" | "StrategicPipelineDashboard" | "StrategicStatusDashboard" | "InitiativeFichaDashboard"
 }
 
 const PANEL_REGISTRY: Record<string, PanelMeta> = {
@@ -106,6 +110,34 @@ const PANEL_REGISTRY: Record<string, PanelMeta> = {
   },
 
   // ── PROCESOS · ANALISTA ───────────────────────────────────────────────────
+  "Iniciativas 2026": {
+    title: "Iniciativas Estratégicas 2026",
+    subtitle: "Portafolio estratégico · Pilares · Inversión · Responsables",
+    icon: "🏆",
+    area: "Procesos",
+    component: "StrategicInitiativesDashboard",
+  },
+  "Pipeline 2026": {
+    title: "Pipeline de Iniciativas",
+    subtitle: "Mapa de avance por etapa · Visión gerencial · Pilares estratégicos",
+    icon: "🗺️",
+    area: "Procesos",
+    component: "StrategicPipelineDashboard",
+  },
+  "Status Directorio": {
+    title: "Status Iniciativas — Directorio",
+    subtitle: "Semáforos de avance · KPIs 1Q26 · Líderes · Edición inline",
+    icon: "📊",
+    area: "Procesos",
+    component: "StrategicStatusDashboard",
+  },
+  "Fichas Iniciativas": {
+    title: "Fichas de Iniciativa Estratégica",
+    subtitle: "Definición · KPIs · Equipo · Hitos de avance · Semáforos",
+    icon: "🗎️",
+    area: "Procesos",
+    component: "InitiativeFichaDashboard",
+  },
   "Portafolio de Proyectos": {
     title: "Portafolio de Proyectos",
     subtitle: "Módulo Loussiana · Gestión de portafolio · Desviaciones",
@@ -182,6 +214,10 @@ export default function Home() {
     if (!panel) return null
     if (panel.component === "AnalystDashboard") return <AnalystDashboard />
     if (panel.component === "GeneralDataDashboard") return <GeneralDataDashboard />
+    if (panel.component === "StrategicInitiativesDashboard") return <StrategicInitiativesDashboard />
+    if (panel.component === "StrategicPipelineDashboard") return <StrategicPipelineDashboard />
+    if (panel.component === "StrategicStatusDashboard") return <StrategicStatusDashboard />
+    if (panel.component === "InitiativeFichaDashboard") return <InitiativeFichaDashboard />
     if (panel.component === "RequesterDashboard")
       return <RequesterDashboard userName={currentUser} />
     return (

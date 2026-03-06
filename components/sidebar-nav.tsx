@@ -97,6 +97,40 @@ const NAV_DATA_REQUESTER: NavGroup[] = [
 
 const NAV_PROCESOS_ANALYST: NavGroup[] = [
   {
+    groupLabel: "Estrategia",
+    items: [
+      {
+        icon: "🏆",
+        label: "Iniciativas 2026",
+        sublabel: "Portafolio estratégico Soltrak",
+        href: "#",
+        badge: "11",
+        badgeColor: "red",
+      },
+      {
+        icon: "🗺️",
+        label: "Pipeline 2026",
+        sublabel: "Mapa de avance · Visión gerencial",
+        href: "#",
+        analystOnly: true,
+      },
+      {
+        icon: "📊",
+        label: "Status Directorio",
+        sublabel: "Semáforos · KPIs · Edición inline",
+        href: "#",
+        analystOnly: true,
+      },
+      {
+        icon: "🗃️",
+        label: "Fichas Iniciativas",
+        sublabel: "Fichas detalle · KPIs · Equipo · Hitos",
+        href: "#",
+        analystOnly: true,
+      },
+    ],
+  },
+  {
     groupLabel: "Portafolio",
     items: [
       {
@@ -231,7 +265,7 @@ export function SidebarNav({
                   key={area}
                   onClick={() => {
                     onAreaChange(area)
-                    onItemChange(area === "Data" ? "General de Data" : "Portafolio de Proyectos")
+                    onItemChange(area === "Data" ? "General de Data" : "Iniciativas 2026")
                   }}
                   className={cn(
                     "flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-[11px] font-bold transition-all duration-200",
@@ -253,7 +287,7 @@ export function SidebarNav({
                 key={area}
                 onClick={() => {
                   onAreaChange(area)
-                  onItemChange(area === "Data" ? "General de Data" : "Portafolio de Proyectos")
+                  onItemChange(area === "Data" ? "General de Data" : "Iniciativas 2026")
                 }}
                 title={area}
                 className={cn(
