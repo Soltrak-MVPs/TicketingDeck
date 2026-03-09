@@ -1,627 +1,76 @@
-[00:00:02.698] Server  LOG     ✓ Ready in 1799ms
-[00:00:11.759] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:12.713] Server  LOG     ✓ Compiled in 1171ms
-[00:01:44.735] Browser ERROR   Each child in a list should have a unique "key" prop.%s%s See https://react.dev/link/warning-keys for more information. 
+[00:00:02.743] Server  LOG     ✓ Ready in 1844ms
+[00:00:08.359] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:23.348] Browser ERROR   Each child in a list should have a unique "key" prop.%s%s See https://react.dev/link/warning-keys for more information. 
 
 Check the render method of `tbody`.  It was passed a child from StrategicStatusDashboard.
-[00:03:03.897] Server  LOG     ✓ Compiled in 514ms
-[00:03:04.014] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:923:17
-Ecmascript file had an error
-  921 | // ─── Main Component ───────────────────────────────────────────────────────────
-  922 |
-> 923 | export function StrategicInitiativesDashboard() {
-      |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  924 |   const [activePillar, setActivePillar] = useState<PillarKey | "all">("all")
-  925 |
-  926 |   const totalInitiatives = PILLARS.reduce(
-
-the name `StrategicInitiativesDashboard` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:05:40.800] Server  LOG     ✓ Compiled in 323ms
-[00:05:41.066] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:05:41.066] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:10.339] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:10.339] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:11.047] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:11.047] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:11.956] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:11.956] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:12.762] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:12.762] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:13.619] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:13.619] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:14.546] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:14.546] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:15.273] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:15.273] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:15.996] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:15.996] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:18.712] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:18.712] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:20.140] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:20.140] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:20.698] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:20.699] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:21.411] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:21.411] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:22.865] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:22.865] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:07:53.393] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:07:56.557] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:08:06.458] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:08:06.458] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:08:28.839] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:08:28.839] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:12:14.757] Server  LOG     ✓ Compiled in 187ms
-[00:15:35.114] Server  LOG     ✓ Compiled in 168ms
-[00:17:53.071] Server  LOG     ✓ Compiled in 181ms
-[00:23:45.788] Server  LOG     ✓ Compiled in 167ms
-[00:26:38.721] Server  LOG     ✓ Compiled in 173ms
-[00:27:56.363] Server  LOG     ✓ Compiled in 180ms
-[00:28:39.182] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:28:39.182] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:34:35.975] Server  LOG     ✓ Compiled in 377ms
-[00:34:36.083] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:658:7
-Ecmascript file had an error
-  656 | }
-  657 |
-> 658 | const INITIATIVES: Initiative[] = [
-      |       ^^^^^^^^^^^
-  659 |   {
-  660 |     id: "INI-001", name: "Mejorar márgenes por cliente",
-  661 |     area: "Optimización",   progress: 45, budget: 0,       real: 0,
-
-the name `INITIATIVES` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:36.083] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:764:10
-Ecmascript file had an error
-  762 | // ─── Sub-components ───────────────────────────────────────────────────────────
-  763 |
-> 764 | function KpiCard({ icon, label, value, sub, accentClass }: {
-      |          ^^^^^^^
-  765 |   icon: string; label: string; value: string | number; sub: string; accentClass: string
-  766 | }) {
-  767 |   return (
-
-the name `KpiCard` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:36.083] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:801:10
-Ecmascript file had an error
-  799 | }
-  800 |
-> 801 | function LightTooltip({ active, payload, label }: any) {
-      |          ^^^^^^^^^^^^
-  802 |   if (!active || !payload?.length) return null
-  803 |   return (
-  804 |     <div className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs shadow-lg min-w-32.5">
-
-the name `LightTooltip` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:36.083] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:729:7
-Ecmascript file had an error
-  727 | // ─── Palettes ─────────────────────────────────────────────────────────────────
-  728 |
-> 729 | const PRIORITY_CFG: Record<Priority, { color: string; bg: string; border: string }> = {
-      |       ^^^^^^^^^^^^
-  730 |   Alta:  { color: "#9b111e", bg: "bg-red-50",    border: "border-red-200"   },
-  731 |   Media: { color: "#d97706", bg: "bg-amber-50",  border: "border-amber-200" },
-  732 |   Baja:  { color: "#64748b", bg: "bg-slate-50",  border: "border-slate-200" },
-
-the name `PRIORITY_CFG` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:36.083] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:735:7
-Ecmascript file had an error
-  733 | }
-  734 |
-> 735 | const STATUS_CFG: Record<Status, { label: string; cls: string }> = {
-      |       ^^^^^^^^^^
-  736 |   "En curso":    { label: "En curso",    cls: "bg-blue-50   text-blue-700   border-blue-200"    },
-  737 |   "Por iniciar": { label: "Por iniciar", cls: "bg-slate-50  text-slate-500  border-slate-200"   },
-  738 |   "Pausada":     { label: "Pausada",     cls: "bg-amber-50  text-amber-700  border-amber-200"   },
-
-the name `STATUS_CFG` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:36.083] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:899:17
-Ecmascript file had an error
-  897 | // ─── Main Component ───────────────────────────────────────────────────────────
-  898 |
-> 899 | export function StrategicInitiativesDashboard() {
-      |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  900 |   const router = useRouter()
-  901 |   const [filterPriority, setFilterPriority] = useState<Priority | "all">("all")
-  902 |   const [filterStatus, setFilterStatus]     = useState<Status | "all">("all")
-
-the name `StrategicInitiativesDashboard` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:36.083] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:750:10
-Ecmascript file had an error
-  748 | // ─── Helpers ──────────────────────────────────────────────────────────────────
-  749 |
-> 750 | function formatUSD(n: number) {
-      |          ^^^^^^^^^
-  751 |   if (n === 0) return "—"
-  752 |   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(2)}M`
-  753 |   if (n >= 1_000)     return `$${(n / 1_000).toFixed(0)}K`
-
-the name `formatUSD` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:57.247] Server  LOG     ✓ Compiled in 169ms
-[00:34:57.355] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:658:7
-Ecmascript file had an error
-  656 | }
-  657 |
-> 658 | const INITIATIVES: Initiative[] = [
-      |       ^^^^^^^^^^^
-  659 |   {
-  660 |     id: "INI-001", name: "Mejorar márgenes por cliente",
-  661 |     area: "Optimización",   progress: 45, budget: 0,       real: 0,
-
-the name `INITIATIVES` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:57.355] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:764:10
-Ecmascript file had an error
-  762 | // ─── Sub-components ───────────────────────────────────────────────────────────
-  763 |
-> 764 | function KpiCard({ icon, label, value, sub, accentClass }: {
-      |          ^^^^^^^
-  765 |   icon: string; label: string; value: string | number; sub: string; accentClass: string
-  766 | }) {
-  767 |   return (
-
-the name `KpiCard` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:57.355] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:801:10
-Ecmascript file had an error
-  799 | }
-  800 |
-> 801 | function LightTooltip({ active, payload, label }: any) {
-      |          ^^^^^^^^^^^^
-  802 |   if (!active || !payload?.length) return null
-  803 |   return (
-  804 |     <div className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs shadow-lg min-w-32.5">
-
-the name `LightTooltip` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:57.355] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:729:7
-Ecmascript file had an error
-  727 | // ─── Palettes ─────────────────────────────────────────────────────────────────
-  728 |
-> 729 | const PRIORITY_CFG: Record<Priority, { color: string; bg: string; border: string }> = {
-      |       ^^^^^^^^^^^^
-  730 |   Alta:  { color: "#9b111e", bg: "bg-red-50",    border: "border-red-200"   },
-  731 |   Media: { color: "#d97706", bg: "bg-amber-50",  border: "border-amber-200" },
-  732 |   Baja:  { color: "#64748b", bg: "bg-slate-50",  border: "border-slate-200" },
-
-the name `PRIORITY_CFG` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:57.355] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:735:7
-Ecmascript file had an error
-  733 | }
-  734 |
-> 735 | const STATUS_CFG: Record<Status, { label: string; cls: string }> = {
-      |       ^^^^^^^^^^
-  736 |   "En curso":    { label: "En curso",    cls: "bg-blue-50   text-blue-700   border-blue-200"    },
-  737 |   "Por iniciar": { label: "Por iniciar", cls: "bg-slate-50  text-slate-500  border-slate-200"   },
-  738 |   "Pausada":     { label: "Pausada",     cls: "bg-amber-50  text-amber-700  border-amber-200"   },
-
-the name `STATUS_CFG` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:57.355] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:899:17
-Ecmascript file had an error
-  897 | // ─── Main Component ───────────────────────────────────────────────────────────
-  898 |
-> 899 | export function StrategicInitiativesDashboard() {
-      |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  900 |   const router = useRouter()
-  901 |   const [filterPriority, setFilterPriority] = useState<Priority | "all">("all")
-  902 |   const [filterStatus, setFilterStatus]     = useState<Status | "all">("all")
-
-the name `StrategicInitiativesDashboard` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:34:57.355] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:750:10
-Ecmascript file had an error
-  748 | // ─── Helpers ──────────────────────────────────────────────────────────────────
-  749 |
-> 750 | function formatUSD(n: number) {
-      |          ^^^^^^^^^
-  751 |   if (n === 0) return "—"
-  752 |   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(2)}M`
-  753 |   if (n >= 1_000)     return `$${(n / 1_000).toFixed(0)}K`
-
-the name `formatUSD` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:35:18.939] Server  LOG     ✓ Compiled in 243ms
-[00:35:19.050] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:658:7
-Ecmascript file had an error
-  656 | }
-  657 |
-> 658 | const INITIATIVES: Initiative[] = [
-      |       ^^^^^^^^^^^
-  659 |   {
-  660 |     id: "INI-001", name: "Mejorar márgenes por cliente",
-  661 |     area: "Optimización",   progress: 45, budget: 0,       real: 0,
-
-the name `INITIATIVES` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:35:19.050] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:764:10
-Ecmascript file had an error
-  762 | // ─── Sub-components ───────────────────────────────────────────────────────────
-  763 |
-> 764 | function KpiCard({ icon, label, value, sub, accentClass }: {
-      |          ^^^^^^^
-  765 |   icon: string; label: string; value: string | number; sub: string; accentClass: string
-  766 | }) {
-  767 |   return (
-
-the name `KpiCard` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:35:19.050] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:801:10
-Ecmascript file had an error
-  799 | }
-  800 |
-> 801 | function LightTooltip({ active, payload, label }: any) {
-      |          ^^^^^^^^^^^^
-  802 |   if (!active || !payload?.length) return null
-  803 |   return (
-  804 |     <div className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs shadow-lg min-w-32.5">
-
-the name `LightTooltip` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:35:19.050] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:729:7
-Ecmascript file had an error
-  727 | // ─── Palettes ─────────────────────────────────────────────────────────────────
-  728 |
-> 729 | const PRIORITY_CFG: Record<Priority, { color: string; bg: string; border: string }> = {
-      |       ^^^^^^^^^^^^
-  730 |   Alta:  { color: "#9b111e", bg: "bg-red-50",    border: "border-red-200"   },
-  731 |   Media: { color: "#d97706", bg: "bg-amber-50",  border: "border-amber-200" },
-  732 |   Baja:  { color: "#64748b", bg: "bg-slate-50",  border: "border-slate-200" },
-
-the name `PRIORITY_CFG` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:35:19.050] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:735:7
-Ecmascript file had an error
-  733 | }
-  734 |
-> 735 | const STATUS_CFG: Record<Status, { label: string; cls: string }> = {
-      |       ^^^^^^^^^^
-  736 |   "En curso":    { label: "En curso",    cls: "bg-blue-50   text-blue-700   border-blue-200"    },
-  737 |   "Por iniciar": { label: "Por iniciar", cls: "bg-slate-50  text-slate-500  border-slate-200"   },
-  738 |   "Pausada":     { label: "Pausada",     cls: "bg-amber-50  text-amber-700  border-amber-200"   },
-
-the name `STATUS_CFG` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:35:19.050] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:899:17
-Ecmascript file had an error
-  897 | // ─── Main Component ───────────────────────────────────────────────────────────
-  898 |
-> 899 | export function StrategicInitiativesDashboard() {
-      |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  900 |   const router = useRouter()
-  901 |   const [filterPriority, setFilterPriority] = useState<Priority | "all">("all")
-  902 |   const [filterStatus, setFilterStatus]     = useState<Status | "all">("all")
-
-the name `StrategicInitiativesDashboard` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:35:19.050] Browser ERROR   ./components/strategic-initiatives-dashboard.tsx:750:10
-Ecmascript file had an error
-  748 | // ─── Helpers ──────────────────────────────────────────────────────────────────
-  749 |
-> 750 | function formatUSD(n: number) {
-      |          ^^^^^^^^^
-  751 |   if (n === 0) return "—"
-  752 |   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(2)}M`
-  753 |   if (n >= 1_000)     return `$${(n / 1_000).toFixed(0)}K`
-
-the name `formatUSD` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component Browser]
-    ./app/page.tsx [Client Component Browser]
-    ./app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./components/strategic-initiatives-dashboard.tsx [Client Component SSR]
-    ./app/page.tsx [Client Component SSR]
-    ./app/page.tsx [Server Component]
-[00:36:17.609] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:36:17.609] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:36:19.684] Browser ERROR   Each child in a list should have a unique "key" prop.%s%s See https://react.dev/link/warning-keys for more information. 
-
-Check the render method of `tbody`.  It was passed a child from StrategicStatusDashboard.
-[00:36:22.419] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:36:22.419] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:36:24.981] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:36:24.982] Browser WARN    The width(200) and height(180) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:36:34.821] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:36:38.160] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:44:48.272] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:45:34.810] Server  LOG     ✓ Compiled in 337ms
-[00:46:02.701] Server  LOG     ✓ Compiled in 320ms
-[00:46:21.197] Server  LOG     ✓ Compiled in 182ms
-[00:46:21.368] Browser WARN    The width(90) and height(90) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:46:21.368] Browser WARN    The width(90) and height(90) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:47:59.984] Server  LOG     ✓ Compiled in 157ms
-[00:48:00.124] Browser WARN    The width(90) and height(90) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:48:00.124] Browser WARN    The width(90) and height(90) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:48:25.060] Browser ERROR   Each child in a list should have a unique "key" prop.%s%s See https://react.dev/link/warning-keys for more information. 
-
-Check the render method of `tbody`.  It was passed a child from StrategicStatusDashboard.
-[00:48:32.926] Browser WARN    The width(90) and height(90) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:48:32.926] Browser WARN    The width(90) and height(90) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:48:49.229] Server  LOG     ✓ Compiled in 182ms
-[00:48:49.363] Browser WARN    The width(90) and height(90) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:48:49.363] Browser WARN    The width(90) and height(90) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:49:46.037] Browser WARN    The width(90) and height(90) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:49:46.037] Browser WARN    The width(90) and height(90) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:51:59.938] Server  LOG     ✓ Compiled in 156ms
-[00:52:00.180] Browser WARN    The width(110) and height(110) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:52:00.180] Browser WARN    The width(110) and height(110) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:52:00.180] Browser WARN    The width(110) and height(110) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:52:00.180] Browser WARN    The width(110) and height(110) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[00:54:45.267] Server  LOG     ✓ Compiled in 310ms
+[00:01:38.828] Server  LOG     ✓ Compiled in 1201ms
+[00:01:47.775] Server  LOG     ✓ Compiled in 217ms
+[00:07:35.633] Browser ERROR   uncaughtError: ReferenceError: React is not defined
+[00:07:44.374] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:07:55.122] Browser ERROR   uncaughtError: ReferenceError: React is not defined
+[00:08:12.491] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:08:12.500] Server  LOG     ✓ Compiled in 200ms
+[00:08:13.020] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:50.464] Server  LOG     ✓ Compiled in 204ms
+[00:13:38.286] Server  LOG     ✓ Compiled in 172ms
+[00:14:03.977] Server  LOG     ✓ Compiled in 182ms
+[00:16:31.308] Server  LOG     ✓ Compiled in 179ms
+[00:16:59.004] Server  LOG     ✓ Compiled in 166ms
+[00:17:40.473] Server  LOG     ✓ Compiled in 316ms
+[00:17:59.122] Server  LOG     ✓ Compiled in 161ms
+[00:18:09.975] Server  LOG     ✓ Compiled in 294ms
+[00:22:03.165] Server  LOG     ✓ Compiled in 165ms
+[00:26:12.449] Server  LOG     ✓ Compiled in 173ms
+[00:26:23.917] Server  LOG     ✓ Compiled in 160ms
+[00:26:31.841] Server  LOG     ✓ Compiled in 151ms
+[00:26:38.536] Server  LOG     ✓ Compiled in 149ms
+[00:29:04.955] Server  LOG     ✓ Compiled in 195ms
+[00:29:19.261] Server  LOG     ✓ Compiled in 193ms
+[00:29:35.031] Server  LOG     ✓ Compiled in 182ms
+[00:32:15.275] Server  LOG     ✓ Compiled in 167ms
+[00:34:42.312] Server  LOG     ✓ Compiled in 169ms
+[00:36:57.169] Server  LOG     ✓ Compiled in 189ms
+[00:40:18.714] Server  LOG     ✓ Compiled in 178ms
+[00:42:41.655] Server  LOG     ✓ Compiled in 164ms
+[00:44:19.118] Server  LOG     ✓ Compiled in 160ms
+[00:46:41.465] Server  LOG     ✓ Compiled in 181ms
+[00:48:41.322] Server  LOG     ✓ Compiled in 183ms
+[00:51:24.009] Server  LOG     ✓ Compiled in 175ms
+[00:54:15.976] Server  LOG     ✓ Compiled in 170ms
+[01:17:33.197] Server  LOG     ✓ Compiled in 192ms
+[01:20:45.938] Server  LOG     ✓ Compiled in 162ms
+[01:22:32.816] Server  LOG     ✓ Compiled in 168ms
+[01:27:13.671] Server  LOG     ✓ Compiled in 163ms
+[01:31:21.284] Server  LOG     ✓ Compiled in 185ms
+[01:31:55.999] Server  LOG     ✓ Compiled in 193ms
+[01:34:47.277] Server  LOG     ✓ Compiled in 333ms
+[01:35:10.733] Server  LOG     ✓ Compiled in 174ms
+[01:37:39.248] Server  LOG     ✓ Compiled in 182ms
+[01:39:12.025] Server  LOG     ✓ Compiled in 166ms
+[01:40:00.132] Server  LOG     ✓ Compiled in 170ms
+[01:40:45.724] Server  LOG     ✓ Compiled in 176ms
+[01:42:26.717] Server  LOG     ✓ Compiled in 181ms
+[01:45:04.020] Server  LOG     ✓ Compiled in 167ms
+[01:46:12.064] Server  LOG     ✓ Compiled in 150ms
+[01:55:44.124] Server  LOG     ✓ Compiled in 153ms
+[01:55:57.059] Server  LOG     ✓ Compiled in 159ms
+[01:57:28.956] Server  LOG     ✓ Compiled in 159ms
+[01:59:59.538] Server  LOG     ✓ Compiled in 329ms
+[02:00:30.787] Server  LOG     ✓ Compiled in 350ms
+[02:00:57.239] Server  LOG     ✓ Compiled in 179ms
+[02:04:40.896] Server  LOG     ✓ Compiled in 209ms
+[02:05:19.751] Server  LOG     ✓ Compiled in 197ms
+[02:06:35.462] Server  LOG     ✓ Compiled in 318ms
+[02:06:58.504] Server  LOG     ✓ Compiled in 167ms
+[02:07:16.013] Server  LOG     ✓ Compiled in 187ms
+[02:11:49.595] Server  LOG     ✓ Compiled in 310ms
+[02:12:26.482] Server  LOG     ✓ Compiled in 306ms
+[02:12:47.627] Server  LOG     ✓ Compiled in 169ms
+[02:13:39.900] Server  LOG     ✓ Compiled in 366ms
+[02:14:06.712] Server  LOG     ✓ Compiled in 322ms
+[02:18:27.757] Server  LOG     ✓ Compiled in 184ms
+[02:18:52.983] Server  LOG     ✓ Compiled in 204ms
+[02:19:22.160] Server  LOG     ✓ Compiled in 210ms
+[02:20:37.991] Server  LOG     ✓ Compiled in 203ms
+[02:20:58.314] Server  LOG     ✓ Compiled in 208ms
+[02:22:18.875] Server  LOG     ✓ Compiled in 172ms

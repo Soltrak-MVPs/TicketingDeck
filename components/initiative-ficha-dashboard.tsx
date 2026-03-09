@@ -27,6 +27,13 @@ export interface HitoRow {
   status?: "completado" | "en-curso" | "pendiente" | "tbd"
 }
 
+export interface GanttActivity {
+  descripcion: string
+  responsable: string
+  inicio: string      // "2025-12" formato YYYY-MM
+  fin: string         // "2026-02" formato YYYY-MM
+}
+
 export interface InitiativeFicha {
   id: string           // "1.1", "1.2", "2", etc.
   title: string
@@ -52,6 +59,7 @@ export interface InitiativeFicha {
   equipoProyecto: string
   frentesTrabajo: string
   hitos: HitoRow[]
+  ganttActivities?: GanttActivity[]  // Actividades detalladas para el Gantt
 
   // ── Meta ──────────────────────────────────────────────────────────────────
   version?: string
@@ -249,6 +257,57 @@ export const FICHAS: InitiativeFicha[] = [
       },
     ],
 
+    ganttActivities: [
+      {
+        descripcion: "Análisis de rentabilidad por cliente",
+        responsable: "M. Neciosup",
+        inicio: "2025-12",
+        fin: "2026-01",
+      },
+      {
+        descripcion: "Análisis a detalle de costo operativo por tamaño de cliente",
+        responsable: "M. Neciosup",
+        inicio: "2025-12",
+        fin: "2026-01",
+      },
+      {
+        descripcion: "Análisis de impacto en las ventas y créditos por la reducción de emisión de letras",
+        responsable: "R. Urrunaga / F. Miñan",
+        inicio: "2026-01",
+        fin: "2026-01",
+      },
+      {
+        descripcion: "Definir margen por categoría cliente B2B/B2C (tamaño)",
+        responsable: "R. Urrunaga / F. Miñan",
+        inicio: "2025-12",
+        fin: "2026-01",
+      },
+      {
+        descripcion: "Corrección desvíos Gastos operativos",
+        responsable: "R. Urrunaga / F. Miñan / G. Ocaña",
+        inicio: "2026-02",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "Incremento precios por fases Lubes B2B. Fase 1: +3% / Fase 2: +4%",
+        responsable: "R. Urrunaga",
+        inicio: "2026-03",
+        fin: "2026-06",
+      },
+      {
+        descripcion: "Análisis de cartera clientes B2C (Ventas menores a $500)",
+        responsable: "F. Miñan",
+        inicio: "2025-12",
+        fin: "2025-12",
+      },
+      {
+        descripcion: "Traslado ventas canal digital B2B y B2C Filtros y Lubes (menores a $500)",
+        responsable: "F. Miñan / G. Ocaña",
+        inicio: "2026-01",
+        fin: "2026-03",
+      },
+    ],
+
     version: "Nov. 2025",
     ultimaActualizacion: "Marzo 2026",
   },
@@ -398,6 +457,51 @@ export const FICHAS: InitiativeFicha[] = [
       },
     ],
 
+    ganttActivities: [
+      {
+        descripcion: "Diagnóstico, Análisis de rentabilidad por cliente, identificando causas",
+        responsable: "Jefatura comercial",
+        inicio: "2025-12",
+        fin: "2026-01",
+      },
+      {
+        descripcion: "Corrección de recargos logísticos para clientes B2C con ratio de fletes > 2%",
+        responsable: "Comercial/Producto/Cad de suministro",
+        inicio: "2026-01",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "Corrección de gastos operativos que afectan la rentabilidad B2C & B2B",
+        responsable: "Control de gestión",
+        inicio: "2026-02",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "Ejecutar plan de revisión o depuración de cartera con clientes B2B & B2C de margen negativo y bajo (0-2%)",
+        responsable: "Producto & cad de suministro",
+        inicio: "2026-03",
+        fin: "2026-05",
+      },
+      {
+        descripcion: "Continuar con el Cross-selling de productos de alto margen para diluir costos en clientes B2C & B2B de bajo desempeño",
+        responsable: "Jefatura comercial",
+        inicio: "2026-02",
+        fin: "2026-05",
+      },
+      {
+        descripcion: "Optimizar rutas de distribución y consolidación de carga para reducir gastos directos operativos en el canal B2C",
+        responsable: "G. Esli",
+        inicio: "2026-02",
+        fin: "2026-05",
+      },
+      {
+        descripcion: "Automatizar controles de descuentos y bonificaciones comerciales para evitar fugas de margen en la venta nueva",
+        responsable: "G. Esli",
+        inicio: "2026-04",
+        fin: "2026-05",
+      },
+    ],
+
     version: "Nov. 2025",
     ultimaActualizacion: "Marzo 2026",
   },
@@ -424,7 +528,7 @@ export const FICHAS: InitiativeFicha[] = [
     inversion: "Horas hombre del equipo.",
 
     objetivo:
-      "Cerrar negocios, productos, servicios u operaciones, sin escala o rentabilidad, reducir transacciones para hacer más eficientes los procesos, reducir inventarios y operaciones complejas.",
+      "Cerrar negocios, productos, servicios u operaciones, sin escala o rentabilidad, reducir transacciones para hacer más eficientes los procesos, reducir inventarios y operaciones complejas. Mejorar el enfoque.",
 
     kpis: [
       {
@@ -432,9 +536,9 @@ export const FICHAS: InitiativeFicha[] = [
         esPrincipal: false,
         real2025: "TBD",
         q1_26: "TBD",
-        q2_26: "TBD",
-        q3_26: "TBD",
-        q4_26: "TBD",
+        q2_26: "X",
+        q3_26: "",
+        q4_26: "",
         meta2026: "TBD",
       },
       {
@@ -442,9 +546,9 @@ export const FICHAS: InitiativeFicha[] = [
         esPrincipal: true,
         real2025: "TBD",
         q1_26: "TBD",
-        q2_26: "TBD",
-        q3_26: "TBD",
-        q4_26: "TBD",
+        q2_26: "",
+        q3_26: "X",
+        q4_26: "",
         meta2026: "TBD",
       },
       {
@@ -452,9 +556,9 @@ export const FICHAS: InitiativeFicha[] = [
         esPrincipal: false,
         real2025: "TBD",
         q1_26: "TBD",
-        q2_26: "TBD",
-        q3_26: "TBD",
-        q4_26: "TBD",
+        q2_26: "",
+        q3_26: "X",
+        q4_26: "",
         meta2026: "TBD",
       },
       {
@@ -462,9 +566,9 @@ export const FICHAS: InitiativeFicha[] = [
         esPrincipal: false,
         real2025: "TBD",
         q1_26: "TBD",
-        q2_26: "TBD",
-        q3_26: "TBD",
-        q4_26: "TBD",
+        q2_26: "",
+        q3_26: "",
+        q4_26: "X",
         meta2026: "TBD",
       },
     ],
@@ -472,7 +576,7 @@ export const FICHAS: InitiativeFicha[] = [
     sponsor: "Ronald Orrego",
     liderProyecto: "Carlos Sánchez",
     gestionProyecto: "TBD",
-    equipoProyecto: "JC. Paz / Christian Novoa, Finanzas",
+    equipoProyecto: "Jose Oshiro / Christian Novoa, Equipo de Apoyo: Finanzas",
     frentesTrabajo: "Finanzas, Logística y Producto",
 
     hitos: [
@@ -493,6 +597,27 @@ export const FICHAS: InitiativeFicha[] = [
         fechaEsperada: "Dic-26",
         responsable: "CS | CN | JC. Paz",
         status: "pendiente",
+      },
+    ],
+
+    ganttActivities: [
+      {
+        descripcion: "Definición de mínimos de ventas/ rentabilidad",
+        responsable: "CS | GF",
+        inicio: "2026-01",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "Evaluación de modelos de negocio y definición de on/off",
+        responsable: "CS | GF",
+        inicio: "2026-02",
+        fin: "2026-05",
+      },
+      {
+        descripcion: "Plan de salidas o mejoras",
+        responsable: "CS | CN | JO",
+        inicio: "2026-03",
+        fin: "2026-12",
       },
     ],
 
@@ -531,41 +656,61 @@ export const FICHAS: InitiativeFicha[] = [
 
     kpis: [
       {
+        descripcion: "Aprobación de la definición de la propuesta",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "1Q",
+        q2_26: "100%",
+        q3_26: "",
+        q4_26: "",
+        meta2026: "",
+      },
+      {
+        descripcion: "Implementación de la propuesta",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "2Q",
+        q2_26: "MKT",
+        q3_26: "Comercial",
+        q4_26: "",
+        meta2026: "",
+      },
+      {
         descripcion: "% de clientes con segmentación actualizada en ERP y CRM",
         esPrincipal: false,
         real2025: "-",
-        q1_26: "75%",
-        q2_26: "100%",
-        q3_26: "-",
-        q4_26: "-",
+        q1_26: "100%",
+        q2_26: "75%",
+        q3_26: "100%",
+        q4_26: "",
         meta2026: "100%",
       },
       {
         descripcion: "% Carteras actualizadas en función de la nueva segmentación",
         esPrincipal: false,
         real2025: "-",
-        q1_26: "75%",
-        q2_26: "100%",
-        q3_26: "-",
-        q4_26: "-",
+        q1_26: "100%",
+        q2_26: "75%",
+        q3_26: "100%",
+        q4_26: "",
         meta2026: "100%",
       },
       {
         descripcion: "% de Cumplimiento de los tiempos de entrega prometidos por segmento",
         esPrincipal: false,
         real2025: "-",
-        q1_26: "-",
-        q2_26: "50%",
-        q3_26: "75%",
-        q4_26: "100%",
+        q1_26: "100%",
+        q2_26: "",
+        q3_26: "50%",
+        q4_26: "75%",
         meta2026: "100%",
       },
       {
         descripcion: "% de cumplimiento de objetivos de rentabilidad por segmento",
         esPrincipal: false,
         real2025: "-",
-        q1_26: "-",
-        q2_26: "-",
+        q1_26: "100%",
+        q2_26: "",
         q3_26: "50%",
         q4_26: "100%",
         meta2026: "100%",
@@ -585,10 +730,10 @@ export const FICHAS: InitiativeFicha[] = [
         descripcion: "NLS Total Soltrak",
         esPrincipal: false,
         real2025: "58%",
-        q1_26: "60%",
-        q2_26: "62%",
-        q3_26: "65%",
-        q4_26: "70%",
+        q1_26: "70%",
+        q2_26: "60%",
+        q3_26: "62%",
+        q4_26: "65%",
         meta2026: "70%",
       },
     ],
@@ -644,6 +789,75 @@ export const FICHAS: InitiativeFicha[] = [
       },
     ],
 
+    ganttActivities: [
+      {
+        descripcion: "1.1) Diagnóstico segmentación actual y su aplicación operativa",
+        responsable: "Cecilia Parra",
+        inicio: "2025-12",
+        fin: "2026-01",
+      },
+      {
+        descripcion: "2.1) Analizar data transaccional y comportamiento de clientes",
+        responsable: "CP | GF",
+        inicio: "2026-01",
+        fin: "2026-01",
+      },
+      {
+        descripcion: "2.3) Identificar principales perfiles de clientes por canal y sector",
+        responsable: "CP | CN | JO",
+        inicio: "2026-01",
+        fin: "2026-02",
+      },
+      {
+        descripcion: "3.1) Actualizar definiciones de criterios de segmentación",
+        responsable: "CP | CN | JO",
+        inicio: "2026-01",
+        fin: "2026-02",
+      },
+      {
+        descripcion: "3.2) Definir y aprobar nuevos segmentos, perfiles de clientes, standard offer y propuesta de valor",
+        responsable: "CP | CN | JO",
+        inicio: "2026-02",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "3.3) Definir adecuaciones necesarias en herramientas tec",
+        responsable: "CP | CN | JO | GF | LOG",
+        inicio: "2026-02",
+        fin: "2026-02",
+      },
+      {
+        descripcion: "4.1) Reestructurar procesos y org a nuevo modelo segmentación",
+        responsable: "CP | CN | JO",
+        inicio: "2026-02",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "4.2) Actualizar segmentación de clientes en ERP, CRM y otros",
+        responsable: "TI | GF",
+        inicio: "2026-03",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "4.2) Implementación de propuesta de valor (standard offer)",
+        responsable: "LOG | GF",
+        inicio: "2026-03",
+        fin: "2026-09",
+      },
+      {
+        descripcion: "5.1) Definir e implementar estrategias y acciones",
+        responsable: "CP | CN | JO",
+        inicio: "2026-04",
+        fin: "2026-12",
+      },
+      {
+        descripcion: "5.1) Monitorear utilización de la segmentación en la organización",
+        responsable: "Cecilia P",
+        inicio: "2026-06",
+        fin: "2026-12",
+      },
+    ],
+
     version: "Nov. 2025",
     ultimaActualizacion: "Marzo 2026",
   },
@@ -676,6 +890,26 @@ export const FICHAS: InitiativeFicha[] = [
       "Mejorar las 9 procesos contables para ser eficiente en los recursos y cumplir con los tiempos de cierre.",
 
     kpis: [
+      {
+        descripcion: "Presentación de propuestas de mejora al corporativo (Go/No-Go corp SAP)",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "Enero",
+        q2_26: "Feb-26",
+        q3_26: "",
+        q4_26: "",
+        meta2026: "",
+      },
+      {
+        descripcion: "Definición de alternativas para proyectos sin SAP",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "Junio",
+        q2_26: "Jun-26",
+        q3_26: "",
+        q4_26: "",
+        meta2026: "",
+      },
       {
         descripcion: "Implementación de los 9 proyectos (TBD)",
         esPrincipal: true,
@@ -754,6 +988,45 @@ export const FICHAS: InitiativeFicha[] = [
       },
     ],
 
+    ganttActivities: [
+      {
+        descripcion: "1) Revisar las mejoras con el corporativo (TPI + Cont)",
+        responsable: "Conta / MC&P",
+        inicio: "2026-01",
+        fin: "2026-02",
+      },
+      {
+        descripcion: "2) Análisis de flujo de trabajo",
+        responsable: "Conta / MC&P",
+        inicio: "2026-01",
+        fin: "2026-02",
+      },
+      {
+        descripcion: "3) Contratar con un consultor SAP - Contabilidad",
+        responsable: "Conta / MC&P/TPI",
+        inicio: "2026-02",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "4) Revisión del equipo de MC & Data - Soluciones SAP / No SAP",
+        responsable: "Conta / MC&P/TPI",
+        inicio: "2026-04",
+        fin: "2026-06",
+      },
+      {
+        descripcion: "5) Priorización de implementación",
+        responsable: "Conta / MC&P/TPI",
+        inicio: "2026-07",
+        fin: "2026-07",
+      },
+      {
+        descripcion: "6) Implementación - Baja Complejidad",
+        responsable: "Conta / MC&P/TPI",
+        inicio: "2026-08",
+        fin: "2026-12",
+      },
+    ],
+
     version: "Nov. 2025",
     ultimaActualizacion: "Marzo 2026",
   },
@@ -791,7 +1064,7 @@ export const FICHAS: InitiativeFicha[] = [
         descripcion: "Ahorro anual: $130K",
         esPrincipal: true,
         real2025: "$0",
-        q1_26: "-",
+        q1_26: "$130K",
         q2_26: "$26K",
         q3_26: "$52K",
         q4_26: "$78K",
@@ -807,6 +1080,26 @@ export const FICHAS: InitiativeFicha[] = [
         q3_26: "6",
         q4_26: "10",
         meta2026: "10",
+      },
+      {
+        descripcion: "Implementación de proyecto Gestor documental",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "Marzo",
+        q2_26: "Mar-26",
+        q3_26: "",
+        q4_26: "",
+        meta2026: "",
+      },
+      {
+        descripcion: "Implementación lineamientos para reducción de letras (reglas de negocio)",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "Junio",
+        q2_26: "",
+        q3_26: "Jun-26",
+        q4_26: "",
+        meta2026: "",
       },
     ],
 
@@ -858,6 +1151,51 @@ export const FICHAS: InitiativeFicha[] = [
         fechaEsperada: "Dic-26",
         responsable: "Data Soltrak y Corp.",
         status: "pendiente",
+      },
+    ],
+
+    ganttActivities: [
+      {
+        descripcion: "1) Análisis de flujo de trabajo",
+        responsable: "MC&P/ADV y CxC",
+        inicio: "2026-01",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "2) Proyecto de gestor documental - Automatización de procesos",
+        responsable: "MC&P y GF",
+        inicio: "2025-12",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "3) Definir el nuevo perfil del gestor de cobranza",
+        responsable: "MC&P - TPI corp.",
+        inicio: "2026-02",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "4.1) Reducción de las emisión de letras: lineamientos con el negocio",
+        responsable: "MC&P y Negocio",
+        inicio: "2026-04",
+        fin: "2026-06",
+      },
+      {
+        descripcion: "4.2) Reducción de las emisión de letras: evaluación de implementación software en SAP",
+        responsable: "MC&P - TPI corp.",
+        inicio: "2026-07",
+        fin: "2026-09",
+      },
+      {
+        descripcion: "5) Mejora de tiempos en los procesos de gestión de pedidos (Pool de mejoras levantadas del diagnóstico - ADV y Comercial)",
+        responsable: "MC&P - TPI corp.",
+        inicio: "2025-12",
+        fin: "2026-08",
+      },
+      {
+        descripcion: "6) Automatización de Orden de compra (proyectos con Equipo de Analítica de la corp. - Mejoras No SAP)",
+        responsable: "Data Soltrak y Corp.",
+        inicio: "2026-08",
+        fin: "2026-12",
       },
     ],
 
@@ -1017,6 +1355,63 @@ export const FICHAS: InitiativeFicha[] = [
       },
     ],
 
+    ganttActivities: [
+      {
+        descripcion: "Proyecto - Mejoras en SAP: Presentación y aprobación de proyectos y mejoras",
+        responsable: "FD/BC/CS",
+        inicio: "2026-01",
+        fin: "2026-02",
+      },
+      {
+        descripcion: "Proyecto - Mejoras en SAP: Implementación de los proyectos aprobados",
+        responsable: "TPI Corp/MC&P/FD",
+        inicio: "2026-01",
+        fin: "2026-05",
+      },
+      {
+        descripcion: "Proyecto - Implementación TMS: Definir el alcance del proyecto en base del prioridades del negocio",
+        responsable: "FD/BC",
+        inicio: "2025-12",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "Proyecto - Implementación TMS: Evaluar más opciones tecnológicas locales",
+        responsable: "FD/GE",
+        inicio: "2025-12",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "Proyecto - Implementación TMS: Preparación y Levantamiento de Requisitos",
+        responsable: "FD/GE",
+        inicio: "2026-05",
+        fin: "2026-06",
+      },
+      {
+        descripcion: "Proyecto - Implementación TMS: Evaluación y Selección de Proveedor",
+        responsable: "FD/GE",
+        inicio: "2026-07",
+        fin: "2026-07",
+      },
+      {
+        descripcion: "Proyecto - Implementación TMS: Diseño, Configuración e Integración",
+        responsable: "TPI Corp/MC&P/FD",
+        inicio: "2026-10",
+        fin: "2026-10",
+      },
+      {
+        descripcion: "Proyecto - Implementación TMS: Pruebas y Piloto",
+        responsable: "TPI Corp/MC&P/FD",
+        inicio: "2026-11",
+        fin: "2026-12",
+      },
+      {
+        descripcion: "Proyecto - Implementación TMS: Go Live",
+        responsable: "TPI Corp/MC&P/FD",
+        inicio: "2026-12",
+        fin: "2026-12",
+      },
+    ],
+
     version: "Nov. 2025",
     ultimaActualizacion: "Marzo 2026",
   },
@@ -1150,6 +1545,51 @@ export const FICHAS: InitiativeFicha[] = [
       },
     ],
 
+    ganttActivities: [
+      {
+        descripcion: "1) Análisis Interno (Diagnóstico del pricing actual)",
+        responsable: "GF | CN | JO",
+        inicio: "2025-12",
+        fin: "2026-02",
+      },
+      {
+        descripcion: "2) Análisis Externo (Valor y Competitividad) (Consultor)",
+        responsable: "GF | CN | JO",
+        inicio: "2026-02",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "3) Benchmark del modelo de precios (Consultor)",
+        responsable: "GF | CN | JO",
+        inicio: "2026-04",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "4) Definición de implementación tecnológica (SAP o Satélite)",
+        responsable: "GF | CN | JO / TPI Corp",
+        inicio: "2026-04",
+        fin: "2026-05",
+      },
+      {
+        descripcion: "5) Desarrollo y Simulación de la Herramienta",
+        responsable: "GF | CN | JO / TPI Corp",
+        inicio: "2026-05",
+        fin: "2026-06",
+      },
+      {
+        descripcion: "6) Implementación Mejoras internas (Piloto y Adopción)",
+        responsable: "GF | CN | JO / TPI Corp",
+        inicio: "2026-06",
+        fin: "2026-08",
+      },
+      {
+        descripcion: "7) Monitoreo y Operación Sostenible",
+        responsable: "GF | CN | JO / TPI Corp",
+        inicio: "2026-06",
+        fin: "2026-12",
+      },
+    ],
+
     version: "Nov. 2025",
     ultimaActualizacion: "Marzo 2026",
   },
@@ -1182,12 +1622,42 @@ export const FICHAS: InitiativeFicha[] = [
 
     kpis: [
       {
+        descripcion: "Implementación del proceso S&OP",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "100%",
+        q2_26: "-",
+        q3_26: "50%",
+        q4_26: "100%",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "Implementación del Software",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "100%",
+        q2_26: "-",
+        q3_26: "-",
+        q4_26: "100%",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "Mejorar el OTIF",
+        esPrincipal: false,
+        real2025: "60%",
+        q1_26: ">80%",
+        q2_26: "60%",
+        q3_26: "65%",
+        q4_26: "75%",
+        meta2026: "80%",
+      },
+      {
         descripcion: "Reducir el inventario (soles) - MTS",
         esPrincipal: true,
         real2025: "85M",
-        q1_26: "-",
-        q2_26: "80M",
-        q3_26: "75M",
+        q1_26: "75M",
+        q2_26: "-",
+        q3_26: "80M",
         q4_26: "75M",
         meta2026: "75M",
         statusReal: "sin-datos",
@@ -1196,7 +1666,7 @@ export const FICHAS: InitiativeFicha[] = [
         descripcion: "Rotación de inventario",
         esPrincipal: false,
         real2025: "2.7x",
-        q1_26: "-",
+        q1_26: "3.3x",
         q2_26: "3.3x",
         q3_26: "3.3x",
         q4_26: "3.3x",
@@ -1206,10 +1676,10 @@ export const FICHAS: InitiativeFicha[] = [
         descripcion: "Forecast Accuracy",
         esPrincipal: false,
         real2025: "60%",
-        q1_26: "60%",
-        q2_26: "63%",
-        q3_26: "68%",
-        q4_26: "75%",
+        q1_26: "75%",
+        q2_26: "60%",
+        q3_26: "63%",
+        q4_26: "68%",
         meta2026: "75%",
       },
     ],
@@ -1283,6 +1753,57 @@ export const FICHAS: InitiativeFicha[] = [
       },
     ],
 
+    ganttActivities: [
+      {
+        descripcion: "1. Implementación del Proceso S&OP: 1.1. Revisión de RFP y criterios de selección de consultor",
+        responsable: "C. Flores",
+        inicio: "2026-01",
+        fin: "2026-01",
+      },
+      {
+        descripcion: "1. Implementación del Proceso S&OP: 1.2. Evaluación y definición del consultor/proveedor",
+        responsable: "G. Espinal",
+        inicio: "2026-02",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "1. Implementación del Proceso S&OP: 1.3. Consultoría y recomendaciones de mejoras procesos y software",
+        responsable: "Consultor",
+        inicio: "2026-04",
+        fin: "2026-06",
+      },
+      {
+        descripcion: "1. Implementación del Proceso S&OP: 1.4. Implementación de las recomendaciones (mejoras de procesos S&OP, roles, responsabilidades y cultura)",
+        responsable: "Eq. Negocio y Soporte Soltrak",
+        inicio: "2026-07",
+        fin: "2026-12",
+      },
+      {
+        descripcion: "2. Implementación software: 2.1. Revisión de RFP y criterios de selección de software SOP",
+        responsable: "C. Flores",
+        inicio: "2026-03",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "2. Implementación software: 2.2. Evaluación y definición de proveedor",
+        responsable: "G. Espinal",
+        inicio: "2026-05",
+        fin: "2026-06",
+      },
+      {
+        descripcion: "2. Implementación software: 2.3. Arranque, levantamiento de información y periodo de prueba (first test)",
+        responsable: "C. Flores",
+        inicio: "2026-07",
+        fin: "2026-09",
+      },
+      {
+        descripcion: "2. Implementación software: 2.4. Implementación software y go live",
+        responsable: "C. Flores",
+        inicio: "2026-10",
+        fin: "2026-12",
+      },
+    ],
+
     version: "Nov. 2025",
     ultimaActualizacion: "Marzo 2026",
   },
@@ -1317,8 +1838,8 @@ export const FICHAS: InitiativeFicha[] = [
         descripcion: "Definición del proceso estándar y el alcance",
         esPrincipal: false,
         real2025: "NA",
-        q1_26: "X",
-        q2_26: "",
+        q1_26: "100%",
+        q2_26: "X",
         q3_26: "",
         q4_26: "",
         meta2026: "100%",
@@ -1327,9 +1848,9 @@ export const FICHAS: InitiativeFicha[] = [
         descripcion: "Implementación del proceso de prospección",
         esPrincipal: false,
         real2025: "NA",
-        q1_26: "",
-        q2_26: "X",
-        q3_26: "",
+        q1_26: "100%",
+        q2_26: "",
+        q3_26: "X",
         q4_26: "",
         meta2026: "100%",
       },
@@ -1337,9 +1858,9 @@ export const FICHAS: InitiativeFicha[] = [
         descripcion: "Implementación del proceso de Gestión de cuentas",
         esPrincipal: false,
         real2025: "NA",
-        q1_26: "",
-        q2_26: "X",
-        q3_26: "",
+        q1_26: "100%",
+        q2_26: "",
+        q3_26: "X",
         q4_26: "",
         meta2026: "100%",
       },
@@ -1347,10 +1868,10 @@ export const FICHAS: InitiativeFicha[] = [
         descripcion: "Implementación del proceso de gestión",
         esPrincipal: true,
         real2025: "NA",
-        q1_26: "",
+        q1_26: "100%",
         q2_26: "",
-        q3_26: "X",
-        q4_26: "",
+        q3_26: "",
+        q4_26: "X",
         meta2026: "100%",
         statusReal: "sin-datos",
       },
@@ -1386,6 +1907,889 @@ export const FICHAS: InitiativeFicha[] = [
         fechaEsperada: "Ago-26",
         responsable: "CS",
         status: "pendiente",
+      },
+    ],
+
+    ganttActivities: [
+      {
+        descripcion: "Evaluación del proceso actual",
+        responsable: "CS",
+        inicio: "2026-01",
+        fin: "2026-02",
+      },
+      {
+        descripcion: "Definición del estándar a implementar",
+        responsable: "CS",
+        inicio: "2026-02",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "Implementación del proceso",
+        responsable: "CS",
+        inicio: "2026-03",
+        fin: "2026-06",
+      },
+      {
+        descripcion: "Implementación de indicadores de desempeño de FV",
+        responsable: "CS",
+        inicio: "2026-05",
+        fin: "2026-08",
+      },
+    ],
+
+    version: "Nov. 2025",
+    ultimaActualizacion: "Marzo 2026",
+  },
+  // ─────────────────────────────────────────────────────────────────────────────
+  // FICHA 7
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "7",
+    title: "Definir nuevo modelo logístico e inicio de implementación",
+    pillar: "Habilitadores",
+    pillarColor: "#7c3aed",
+    avancePonderado: "amarillo",
+
+    descripcion:
+      "Definir el modelo óptimo de almacenaje y distribución en Lima y provincias, mediante una revisión de rentabilidad de sedes; definición del número y locación de/del almacenes y definición del modelo para B2B y B2C; directo o tercerizado",
+
+    racionalEstrategico:
+      "Contar el modelo logístico óptimo que asegure la eficiencia y rentabilidad que el negocio y la industria requieren",
+
+    riesgos: [
+      "Inconsistencia y Ausencia de Estándares de Data",
+      "Encontrar socios estratégicos, precios del mercado",
+      "Resistencia al cambio / salida HC propio",
+    ],
+
+    impacto:
+      "Ahorro de $43K en el 2026 y de $130K en el 2027",
+    inversion: "Horas hombre del equipo $650k baja activo fijo - 22 HC (tercerizado)",
+
+    objetivo:
+      "Definir el modelo óptimo de almacenaje y distribución en Lima y provincias",
+
+    kpis: [
+      {
+        descripcion: "Rentabilidad por Sede: Ratio de Eficiencia Operacional por Sede (REO) (Gasto Total Sede / Ventas Generadas por la sede x 100)",
+        esPrincipal: false,
+        real2025: "2.5% Trujillo (S/. 530K)",
+        q1_26: "S/. 50 K",
+        q2_26: "",
+        q3_26: "",
+        q4_26: "S/. 50 K",
+        meta2026: "S/. 50 K",
+      },
+      {
+        descripcion: "Actual vs Tercerización: Rentabilidad Operacional (Total Gastos Op. Actual vs Total Gastos Tercero)",
+        esPrincipal: false,
+        real2025: "Actual (12 M soles: 7M almacén + 5M Distribución)",
+        q1_26: "S/. 100 K",
+        q2_26: "",
+        q3_26: "",
+        q4_26: "S/. 100 K",
+        meta2026: "400 K Soles vs Operación actual (Proy)",
+      },
+      {
+        descripcion: "Implementación de Modelo B2C",
+        esPrincipal: false,
+        real2025: "NA",
+        q1_26: "",
+        q2_26: "Presentación Propuesta",
+        q3_26: "Set-26",
+        q4_26: "",
+        meta2026: "100%",
+      },
+    ],
+
+    sponsor: "Carlos Sánchez",
+    liderProyecto: "Brenilda Coronel",
+    gestionProyecto: "TBD",
+    equipoProyecto: "Fernando Díaz, Finanzas",
+    frentesTrabajo: "xx",
+
+    hitos: [
+      {
+        descripcion: "Evaluación de Rentabilidad por Sede Trujillo",
+        fechaEsperada: "Abr-26",
+        responsable: "",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Evaluación y Definición de propuestas Locaciones (Proyecto Chanchán - Tercerizar la operación en Trujillo)",
+        fechaEsperada: "Feb-26",
+        responsable: "FD / MB / GE",
+        status: "completado",
+      },
+      {
+        descripcion: "Gestión de contratación del proveedor",
+        fechaEsperada: "Mar-26",
+        responsable: "FD / MB / GE",
+        status: "completado",
+      },
+      {
+        descripcion: "Go Live Proyecto Chanchán",
+        fechaEsperada: "Abr-26",
+        responsable: "FD / MB / GE",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Consolidación de almacenes Lima",
+        fechaEsperada: "Dic-26",
+        responsable: "",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Re-evaluación de tarifas de licitación",
+        fechaEsperada: "Abr-26",
+        responsable: "GE / FD",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Cierre de Licitación Proyecto: Fénix – Lima (Consolidación Tercerizada en Lima)",
+        fechaEsperada: "Abr-26",
+        responsable: "GE / FD",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Evaluación y aprobación de propuestas",
+        fechaEsperada: "Jun-26",
+        responsable: "GE / FD / BC / CS",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Adecuaciones de infraestructura y redes del proveedor",
+        fechaEsperada: "Nov-26",
+        responsable: "GE / FD",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Piloto del proyecto",
+        fechaEsperada: "Nov-26",
+        responsable: "GE / FD",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Implementación del modelo de atención B2C",
+        fechaEsperada: "Sept-26",
+        responsable: "",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Diagnóstico B2C (Lubes + EPP)",
+        fechaEsperada: "Abr-26",
+        responsable: "FD / BC",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Presentación, Evaluación y Cierre de Propuesta",
+        fechaEsperada: "Jul-26",
+        responsable: "FD / BC / JO",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Implementación de propuestas",
+        fechaEsperada: "Sept-26",
+        responsable: "FD / BC",
+        status: "pendiente",
+      },
+    ],
+
+    ganttActivities: [
+      {
+        descripcion: "Evaluación de Rentabilidad por Sede Trujillo",
+        responsable: "",
+        inicio: "2025-12",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "Evaluación y Definición de propuestas Locaciones (Proyecto Chanchán - Tercerizar la operación en Trujillo)",
+        responsable: "FD / MB / GE",
+        inicio: "2026-01",
+        fin: "2026-02",
+      },
+      {
+        descripcion: "Gestión de contratación del proveedor",
+        responsable: "FD / MB / GE",
+        inicio: "2026-02",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "Go Live Proyecto Chanchán",
+        responsable: "FD / MB / GE",
+        inicio: "2026-03",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "Consolidación de almacenes Lima",
+        responsable: "",
+        inicio: "2026-01",
+        fin: "2026-12",
+      },
+      {
+        descripcion: "Re-evaluación de tarifas de licitación",
+        responsable: "GE / FD",
+        inicio: "2026-01",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "Cierre de Licitación Proyecto: Fénix – Lima (Consolidación Tercerizada en Lima)",
+        responsable: "GE / FD",
+        inicio: "2026-01",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "Evaluación y aprobación de propuestas",
+        responsable: "GE / FD / BC / CS",
+        inicio: "2026-05",
+        fin: "2026-06",
+      },
+      {
+        descripcion: "Gestión de contratación del proveedor",
+        responsable: "GE",
+        inicio: "2026-06",
+        fin: "2026-08",
+      },
+      {
+        descripcion: "Adecuaciones de infraestructura y redes del proveedor",
+        responsable: "GE / FD",
+        inicio: "2026-09",
+        fin: "2026-11",
+      },
+      {
+        descripcion: "Piloto del proyecto",
+        responsable: "GE / FD",
+        inicio: "2026-10",
+        fin: "2026-11",
+      },
+      {
+        descripcion: "Go Live Fenix",
+        responsable: "GE / FD",
+        inicio: "2026-11",
+        fin: "2026-11",
+      },
+      {
+        descripcion: "Implementación del modelo de atención B2C: Diagnóstico B2C (Lubes + EPP)",
+        responsable: "FD / BC",
+        inicio: "2026-02",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "Implementación del modelo de atención B2C: Presentación, Evaluación y Cierre de Propuesta",
+        responsable: "FD / BC / JO",
+        inicio: "2026-05",
+        fin: "2026-07",
+      },
+      {
+        descripcion: "Implementación del modelo de atención B2C: Implementación de propuestas",
+        responsable: "FD / BC",
+        inicio: "2026-07",
+        fin: "2026-09",
+      },
+    ],
+
+    version: "Nov. 2025",
+    ultimaActualizacion: "Marzo 2026",
+  },
+  // ─────────────────────────────────────────────────────────────────────────────
+  // FICHA 8
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "8",
+    title: "Nueva plataforma e-commerce",
+    pillar: "Comercial",
+    pillarColor: "#e11d48",
+    avancePonderado: "amarillo",
+
+    descripcion:
+      "Implementar la nueva plataforma de e-commerce, más robusta para reducir el costo de servir, incrementar ventas y asegurar la retención de clientes.\nContemple el sistema interconectado con SAP y Bitrix automatizado",
+
+    racionalEstrategico:
+      "Incrementar la penetración, posicionamiento de Soltrak a través del canal e-commerce con una plataforma robusta que sostenga el crecimiento digital en el largo plazo",
+
+    riesgos: [
+      "Dificultad para la transferencia de clientes a esta canal",
+      "Falta de aceptación de la propuesta del cambio y sin sistema comisional",
+      "Actualizar segmentación",
+      "Optimizar pricing y procesos",
+      "Definir journey atención digital.",
+      "Coherencia entre canales",
+      "Cambio sistema comisional",
+    ],
+
+    impacto: "Ventas incrementales por $172K en el 2026",
+    inversion: "Inv. aprox <$150-$200k> incluye integración ERP Y CRM - Equipo dedicado al proyecto",
+
+    objetivo:
+      "Implementar la nueva plataforma de e-commerce, más robusta para reducir el costo de servir, incrementar ventas y asegurar la retención de clientes",
+
+    kpis: [
+      {
+        descripcion: "2026 ventas S/1.5M",
+        esPrincipal: true,
+        real2025: "S/. 885K",
+        q1_26: "S/2.5M",
+        q2_26: "",
+        q3_26: "",
+        q4_26: "S/2.5M",
+        meta2026: "S/1.5M",
+        statusReal: "sin-datos",
+      },
+      {
+        descripcion: "% de clientes migrados usando la plataforma",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "50%",
+        q2_26: "",
+        q3_26: "25%",
+        q4_26: "50%",
+        meta2026: "50%",
+      },
+      {
+        descripcion: "Incremento del % de margen operativo",
+        esPrincipal: false,
+        real2025: "",
+        q1_26: "",
+        q2_26: "",
+        q3_26: "",
+        q4_26: "TBD",
+        meta2026: "TBD",
+      },
+      {
+        descripcion: "% de clientes con recompra frecuente",
+        esPrincipal: false,
+        real2025: "",
+        q1_26: "",
+        q2_26: "",
+        q3_26: "",
+        q4_26: "TBD",
+        meta2026: "TBD",
+      },
+      {
+        descripcion: "70% NLS",
+        esPrincipal: false,
+        real2025: "",
+        q1_26: "",
+        q2_26: "",
+        q3_26: "",
+        q4_26: "100%",
+        meta2026: "",
+      },
+      {
+        descripcion: "Presentación y aprobación de inversión en la plataforma",
+        esPrincipal: false,
+        real2025: "",
+        q1_26: "",
+        q2_26: "Abr-26",
+        q3_26: "",
+        q4_26: "",
+        meta2026: "",
+      },
+    ],
+
+    sponsor: "Carlos Sánchez",
+    liderProyecto: "Jorge Céspedes",
+    gestionProyecto: "TBD",
+    equipoProyecto: "Ana Paula Mejía, TPI, Negocios, Sofía Vásquez",
+    frentesTrabajo: "Marketing, Producto, Comercial, Tecnología, Finanzas y Logística",
+
+    hitos: [
+      {
+        descripcion: "Diagnóstico y análisis de Oportunidad",
+        fechaEsperada: "Ene-26",
+        responsable: "CP | CN | JC.Paz",
+        status: "completado",
+      },
+      {
+        descripcion: "Definición del modelo de negocio digital",
+        fechaEsperada: "Ene-26",
+        responsable: "CP | CN | JC.Paz",
+        status: "completado",
+      },
+      {
+        descripcion: "Diseño del Modelo Operativo y Funcional",
+        fechaEsperada: "Abr-26",
+        responsable: "CP | CN | JC.Paz",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Evaluación Tecnológica",
+        fechaEsperada: "Abr-26",
+        responsable: "CP | TPI | GF",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Análisis Financiero",
+        fechaEsperada: "May-26",
+        responsable: "GF | CP",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Implementación",
+        fechaEsperada: "Ago-26",
+        responsable: "CP | CN | JC.Paz| GF | LOG",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Gestión del cambio",
+        fechaEsperada: "Dic-26",
+        responsable: "CP | CN | JC.Paz GF | LOG | EL",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Estabilización y control",
+        fechaEsperada: "Dic-26",
+        responsable: "CP | CN | JC.Paz",
+        status: "pendiente",
+      },
+    ],
+
+    ganttActivities: [
+      {
+        descripcion: "Diagnóstico y análisis de Oportunidad",
+        responsable: "CP | CN |JO",
+        inicio: "2025-12",
+        fin: "2026-01",
+      },
+      {
+        descripcion: "Definición del modelo de negocio digital",
+        responsable: "CP | CN | JO",
+        inicio: "2026-01",
+        fin: "2026-01",
+      },
+      {
+        descripcion: "Diseño del Modelo Operativo y Funcional",
+        responsable: "CP | CN | JO",
+        inicio: "2026-02",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "Evaluación Tecnológica",
+        responsable: "CP | TPI | GF",
+        inicio: "2026-03",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "Análisis Financiero",
+        responsable: "GF | CP",
+        inicio: "2026-04",
+        fin: "2026-05",
+      },
+      {
+        descripcion: "Implementación",
+        responsable: "CP | CN | JC.Paz| GF | LOG",
+        inicio: "2026-05",
+        fin: "2026-08",
+      },
+      {
+        descripcion: "Gestión del cambio",
+        responsable: "CP | CN | JC.Paz GF | LOG | EL",
+        inicio: "2026-08",
+        fin: "2026-12",
+      },
+      {
+        descripcion: "Estabilización y control",
+        responsable: "CP | CN | JC.Paz",
+        inicio: "2026-10",
+        fin: "2026-12",
+      },
+    ],
+
+    version: "Nov. 2025",
+    ultimaActualizacion: "Marzo 2026",
+  },
+  // ─────────────────────────────────────────────────────────────────────────────
+  // FICHA 10
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "10",
+    title: "Plan de Talento y sucesión",
+    pillar: "Habilitadores",
+    pillarColor: "#7c3aed",
+    avancePonderado: "amarillo",
+
+    descripcion:
+      "Identificar al personal de alto potencial y desarrollar el plan de sucesión para todas las gerencias de primera línea (posiciones críticas)\nImplementar el Programa de desarrollo personal de alto potencial",
+
+    racionalEstrategico:
+      "Identificar al personal de alto potencial y desarrollar el plan de sucesión para todas las gerencias de primera línea y segunda línea (posiciones críticas)",
+
+    riesgos: [
+      "Falta de involucramiento de los altos potenciales, líderes y jefes inmediatos en todas las actividades del Programa",
+      "Falta de alineamiento de todos los negocios para manejar la misma estructura del Programa",
+      "Alta rotación de los altos potenciales identificados",
+    ],
+
+    impacto: "TBD",
+    inversion: "~78k soles",
+
+    objetivo:
+      "Identificar al personal con alto potencial para fortalecer y desarrollar sus capacidades\nDesarrollar un programa de sucesión para posiciones críticas",
+
+    kpis: [
+      {
+        descripcion: "Elaborar el programa de desarrollo de Alto potencial",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "1Q",
+        q2_26: "Marzo",
+        q3_26: "",
+        q4_26: "",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "Implementación del programa de Alto potencial",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "2Q",
+        q2_26: "Abr-26",
+        q3_26: "",
+        q4_26: "",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "Identificación de posiciones críticas y mapeo de sucesores (2da línea)",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "2Q",
+        q2_26: "",
+        q3_26: "Abr-26",
+        q4_26: "",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "Implementar Programa de formación para sucesores (1ra y 2da línea)",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "3Q",
+        q2_26: "Julio",
+        q3_26: "",
+        q4_26: "Jul-26",
+        meta2026: "100%",
+      },
+    ],
+
+    sponsor: "Carlos Sánchez",
+    liderProyecto: "Eduardo Lescano",
+    gestionProyecto: "Jamyle Tirado",
+    equipoProyecto: "GT, Gerentes 1era línea",
+    frentesTrabajo: "1. Alto Potencial\n2. Sucesores",
+
+    hitos: [
+      {
+        descripcion: "Presentar lista de colaboradores Alto potencial",
+        fechaEsperada: "Dic-25",
+        responsable: "GT y Gerentes",
+        status: "completado",
+      },
+      {
+        descripcion: "Elaborar Programa de desarrollo de alto potencial",
+        fechaEsperada: "Mar-26",
+        responsable: "GT",
+        status: "completado",
+      },
+      {
+        descripcion: "Implementación del programa Alto potencial",
+        fechaEsperada: "Dic-26",
+        responsable: "GT y Gerentes",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Identificar posiciones críticas 1era línea",
+        fechaEsperada: "Ene-26",
+        responsable: "GT y Gerentes",
+        status: "completado",
+      },
+      {
+        descripcion: "Mapeo de sucesores 1ra línea",
+        fechaEsperada: "Feb-26",
+        responsable: "GT y Gerentes",
+        status: "completado",
+      },
+      {
+        descripcion: "Identificar posiciones críticas 2da línea",
+        fechaEsperada: "Mar-26",
+        responsable: "GT y Gerentes",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Mapeo de sucesores 2da línea",
+        fechaEsperada: "Abr-26",
+        responsable: "GT y Gerentes",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Elaborar Programa de formación para sucesores (1ra y 2da línea)",
+        fechaEsperada: "Jun-26",
+        responsable: "GT",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Implementación del programa de sucesores",
+        fechaEsperada: "Dic-26",
+        responsable: "GT y Gerentes",
+        status: "pendiente",
+      },
+    ],
+
+    ganttActivities: [
+      {
+        descripcion: "Alto potencial: Presentar lista de colaboradores Alto potencial",
+        responsable: "GT y Gerentes",
+        inicio: "2025-12",
+        fin: "2025-12",
+      },
+      {
+        descripcion: "Alto potencial: Elaborar Programa de desarrollo de alto potencial",
+        responsable: "GT",
+        inicio: "2026-02",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "Alto potencial: Implementación del programa",
+        responsable: "GT y Gerentes",
+        inicio: "2026-04",
+        fin: "2026-12",
+      },
+      {
+        descripcion: "Sucesores: Identificar posiciones críticas 1era línea",
+        responsable: "GT y Gerentes",
+        inicio: "2026-01",
+        fin: "2026-01",
+      },
+      {
+        descripcion: "Sucesores: Mapeo de sucesores 1ra línea",
+        responsable: "GT y Gerentes",
+        inicio: "2026-01",
+        fin: "2026-02",
+      },
+      {
+        descripcion: "Sucesores: Identificar posiciones críticas 2da línea",
+        responsable: "GT y Gerentes",
+        inicio: "2026-03",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "Sucesores: Mapeo de sucesores 2da línea",
+        responsable: "GT y Gerentes",
+        inicio: "2026-04",
+        fin: "2026-04",
+      },
+      {
+        descripcion: "Sucesores: Elaborar Programa de formación para sucesores (1ra y 2da línea)",
+        responsable: "GT",
+        inicio: "2026-05",
+        fin: "2026-06",
+      },
+      {
+        descripcion: "Sucesores: Implementación del programa",
+        responsable: "GT y Gerentes",
+        inicio: "2026-07",
+        fin: "2026-12",
+      },
+    ],
+
+    version: "Nov. 2025",
+    ultimaActualizacion: "Marzo 2026",
+  },
+  // ─────────────────────────────────────────────────────────────────────────────
+  // FICHA 11
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "11",
+    title: "Desarrollar un plan para mejorar la Cultura",
+    pillar: "Habilitadores",
+    pillarColor: "#7c3aed",
+    avancePonderado: "amarillo",
+
+    descripcion:
+      "Incorporar en Soltrak una cultura alineada a los objetivos estratégicos y asociados a comportamientos que permitan conectar con todos los colaboradores a través de un diagnóstico, definición de un modelo cultural y su implementación",
+
+    racionalEstrategico: "xx",
+
+    riesgos: [
+      "Falta de involucramiento y cohesión de los líderes con el proyecto",
+      "Falta de participación activa de los líderes en cada una de las actividades",
+      "Dificultades en el manejo adecuado de la resistencia al cambio",
+      "Contar con un socio estratégico con experiencia en transformación cultural que nos acompañe en el proceso.",
+    ],
+
+    impacto: "xx",
+    inversion: "Diagnóstico y roadmap proveedor: US$20k",
+
+    objetivo:
+      "Incorporar en Soltrak una cultura alineada a los objetivos estratégicos y asociados a comportamientos que permitan conectar con todos los colaboradores",
+
+    kpis: [
+      {
+        descripcion: "Diagnóstico cultural Soltral",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "1Q",
+        q2_26: "Mar-26",
+        q3_26: "",
+        q4_26: "",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "Definición de Modelo Cultural Soltrak",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "2Q",
+        q2_26: "",
+        q3_26: "May-26",
+        q4_26: "",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "Encuesta de clima laboral: dimensión Cultura",
+        esPrincipal: false,
+        real2025: "78%",
+        q1_26: "83%",
+        q2_26: "-",
+        q3_26: "-",
+        q4_26: "-",
+        meta2026: "83%",
+      },
+      {
+        descripcion: "Encuesta de clima laboral: dimensión Confianza en los líderes",
+        esPrincipal: false,
+        real2025: "67%",
+        q1_26: "76%",
+        q2_26: "-",
+        q3_26: "-",
+        q4_26: "-",
+        meta2026: "76%",
+      },
+      {
+        descripcion: "%Cumplimiento de despliegue del Plan de transformación cultural",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "",
+        q2_26: "",
+        q3_26: "",
+        q4_26: "100%",
+        meta2026: "100%",
+      },
+    ],
+
+    sponsor: "Carlos Sánchez",
+    liderProyecto: "Eduardo Lescano",
+    gestionProyecto: "Jamyle Tirado",
+    equipoProyecto: "Gerentes, GT, Comunicación interna Corp., Líderes 2da línea",
+    frentesTrabajo: "xx",
+
+    hitos: [
+      {
+        descripcion: "Contratar al proveedor",
+        fechaEsperada: "Dic-25",
+        responsable: "GT",
+        status: "completado",
+      },
+      {
+        descripcion: "Realizar diagnóstico situacional",
+        fechaEsperada: "Mar-26",
+        responsable: "Consultor",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Co crear el Modelo Cultural Soltrak",
+        fechaEsperada: "May-26",
+        responsable: "Gerentes y Consultor",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Realizar Estrategia de Comunicación Interna",
+        fechaEsperada: "Jun-26",
+        responsable: "GT Soltrak y Corp",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Realizar sesiones de apropiación y sensibilización con líderes",
+        fechaEsperada: "Jun-26",
+        responsable: "Gerentes y RRHH Corp",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Identificar iniciativas y proyectos culturales",
+        fechaEsperada: "Jun-26",
+        responsable: "GT y 1ra línea",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Implementar Comité de cultura",
+        fechaEsperada: "Jun-26",
+        responsable: "GT y 1ra línea",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Kick off donde se dé a conocer la nueva cultura Soltrak",
+        fechaEsperada: "Jul-26",
+        responsable: "Líderes y GT",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Difundir la nueva cultura",
+        fechaEsperada: "Dic-26",
+        responsable: "Líderes y GT",
+        status: "pendiente",
+      },
+    ],
+
+    ganttActivities: [
+      {
+        descripcion: "Contratar al proveedor",
+        responsable: "GT",
+        inicio: "2025-12",
+        fin: "2025-12",
+      },
+      {
+        descripcion: "Realizar diagnóstico situacional",
+        responsable: "Consultor",
+        inicio: "2026-02",
+        fin: "2026-03",
+      },
+      {
+        descripcion: "Co crear el Modelo Cultural Soltrak",
+        responsable: "Gerentes y Consultor",
+        inicio: "2026-04",
+        fin: "2026-05",
+      },
+      {
+        descripcion: "Realizar Estrategia de Comunicación Interna",
+        responsable: "GT Soltrak y Corp",
+        inicio: "2026-05",
+        fin: "2026-06",
+      },
+      {
+        descripcion: "Realizar sesiones de apropiación y sensibilización con líderes",
+        responsable: "Gerentes y RRHH Corp",
+        inicio: "2026-06",
+        fin: "2026-07",
+      },
+      {
+        descripcion: "Identificar iniciativas y proyectos culturales",
+        responsable: "GT y 1ra línea",
+        inicio: "2026-06",
+        fin: "2026-07",
+      },
+      {
+        descripcion: "Implementar Comité de cultura",
+        responsable: "GT y 1ra línea",
+        inicio: "2026-06",
+        fin: "2026-07",
+      },
+      {
+        descripcion: "Kick off donde se dé a conocer la nueva cultura Soltrak",
+        responsable: "Líderes y GT",
+        inicio: "2026-07",
+        fin: "2026-07",
+      },
+      {
+        descripcion: "Difundir la nueva cultura",
+        responsable: "Líderes y GT",
+        inicio: "2026-08",
+        fin: "2026-12",
       },
     ],
 
@@ -1439,6 +2843,160 @@ function FieldBlock({ n, label, children, className = "" }: {
         <span className="text-[10px] font-black text-white uppercase tracking-wide">{label}</span>
       </div>
       <div className="text-[11px] text-slate-700 leading-relaxed">{children}</div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// GANTT CHART COMPONENT
+// ─────────────────────────────────────────────────────────────────────────────
+
+function GanttChart({ activities, pillarColor }: { activities: GanttActivity[]; pillarColor: string }) {
+  // Generar el rango de meses desde 2025-12 hasta 2027-12
+  const months: string[] = []
+  const years = [2025, 2026, 2027]
+  years.forEach(year => {
+    const start = year === 2025 ? 12 : 1
+    const end = year === 2027 ? 12 : 12
+    for (let m = start; m <= end; m++) {
+      months.push(`${year}-${String(m).padStart(2, '0')}`)
+    }
+  })
+
+  // Calcular la posición y ancho de cada actividad en el Gantt
+  const getBarPosition = (inicio: string, fin: string) => {
+    const startIdx = months.indexOf(inicio)
+    const endIdx = months.indexOf(fin)
+    if (startIdx === -1 || endIdx === -1) return null
+    
+    const left = (startIdx / months.length) * 100
+    const width = ((endIdx - startIdx + 1) / months.length) * 100
+    return { left: `${left}%`, width: `${width}%` }
+  }
+
+  // Agrupar meses por año para el header
+  const monthsByYear: { year: string; months: string[]; count: number }[] = []
+  let currentYear = ""
+  let currentMonths: string[] = []
+  
+  months.forEach(month => {
+    const year = month.split('-')[0]
+    if (year !== currentYear) {
+      if (currentYear) {
+        monthsByYear.push({ year: currentYear, months: currentMonths, count: currentMonths.length })
+      }
+      currentYear = year
+      currentMonths = [month]
+    } else {
+      currentMonths.push(month)
+    }
+  })
+  if (currentYear) {
+    monthsByYear.push({ year: currentYear, months: currentMonths, count: currentMonths.length })
+  }
+
+  const monthNames = ["", "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+      <div className="bg-slate-700 px-4 py-2 flex items-center justify-between">
+        <p className="text-[11px] font-black text-white uppercase tracking-wider">
+          Cronograma detallado de actividades (Gantt)
+        </p>
+        <span className="text-[9px] text-white/70 font-medium">2025 - 2027</span>
+      </div>
+
+      <div className="overflow-x-auto">
+        <div className="min-w-300">
+          {/* Timeline header */}
+          <div className="border-b border-slate-200 bg-slate-50">
+            <div className="flex">
+              <div className="w-80 shrink-0 border-r border-slate-200 px-3 py-2">
+                <p className="text-[10px] font-black text-slate-600 uppercase tracking-wide">Actividad</p>
+              </div>
+              <div className="w-40 shrink-0 border-r border-slate-200 px-3 py-2">
+                <p className="text-[10px] font-black text-slate-600 uppercase tracking-wide">Responsable</p>
+              </div>
+              <div className="flex-1">
+                {/* Year headers */}
+                <div className="flex border-b border-slate-200">
+                  {monthsByYear.map((yearGroup) => (
+                    <div 
+                      key={yearGroup.year}
+                      className="text-center border-r border-slate-200 last:border-r-0"
+                      style={{ width: `${(yearGroup.count / months.length) * 100}%` }}
+                    >
+                      <p className="text-[11px] font-black text-slate-700 py-1">{yearGroup.year}</p>
+                    </div>
+                  ))}
+                </div>
+                {/* Month headers */}
+                <div className="flex">
+                  {months.map((month) => {
+                    const monthNum = parseInt(month.split('-')[1])
+                    return (
+                      <div 
+                        key={month}
+                        className="text-center border-r border-slate-200 last:border-r-0"
+                        style={{ width: `${(1 / months.length) * 100}%` }}
+                      >
+                        <p className="text-[9px] font-semibold text-slate-500 py-1">{monthNames[monthNum]}</p>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Activity rows */}
+          <div>
+            {activities.map((activity, idx) => {
+              const position = getBarPosition(activity.inicio, activity.fin)
+              return (
+                <div 
+                  key={idx} 
+                  className={`flex border-b border-slate-100 hover:bg-blue-50/30 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/40'}`}
+                >
+                  <div className="w-80 shrink-0 border-r border-slate-200 px-3 py-3">
+                    <p className="text-[10px] text-slate-700 leading-snug">{activity.descripcion}</p>
+                  </div>
+                  <div className="w-40 shrink-0 border-r border-slate-200 px-3 py-3">
+                    <p className="text-[9px] text-slate-600 leading-tight">{activity.responsable}</p>
+                  </div>
+                  <div className="flex-1 relative py-2 px-1">
+                    {/* Timeline grid */}
+                    <div className="absolute inset-0 flex">
+                      {months.map((month, mIdx) => (
+                        <div 
+                          key={month}
+                          className="border-r border-slate-100 last:border-r-0"
+                          style={{ width: `${(1 / months.length) * 100}%` }}
+                        />
+                      ))}
+                    </div>
+                    {/* Activity bar */}
+                    {position && (
+                      <div 
+                        className="absolute h-6 rounded-md flex items-center px-2 shadow-sm"
+                        style={{
+                          left: position.left,
+                          width: position.width,
+                          background: pillarColor,
+                          top: '50%',
+                          transform: 'translateY(-50%)',
+                        }}
+                      >
+                        <div className="w-full h-1.5 bg-white/30 rounded-full" />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
@@ -1748,6 +3306,13 @@ function FichaDetail({ ficha }: { ficha: InitiativeFicha }) {
             </tbody>
           </table>
         </div>
+
+        {/* ── GANTT CHART (if available) ── */}
+        {ficha.ganttActivities && ficha.ganttActivities.length > 0 && (
+          <div className="px-4 py-4 bg-slate-50">
+            <GanttChart activities={ficha.ganttActivities} pillarColor={ficha.pillarColor} />
+          </div>
+        )}
 
         {/* Footer */}
         <div className="bg-slate-50 border-t border-slate-200 px-5 py-3 flex items-center justify-between">

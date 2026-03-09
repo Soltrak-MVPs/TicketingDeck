@@ -112,9 +112,9 @@ const INITIATIVES: Initiative[] = [
     responsible: "Brenilda C.", sponsor: "Carlos Sánchez",
     start: "2026-02-01", end: "2026-12-31",
     priority: "Alta", status: "Por iniciar", semaforo: "amarillo", devDays: 240,
-    fichaId: "4.3", fichaTitle: "Proyecto Logístico (TMS)",
-    hitosTotal: 6, hitosOk: 1,
-    kpiPrincipal: "OTIF ≥ 85%",
+    fichaId: "7", fichaTitle: "Definir nuevo modelo logístico e inicio de implementación",
+    hitosTotal: 14, hitosOk: 3,
+    kpiPrincipal: "Rentabilidad Op. 400K vs actual",
   },
   {
     id: "INI-008", name: "Nueva plataforma e-commerce",
@@ -123,9 +123,9 @@ const INITIATIVES: Initiative[] = [
     responsible: "Jorge C.", sponsor: "Carlos Sánchez",
     start: "2025-11-01", end: "2026-06-30",
     priority: "Alta", status: "En curso", semaforo: "verde", devDays: 160,
-    fichaId: null, fichaTitle: null,
-    hitosTotal: 5, hitosOk: 3,
-    kpiPrincipal: null,
+    fichaId: "8", fichaTitle: "Nueva plataforma e-commerce",
+    hitosTotal: 8, hitosOk: 2,
+    kpiPrincipal: "2026 ventas S/1.5M",
   },
   {
     id: "INI-009", name: "Giatrak 2.0",
@@ -145,9 +145,9 @@ const INITIATIVES: Initiative[] = [
     responsible: "Eduardo L.", sponsor: "Eduardo L.",
     start: "2026-02-01", end: "2026-12-31",
     priority: "Media", status: "Por iniciar", semaforo: "amarillo", devDays: 220,
-    fichaId: null, fichaTitle: null,
-    hitosTotal: 4, hitosOk: 0,
-    kpiPrincipal: null,
+    fichaId: "10", fichaTitle: "Plan de Talento y sucesión",
+    hitosTotal: 9, hitosOk: 4,
+    kpiPrincipal: "Implementación programa Alto potencial",
   },
   {
     id: "INI-011", name: "Desarrollar plan de Cultura",
@@ -156,9 +156,9 @@ const INITIATIVES: Initiative[] = [
     responsible: "Eduardo L.", sponsor: "Eduardo L.",
     start: "2026-02-15", end: "2026-11-30",
     priority: "Baja", status: "Por iniciar", semaforo: "sin-datos", devDays: 180,
-    fichaId: null, fichaTitle: null,
-    hitosTotal: 3, hitosOk: 0,
-    kpiPrincipal: null,
+    fichaId: "11", fichaTitle: "Desarrollar un plan para mejorar la Cultura",
+    hitosTotal: 9, hitosOk: 1,
+    kpiPrincipal: "Clima laboral: Cultura 78%→83%",
   },
 ]
 
@@ -261,7 +261,7 @@ function InitiativeCard({
       style={{ borderLeft: `4px solid ${item.pillarColor}` }}
     >
       {/* ── Top row ── */}
-      <div className="px-4 pt-4 pb-3">
+      <div className="px-3 pt-3 pb-2">
         <div className="flex items-start justify-between gap-2 mb-1">
           {/* ID + Name */}
           <div className="flex items-start gap-2 min-w-0">
@@ -271,7 +271,7 @@ function InitiativeCard({
             >
               {item.id}
             </span>
-            <p className={`text-[12px] font-bold text-slate-800 leading-snug ${hasficha ? "group-hover:text-[#9b111e] transition-colors" : ""}`}>
+            <p className={`text-[11px] font-bold text-slate-800 leading-snug ${hasficha ? "group-hover:text-[#9b111e] transition-colors" : ""}`}>
               {item.name}
             </p>
           </div>
@@ -282,7 +282,7 @@ function InitiativeCard({
         </div>
 
         {/* Pillar + Priority row */}
-        <div className="flex items-center gap-2 mt-1.5 mb-3">
+        <div className="flex items-center gap-2 mt-1 mb-2">
           <span
             className="text-[9px] font-black px-2 py-0.5 rounded-full"
             style={{ background: item.pillarColor + "15", color: item.pillarColor }}
@@ -299,12 +299,12 @@ function InitiativeCard({
         </div>
 
         {/* ── Progress bar ── */}
-        <div className="mb-3">
+        <div className="mb-2">
           <div className="flex items-center justify-between mb-1">
             <span className="text-[9px] font-medium text-slate-400 uppercase tracking-wide">Avance</span>
             <span className="text-[10px] font-black" style={{ color: progressColor }}>{item.progress}%</span>
           </div>
-          <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+          <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{ width: `${item.progress}%`, background: progressColor }}
@@ -314,26 +314,26 @@ function InitiativeCard({
 
         {/* ── KPI principal ── */}
         {item.kpiPrincipal && (
-          <div className="mb-3 bg-slate-50 rounded-lg px-3 py-2 border border-slate-100">
-            <p className="text-[9px] text-slate-400 uppercase tracking-wide font-semibold mb-0.5">KPI Principal</p>
-            <p className="text-[10px] font-semibold text-slate-700 leading-snug">{item.kpiPrincipal}</p>
+          <div className="mb-2 bg-slate-50 rounded-lg px-2.5 py-1.5 border border-slate-100">
+            <p className="text-[8px] text-slate-400 uppercase tracking-wide font-semibold mb-0.5">KPI Principal</p>
+            <p className="text-[9px] font-semibold text-slate-700 leading-snug">{item.kpiPrincipal}</p>
           </div>
         )}
 
         {/* ── Meta row ── */}
-        <div className="grid grid-cols-3 gap-2 text-center">
+        <div className="grid grid-cols-3 gap-1.5 text-center">
           {/* Sponsor */}
-          <div className="bg-slate-50 rounded-lg px-2 py-1.5">
+          <div className="bg-slate-50 rounded-lg px-1.5 py-1">
             <p className="text-[8px] text-slate-400 uppercase font-semibold mb-0.5">Sponsor</p>
             <p className="text-[9px] font-bold text-slate-700 leading-snug truncate">{item.sponsor}</p>
           </div>
           {/* Líder */}
-          <div className="bg-slate-50 rounded-lg px-2 py-1.5">
+          <div className="bg-slate-50 rounded-lg px-1.5 py-1">
             <p className="text-[8px] text-slate-400 uppercase font-semibold mb-0.5">Líder</p>
             <p className="text-[9px] font-bold text-slate-700 leading-snug truncate">{item.responsible}</p>
           </div>
           {/* Fecha */}
-          <div className="bg-slate-50 rounded-lg px-2 py-1.5">
+          <div className="bg-slate-50 rounded-lg px-1.5 py-1">
             <p className="text-[8px] text-slate-400 uppercase font-semibold mb-0.5">Fecha fin</p>
             <p className="text-[9px] font-bold text-slate-700">{item.end.slice(0, 7)}</p>
           </div>
@@ -342,7 +342,7 @@ function InitiativeCard({
 
       {/* ── Footer ── */}
       <div
-        className="px-4 py-2.5 border-t border-slate-100 flex items-center justify-between"
+        className="px-3 py-2 border-t border-slate-100 flex items-center justify-between"
         style={{ background: item.pillarColor + "06" }}
       >
         {/* Hitos */}
@@ -404,9 +404,24 @@ export function StrategicInitiativesDashboard({
     const budgetTotal = INITIATIVES.reduce((s, i) => s + i.budget, 0)
     const realTotal   = INITIATIVES.reduce((s, i) => s + i.real, 0)
     const deviation   = budgetTotal > 0 ? Math.round((realTotal / budgetTotal) * 100) : 28
-    const avgDevDays  = Math.round(INITIATIVES.reduce((s, i) => s + i.devDays, 0) / total)
+    
+    // Calcular desviación de tiempo: comparar progreso esperado vs real
+    const now = new Date('2026-03-09')
+    const timeDeviation = Math.round(
+      INITIATIVES.reduce((sum, i) => {
+        const start = new Date(i.start)
+        const end = new Date(i.end)
+        const totalDays = Math.max(1, Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)))
+        const elapsedDays = Math.max(0, Math.floor((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)))
+        const expectedProgress = Math.min(100, Math.max(0, (elapsedDays / totalDays) * 100))
+        const actualProgress = i.progress
+        // Desviación: si real < esperado, la desviación es positiva (retraso)
+        return sum + (expectedProgress - actualProgress)
+      }, 0) / total
+    )
+    
     const withFichas  = INITIATIVES.filter((i) => i.fichaId).length
-    return { total, avgProgress, budgetTotal, realTotal, deviation, avgDevDays, withFichas }
+    return { total, avgProgress, budgetTotal, realTotal, deviation, timeDeviation, withFichas }
   }, [])
 
   // ── Filtered list ──────────────────────────────────────────────────────────
@@ -441,11 +456,50 @@ export function StrategicInitiativesDashboard({
     const map: Partial<Record<Status, number>> = {}
     INITIATIVES.forEach((i) => { map[i.status] = (map[i.status] ?? 0) + 1 })
     const colors: Record<Status, string> = {
-      "En curso": "#9b111e", "Por iniciar": "#6b7280", "Pausada": "#374151", "Completada": "#111827",
+      "En curso": "#9b111e", "Por iniciar": "#6b7280", "Pausada": "#374151", "Completada": "#10b981",
     }
-    return (Object.entries(map) as [Status, number][]).map(([name, value]) => ({
-      name, value, color: colors[name],
+    return (Object.entries(map) as [Status, number][]).map(([name, count]) => ({
+      name, count, color: colors[name],
     }))
+  }, [])
+
+  // ── Chart: timeline (mes actual) ───────────────────────────────────────────
+  const timelineData = useMemo(() => {
+    const now = new Date('2026-03-09')
+    const currentMonth = new Date(now.getFullYear(), now.getMonth(), 1)
+    
+    let enDesarrollo = 0
+    let pendientes = 0
+    let porVenir = 0
+    
+    INITIATIVES.forEach((i) => {
+      const start = new Date(i.start)
+      const end = new Date(i.end)
+      
+      // En desarrollo: ya iniciaron y no han terminado
+      if (start <= currentMonth && end >= currentMonth) {
+        if (i.status === "En curso" || i.status === "Completada") {
+          enDesarrollo++
+        } else {
+          // Deberían estar en curso pero están pendientes
+          pendientes++
+        }
+      }
+      // Por venir: inician después del mes actual
+      else if (start > currentMonth) {
+        porVenir++
+      }
+      // Ya pasaron (terminaron antes del mes actual)
+      else if (end < currentMonth) {
+        // No las contamos en este gráfico
+      }
+    })
+    
+    return [
+      { name: "En desarrollo", count: enDesarrollo, color: "#9b111e" },
+      { name: "Pendientes", count: pendientes, color: "#f59e0b" },
+      { name: "Por venir", count: porVenir, color: "#6b7280" },
+    ]
   }, [])
 
   // ── Routing ────────────────────────────────────────────────────────────────
@@ -487,7 +541,7 @@ export function StrategicInitiativesDashboard({
         <KpiCard icon="💼" label="Inversión Ppto."      value={formatUSD(kpis.budgetTotal)}       sub="Total proyectado"       accent="#6b7280" />
         <KpiCard icon="💸" label="Inversión Real"        value={formatUSD(kpis.realTotal)}         sub="Ejecutado a la fecha"  accent="#1e293b" />
         <KpiCard icon="📐" label="Desviación Real"      value={`${kpis.deviation}%`}             sub="Real vs Presupuesto"   accent={kpis.deviation > 80 ? "#9b111e" : "#6b7280"} />
-        <KpiCard icon="⏳" label="Tiempo Desarrollo"    value={`${kpis.avgDevDays}d`}            sub="Promedio por iniciativa" accent="#374151" />
+        <KpiCard icon="⏳" label="% Desviación de Tiempo" value={`${kpis.timeDeviation}%`}      sub="Promedio ponderado"      accent={kpis.timeDeviation > 20 ? "#9b111e" : "#374151"} />
       </div>
 
       {/* ── Filters ────────────────────────────────────────────────────────── */}
@@ -550,94 +604,69 @@ export function StrategicInitiativesDashboard({
         {/* ── Sidebar: charts — sticky (5 cols) ────────────────────────────── */}
         <div className="lg:col-span-5 sticky top-6 self-start flex flex-col gap-4">
 
-          {/* Status card */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            {/* Header */}
+          {/* Timeline chart */}
+          <div className="rounded-2xl border border-slate-200 bg-linear-to-br from-white to-slate-50 p-5 shadow-md hover:shadow-lg transition-shadow">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <p className="text-[11px] font-bold text-slate-800">Estado del Portafolio</p>
-                <p className="text-[9px] text-slate-400">Distribución por estado</p>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-[13px]">📅</span>
+                  <p className="text-[11px] font-black text-slate-800 uppercase tracking-wider">Estado del Mes Actual</p>
+                </div>
+                <p className="text-[9px] text-slate-400 ml-6">Vista temporal - Marzo 2026</p>
               </div>
-              <span className="text-[13px] font-black text-white bg-[#9b111e] w-7 h-7 rounded-lg flex items-center justify-center leading-none">
-                {kpis.total}
+              <span className="text-[9px] font-bold text-white bg-slate-700 rounded-md px-2 py-1 uppercase tracking-wider shadow-sm">
+                MAR
               </span>
             </div>
 
-            {/* Stacked overview bar */}
-            <div className="flex h-2.5 rounded-full overflow-hidden mb-4 gap-px">
-              {statusData.map((d) => (
-                <div
-                  key={d.name}
-                  className="transition-all"
-                  style={{
-                    width: `${(d.value / kpis.total) * 100}%`,
-                    background: d.color,
-                  }}
-                />
-              ))}
-            </div>
-
-            {/* Per-status rows */}
-            <div className="space-y-3">
-              {statusData.map((d) => {
-                const pct = Math.round((d.value / kpis.total) * 100)
-                return (
-                  <div key={d.name}>
-                    <div className="flex items-center justify-between mb-1">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full shrink-0" style={{ background: d.color }} />
-                        <span className="text-[10px] text-slate-700 font-semibold">{d.name}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[9px] text-slate-400 font-medium">{pct}%</span>
-                        <span
-                          className="text-[10px] font-black w-5 text-right"
-                          style={{ color: d.color }}
-                        >
-                          {d.value}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{ width: `${pct}%`, background: d.color }}
-                      />
-                    </div>
+            {/* Summary stats */}
+            <div className="mb-3 bg-slate-900 rounded-lg px-3 py-2.5">
+              <div className="grid grid-cols-3 gap-3">
+                {timelineData.map((d) => (
+                  <div key={d.name} className="text-center">
+                    <div className="text-[15px] font-black text-white mb-0.5">{d.count}</div>
+                    <div className="text-[8px] text-slate-400 font-semibold uppercase tracking-wider">{d.name}</div>
                   </div>
-                )
-              })}
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Pillar bar */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            <p className="text-[11px] font-bold text-slate-800 mb-0.5">Por Pilar Estratégico</p>
-            <p className="text-[9px] text-slate-400 mb-2">Iniciativas por pilar</p>
-            <ResponsiveContainer width="100%" height={135}>
-              <BarChart data={pillarData} margin={{ top: 2, right: 8, left: -26, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                <XAxis dataKey="name" tick={{ fill: "#64748b", fontSize: 10, fontWeight: 700 }} axisLine={false} tickLine={false} />
-                <YAxis allowDecimals={false} tick={{ fill: "#94a3b8", fontSize: 9 }} axisLine={false} tickLine={false} />
-                <Tooltip content={<LightTooltip />} cursor={{ fill: "rgba(0,0,0,0.03)" }} />
-                <Bar dataKey="count" name="Iniciativas" radius={[4, 4, 0, 0]} maxBarSize={32}>
-                  {pillarData.map((d, i) => <Cell key={i} fill={d.color} />)}
+            <ResponsiveContainer width="100%" height={125}>
+              <BarChart data={timelineData} margin={{ top: 2, right: 8, left: -26, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+                <XAxis dataKey="name" tick={{ fill: "#475569", fontSize: 10, fontWeight: 700 }} axisLine={false} tickLine={false} />
+                <YAxis allowDecimals={false} tick={{ fill: "#94a3b8", fontSize: 9, fontWeight: 600 }} axisLine={false} tickLine={false} />
+                <Tooltip content={<LightTooltip />} cursor={{ fill: "rgba(155, 17, 30, 0.05)" }} />
+                <Bar dataKey="count" name="Iniciativas" radius={[6, 6, 0, 0]} maxBarSize={36}>
+                  {timelineData.map((d, i) => <Cell key={i} fill={d.color} />)}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
 
           {/* Responsible bar */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            <p className="text-[11px] font-bold text-slate-800 mb-0.5">Por Responsable</p>
-            <p className="text-[9px] text-slate-400 mb-2">Carga de liderazgo</p>
+          <div className="rounded-2xl border border-slate-200 bg-linear-to-br from-white to-slate-50 p-5 shadow-md hover:shadow-lg transition-shadow">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-[13px]">👥</span>
+                  <p className="text-[11px] font-black text-slate-800 uppercase tracking-wider">Liderazgo de Iniciativas</p>
+                </div>
+                <p className="text-[9px] text-slate-400 ml-6">Distribución por líder de proyecto</p>
+              </div>
+              <div className="flex flex-col items-end gap-1">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Líderes</span>
+                <span className="text-[17px] font-black text-[#9b111e]">{responsibleData.length}</span>
+              </div>
+            </div>
+
             <ResponsiveContainer width="100%" height={185}>
               <BarChart data={responsibleData} margin={{ top: 0, right: 8, left: 0, bottom: 0 }} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} />
-                <XAxis type="number" allowDecimals={false} tick={{ fill: "#94a3b8", fontSize: 9 }} axisLine={false} tickLine={false} />
-                <YAxis type="category" dataKey="name" tick={{ fill: "#374151", fontSize: 10, fontWeight: 600 }} axisLine={false} tickLine={false} width={82} />
-                <Tooltip content={<LightTooltip />} cursor={{ fill: "rgba(0,0,0,0.03)" }} />
-                <Bar dataKey="count" name="Iniciativas" radius={[0, 4, 4, 0]} maxBarSize={14}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" horizontal={false} />
+                <XAxis type="number" allowDecimals={false} tick={{ fill: "#94a3b8", fontSize: 9, fontWeight: 600 }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="name" tick={{ fill: "#1e293b", fontSize: 10, fontWeight: 700 }} axisLine={false} tickLine={false} width={82} />
+                <Tooltip content={<LightTooltip />} cursor={{ fill: "rgba(155, 17, 30, 0.05)" }} />
+                <Bar dataKey="count" name="Iniciativas" radius={[0, 6, 6, 0]} maxBarSize={16}>
                   {responsibleData.map((_, i) => (
                     <Cell key={i} fill={["#9b111e","#1e293b","#374151","#6b7280","#7f0e18","#0f172a"][i % 6]} />
                   ))}

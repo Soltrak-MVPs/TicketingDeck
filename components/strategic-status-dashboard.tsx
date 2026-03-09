@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useMemo, useRef, useEffect } from "react"
+import React, { useState, useMemo, useRef, useEffect } from "react"
+import { FICHAS, type InitiativeFicha, type KpiRow, type HitoRow } from "./initiative-ficha-dashboard"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -19,6 +20,11 @@ interface StatusInitiative {
   liderNegocio: string
   gestionProyecto: string  // editable – PM name
   notas: string            // expandable
+  fichaId: string | null   // ID de la ficha ("1.1", "2", etc.)
+  // Manual override flags
+  manualAvancePonderado?: boolean
+  manualAvanceKpiColor?: boolean
+  manualAvanceActividades?: boolean
 }
 
 type SortField = "id" | "title" | "avancePonderado" | "liderNegocio" | "avanceKpiColor" | "avanceActividades"
@@ -53,6 +59,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "amarillo", kpiPrincipal: "Margen contribución %",
     avanceKpi: "-", metaKpi: "22%", avanceKpiColor: "rojo",
     avanceActividades: "verde", liderNegocio: "JC. Paz", gestionProyecto: "", notas: "",
+    fichaId: "1.1",
   },
   {
     id: 2,  title: "Mejorar márgenes por cliente (Seguridad Industrial)",
@@ -60,6 +67,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "Margen contribución %",
     avanceKpi: "-", metaKpi: "22%", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "C. Novoa", gestionProyecto: "", notas: "",
+    fichaId: "1.2",
   },
   {
     id: 3,  title: "Simplificar el negocio",
@@ -67,6 +75,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "# SKUs / marcas activas",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "C. Sanchez", gestionProyecto: "", notas: "",
+    fichaId: "2",
   },
   {
     id: 4,  title: "Ordenar la oferta a clientes",
@@ -74,6 +83,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "Segmentos definidos",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "J. Céspedes", gestionProyecto: "", notas: "",
+    fichaId: "3",
   },
   {
     id: 5,  title: "Mejora de procesos: Proyecto Contabilidad",
@@ -81,6 +91,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "Ahorro anual ($K)",
     avanceKpi: "-", metaKpi: "$65K", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "G. Florida", gestionProyecto: "", notas: "",
+    fichaId: "4.1",
   },
   {
     id: 6,  title: "Mejora de procesos: Proyecto ADV + Créditos",
@@ -88,6 +99,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "Ahorro anual ($K)",
     avanceKpi: "-", metaKpi: "$130K", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "G. Florida", gestionProyecto: "", notas: "",
+    fichaId: "4.2",
   },
   {
     id: 7,  title: "Mejora de procesos: Proyecto logístico",
@@ -95,6 +107,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "OTIF %",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "B. Coronel", gestionProyecto: "", notas: "",
+    fichaId: "4.3",
   },
   {
     id: 8,  title: "Mejora de procesos: Modelo de precios",
@@ -102,6 +115,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "Módulo implementado",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "G. Florida", gestionProyecto: "", notas: "",
+    fichaId: "4.4",
   },
   {
     id: 9,  title: "Implementar proceso de S&OP robusto",
@@ -109,6 +123,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "OTIF / Inv. Excesivo",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "B. Coronel", gestionProyecto: "", notas: "",
+    fichaId: "5",
   },
   {
     id: 10, title: "Definir nuevo modelo de almacenaje y distribución",
@@ -116,6 +131,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "Modelo definido",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "B. Coronel", gestionProyecto: "", notas: "",
+    fichaId: "7",
   },
   {
     id: 11, title: "Nueva plataforma E-commerce",
@@ -123,6 +139,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "Ventas online (S/)",
     avanceKpi: "-", metaKpi: "S/ 1.5M", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "J. Céspedes", gestionProyecto: "", notas: "",
+    fichaId: "8",
   },
   {
     id: 12, title: "Giatrak 2.0",
@@ -130,6 +147,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "Plataforma operativa",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "C. Novoa", gestionProyecto: "", notas: "",
+    fichaId: null,
   },
   {
     id: 13, title: "Plan para mejorar la Cultura",
@@ -137,6 +155,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "Índice clima laboral",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "E. Lescano", gestionProyecto: "", notas: "",
+    fichaId: "11",
   },
   {
     id: 14, title: "Implementar un proceso para ventas estándar",
@@ -144,6 +163,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "Adopción proceso ventas",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "C. Sanchez", gestionProyecto: "", notas: "",
+    fichaId: "6",
   },
   {
     id: 15, title: "Plan de talento y sucesión",
@@ -151,6 +171,7 @@ const INITIAL_DATA: StatusInitiative[] = [
     avancePonderado: "sin-datos", kpiPrincipal: "Posiciones críticas cubiertas",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "E. Lescano", gestionProyecto: "", notas: "",
+    fichaId: "10",
   },
 ]
 
@@ -280,6 +301,551 @@ function SortTH({
   )
 }
 
+// ─── Expanded Ficha Detail Component ──────────────────────────────────────────
+
+function ExpandedFichaDetail({
+  row,
+  ficha,
+  pillarColor,
+  updateRow,
+  allData,
+}: {
+  row: StatusInitiative
+  ficha: InitiativeFicha | undefined
+  pillarColor: string
+  updateRow: (id: number, patch: Partial<StatusInitiative>) => void
+  allData: StatusInitiative[]
+}) {
+  if (!ficha) {
+    return (
+      <tr className="bg-slate-50/50">
+        <td className="pl-4 py-2" />
+        <td colSpan={11} className="px-3 py-3">
+          <div className="flex items-start gap-3">
+            <div className="flex-1">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1">Notas / Observaciones</p>
+              <EditableCell
+                value={row.notas}
+                onChange={(v) => updateRow(row.id, { notas: v })}
+                placeholder="Clic para agregar notas sobre esta iniciativa..."
+                multiline
+                className="w-full block text-slate-600"
+              />
+            </div>
+            <div className="shrink-0 space-y-2 pt-5">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-slate-400 w-24">Avance Pond.</span>
+                <TLButton value={row.avancePonderado} onChange={(v) => updateRow(row.id, { avancePonderado: v })} size="lg" />
+                <span className={`text-[10px] font-bold ${TL_CONFIG[row.avancePonderado].badge} px-2 py-0.5 rounded-full border`}>
+                  {TL_CONFIG[row.avancePonderado].label}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-slate-400 w-24">Avance KPI</span>
+                <TLButton value={row.avanceKpiColor} onChange={(v) => updateRow(row.id, { avanceKpiColor: v })} size="lg" />
+                <span className={`text-[10px] font-bold ${TL_CONFIG[row.avanceKpiColor].badge} px-2 py-0.5 rounded-full border`}>
+                  {TL_CONFIG[row.avanceKpiColor].label}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-slate-400 w-24">Act. Proyecto</span>
+                <TLButton value={row.avanceActividades} onChange={(v) => updateRow(row.id, { avanceActividades: v })} size="lg" />
+                <span className={`text-[10px] font-bold ${TL_CONFIG[row.avanceActividades].badge} px-2 py-0.5 rounded-full border`}>
+                  {TL_CONFIG[row.avanceActividades].label}
+                </span>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    )
+  }
+
+  // Ficha exists - show full detail
+  const HITO_STATUS_CFG: Record<string, { label: string; cls: string; dot: string }> = {
+    completado: { label: "Completado", cls: "bg-emerald-50 text-emerald-700 border-emerald-200", dot: "bg-emerald-500" },
+    "en-curso": { label: "En curso", cls: "bg-blue-50 text-blue-700 border-blue-200", dot: "bg-blue-500" },
+    pendiente: { label: "Pendiente", cls: "bg-amber-50 text-amber-700 border-amber-200", dot: "bg-amber-400" },
+    tbd: { label: "TBD", cls: "bg-slate-50 text-slate-500 border-slate-200", dot: "bg-slate-300" },
+  }
+
+  // Find related initiatives
+  const getRelatedInitiatives = () => {
+    const related: StatusInitiative[] = []
+    
+    // Get ficha family (e.g., "4" from "4.1", "4.2", "4.3")
+    const fichaFamily = row.fichaId?.split('.')[0]
+    
+    allData.forEach((initiative) => {
+      // Skip the current row
+      if (initiative.id === row.id) return
+      
+      // Check if related by:
+      // 1. Same ficha family (e.g., 4.1, 4.2, 4.3, 4.4)
+      const initFichaFamily = initiative.fichaId?.split('.')[0]
+      const isSameFichaFamily = fichaFamily && initFichaFamily === fichaFamily
+      
+      // 2. Same pillar
+      const isSamePillar = initiative.pillar === row.pillar
+      
+      // 3. Same leader
+      const isSameLeader = initiative.liderNegocio === row.liderNegocio
+      
+      // Add if any relationship exists (prioritize ficha family)
+      if (isSameFichaFamily || (isSamePillar && isSameLeader)) {
+        related.push(initiative)
+      }
+    })
+    
+    // Sort: ficha family first, then by pillar, then by id
+    return related.sort((a, b) => {
+      const aFichaFamily = a.fichaId?.split('.')[0]
+      const bFichaFamily = b.fichaId?.split('.')[0]
+      const isFichaFamily = fichaFamily && aFichaFamily === fichaFamily
+      const bIsFichaFamily = fichaFamily && bFichaFamily === fichaFamily
+      
+      if (isFichaFamily && !bIsFichaFamily) return -1
+      if (!isFichaFamily && bIsFichaFamily) return 1
+      
+      return a.id - b.id
+    })
+  }
+  
+  const relatedInitiatives = getRelatedInitiatives()
+
+  return (
+    <tr className="bg-linear-to-br from-slate-50 to-blue-50/30">
+      <td className="pl-4 py-2" />
+      <td colSpan={11} className="px-4 py-5">
+        <div className="space-y-4">
+          {/* Header with title and status badges */}
+          <div className="flex items-start justify-between gap-4 pb-3 border-b border-slate-200">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <span
+                  className="w-1 h-6 rounded-full"
+                  style={{ background: pillarColor }}
+                />
+                <h3 className="text-[13px] font-black text-slate-900">{ficha.title}</h3>
+                <span
+                  className="text-[9px] font-bold px-2 py-0.5 rounded-full"
+                  style={{ background: pillarColor + "18", color: pillarColor }}
+                >
+                  {ficha.pillar}
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-500 leading-relaxed whitespace-pre-line">
+                {ficha.descripcion}
+              </p>
+            </div>
+            <div className="shrink-0 space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-slate-400 w-24">Avance Pond.</span>
+                <TLButton value={row.avancePonderado} onChange={(v) => updateRow(row.id, { avancePonderado: v, manualAvancePonderado: true })} size="lg" />
+                <span className={`text-[10px] font-bold ${TL_CONFIG[row.avancePonderado].badge} px-2 py-0.5 rounded-full border`}>
+                  {TL_CONFIG[row.avancePonderado].label}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-slate-400 w-24">Avance KPI</span>
+                <TLButton value={row.avanceKpiColor} onChange={(v) => updateRow(row.id, { avanceKpiColor: v, manualAvanceKpiColor: true })} size="lg" />
+                <span className={`text-[10px] font-bold ${TL_CONFIG[row.avanceKpiColor].badge} px-2 py-0.5 rounded-full border`}>
+                  {TL_CONFIG[row.avanceKpiColor].label}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-slate-400 w-24">Act. Proyecto</span>
+                <TLButton value={row.avanceActividades} onChange={(v) => updateRow(row.id, { avanceActividades: v, manualAvanceActividades: true })} size="lg" />
+                <span className={`text-[10px] font-bold ${TL_CONFIG[row.avanceActividades].badge} px-2 py-0.5 rounded-full border`}>
+                  {TL_CONFIG[row.avanceActividades].label}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Main content - 2 column grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Left column */}
+            <div className="space-y-4">
+              {/* Racional estratégico */}
+              <div className="bg-white rounded-xl border border-slate-200 p-3">
+                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-2">
+                  📋 Racional Estratégico
+                </h4>
+                <p className="text-[10px] text-slate-600 leading-relaxed whitespace-pre-line">
+                  {ficha.racionalEstrategico}
+                </p>
+              </div>
+
+              {/* Riesgos */}
+              {ficha.riesgos && ficha.riesgos.length > 0 && (
+                <div className="bg-white rounded-xl border border-red-200 p-3">
+                  <h4 className="text-[10px] font-black text-red-400 uppercase tracking-wider mb-2">
+                    ⚠️ Riesgos Identificados
+                  </h4>
+                  <ul className="space-y-1">
+                    {ficha.riesgos.map((riesgo, i) => (
+                      <li key={i} className="text-[10px] text-slate-600 leading-relaxed flex gap-2">
+                        <span className="text-red-400 shrink-0">•</span>
+                        <span>{riesgo}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Impacto e Inversión */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-white rounded-xl border border-emerald-200 p-3">
+                  <h4 className="text-[9px] font-black text-emerald-600 uppercase tracking-wider mb-1">
+                    💰 Impacto
+                  </h4>
+                  <p className="text-[10px] text-slate-600 leading-snug">{ficha.impacto}</p>
+                </div>
+                <div className="bg-white rounded-xl border border-blue-200 p-3">
+                  <h4 className="text-[9px] font-black text-blue-600 uppercase tracking-wider mb-1">
+                    💵 Inversión
+                  </h4>
+                  <p className="text-[10px] text-slate-600 leading-snug">{ficha.inversion}</p>
+                </div>
+              </div>
+
+              {/* Equipo */}
+              <div className="bg-white rounded-xl border border-slate-200 p-3">
+                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-2">
+                  👥 Equipo del Proyecto
+                </h4>
+                <div className="space-y-1.5 text-[10px]">
+                  <div className="flex items-start gap-2">
+                    <span className="text-slate-400 w-28 shrink-0">Sponsor:</span>
+                    <span className="font-semibold text-slate-700">{ficha.sponsor}</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-slate-400 w-28 shrink-0">Líder Proyecto:</span>
+                    <span className="font-semibold text-slate-700">{ficha.liderProyecto}</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-slate-400 w-28 shrink-0">Gestión Proyecto:</span>
+                    <span className="font-semibold text-slate-700">{ficha.gestionProyecto}</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-slate-400 w-28 shrink-0">Equipo:</span>
+                    <span className="text-slate-600">{ficha.equipoProyecto}</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-slate-400 w-28 shrink-0">Frentes:</span>
+                    <span className="text-slate-600">{ficha.frentesTrabajo}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right column */}
+            <div className="space-y-4">
+              {/* Objetivo */}
+              <div className="bg-white rounded-xl border border-blue-200 p-3">
+                <h4 className="text-[10px] font-black text-blue-600 uppercase tracking-wider mb-2">
+                  🎯 Objetivo
+                </h4>
+                <p className="text-[10px] text-slate-700 leading-relaxed font-medium">
+                  {ficha.objetivo}
+                </p>
+              </div>
+
+              {/* KPIs */}
+              <div className="bg-white rounded-xl border border-slate-200 p-3">
+                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-2">
+                  📊 KPIs
+                </h4>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-[9px] border-collapse">
+                    <thead>
+                      <tr className="border-b border-slate-200">
+                        <th className="text-left py-1.5 pr-2 font-black text-slate-500 uppercase">KPI</th>
+                        <th className="text-center px-1 py-1.5 font-black text-slate-500 uppercase">2025</th>
+                        <th className="text-center px-1 py-1.5 font-black text-slate-500 uppercase">Q1-26</th>
+                        <th className="text-center px-1 py-1.5 font-black text-slate-500 uppercase">Q2-26</th>
+                        <th className="text-center px-1 py-1.5 font-black text-slate-500 uppercase">Q3-26</th>
+                        <th className="text-center px-1 py-1.5 font-black text-slate-500 uppercase">Q4-26</th>
+                        <th className="text-center px-1 py-1.5 font-black text-slate-500 uppercase">Meta</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {ficha.kpis.map((kpi, i) => (
+                        <tr key={i} className={kpi.esPrincipal ? "bg-blue-50/50" : ""}>
+                          <td className="py-1.5 pr-2">
+                            <div className="flex items-center gap-1">
+                              {kpi.esPrincipal && <span className="text-blue-600">★</span>}
+                              <span className={kpi.esPrincipal ? "font-bold text-slate-700" : "text-slate-600"}>
+                                {kpi.descripcion}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="text-center px-1 py-1.5 font-semibold text-slate-600">{kpi.real2025}</td>
+                          <td className="text-center px-1 py-1.5 text-slate-600">{kpi.q1_26}</td>
+                          <td className="text-center px-1 py-1.5 text-slate-600">{kpi.q2_26}</td>
+                          <td className="text-center px-1 py-1.5 text-slate-600">{kpi.q3_26}</td>
+                          <td className="text-center px-1 py-1.5 text-slate-600">{kpi.q4_26}</td>
+                          <td className="text-center px-1 py-1.5 font-black text-slate-700">{kpi.meta2026}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Hitos */}
+              <div className="bg-white rounded-xl border border-slate-200 p-3">
+                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-2">
+                  📌 Hitos del Proyecto
+                </h4>
+                <div className="space-y-2">
+                  {ficha.hitos.map((hito, i) => {
+                    const statusCfg = HITO_STATUS_CFG[hito.status || "tbd"]
+                    return (
+                      <div key={i} className="flex items-start gap-2 border-l-2 border-slate-200 pl-2 py-1">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span className={`w-2 h-2 rounded-full ${statusCfg.dot}`} />
+                            <span className="text-[10px] font-semibold text-slate-700 leading-tight">
+                              {hito.descripcion}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-3 text-[9px] text-slate-500 ml-4">
+                            <span>📅 {hito.fechaEsperada}</span>
+                            <span>👤 {hito.responsable}</span>
+                            <span className={`px-1.5 py-0.5 rounded-full border text-[8px] font-bold ${statusCfg.cls}`}>
+                              {statusCfg.label}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Notas adicionales */}
+          <div className="bg-amber-50 rounded-xl border border-amber-200 p-3">
+            <h4 className="text-[10px] font-black text-amber-700 uppercase tracking-wider mb-2">
+              📝 Notas / Observaciones Adicionales
+            </h4>
+            <EditableCell
+              value={row.notas}
+              onChange={(v) => updateRow(row.id, { notas: v })}
+              placeholder="Clic para agregar notas adicionales sobre el status actual de la iniciativa..."
+              multiline
+              className="w-full block text-slate-700"
+            />
+          </div>
+
+          {/* Related initiatives section */}
+          {relatedInitiatives.length > 0 && (
+            <div className="bg-linear-to-br from-purple-50 to-pink-50 rounded-xl border border-purple-200 p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-[10px] font-black text-purple-700 uppercase tracking-wider">
+                  🔗 Iniciativas Relacionadas
+                </span>
+                <span className="text-[9px] font-bold text-purple-500 bg-purple-100 px-2 py-0.5 rounded-full">
+                  {relatedInitiatives.length}
+                </span>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                {relatedInitiatives.map((relInit) => {
+                  const relFicha = FICHAS.find((f) => f.id === relInit.fichaId)
+                  const PILLAR_COLORS: Record<string, string> = {
+                    "Protección y Optimización": "#9b111e",
+                    "Transformación": "#2563eb",
+                    "Nuevos Negocios": "#059669",
+                    "Habilitadoras": "#7c3aed",
+                  }
+                  const relPillarColor = PILLAR_COLORS[relInit.pillar] ?? "#64748b"
+                  const fichaFamily = row.fichaId?.split('.')[0]
+                  const relFichaFamily = relInit.fichaId?.split('.')[0]
+                  const isSameFamiliy = fichaFamily && relFichaFamily === fichaFamily
+
+                  return (
+                    <div
+                      key={relInit.id}
+                      className="bg-white rounded-lg border border-slate-200 p-3 hover:shadow-md transition-all"
+                    >
+                      {/* Header */}
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span
+                              className="w-0.5 h-4 rounded-full"
+                              style={{ background: relPillarColor }}
+                            />
+                            <span className="text-[10px] font-bold text-slate-700 leading-tight">
+                              {relInit.title}
+                            </span>
+                            {isSameFamiliy && (
+                              <span className="text-[8px] font-black text-purple-600 bg-purple-100 px-1.5 py-0.5 rounded-full">
+                                MISMO GRUPO
+                              </span>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span
+                              className="text-[8px] font-bold px-1.5 py-0.5 rounded-full"
+                              style={{ background: relPillarColor + "18", color: relPillarColor }}
+                            >
+                              {relInit.pillar}
+                            </span>
+                            {relInit.fichaId && (
+                              <span className="text-[8px] font-bold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-full">
+                                Ficha {relInit.fichaId}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex gap-1 shrink-0">
+                          <TLButton value={relInit.avancePonderado} readonly size="sm" />
+                          <TLButton value={relInit.avanceKpiColor} readonly size="sm" />
+                          <TLButton value={relInit.avanceActividades} readonly size="sm" />
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="space-y-2">
+                        {/* KPI Principal */}
+                        <div className="flex items-start gap-2 text-[9px]">
+                          <span className="text-slate-400 shrink-0 w-16">KPI:</span>
+                          <span className="font-semibold text-slate-600">{relInit.kpiPrincipal}</span>
+                        </div>
+
+                        {/* Avances */}
+                        <div className="flex items-center gap-3 text-[9px]">
+                          <div className="flex items-center gap-1">
+                            <span className="text-slate-400">Avance:</span>
+                            <span className="font-bold text-slate-600">{relInit.avanceKpi}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <span className="text-slate-400">Meta:</span>
+                            <span className="font-bold text-slate-600">{relInit.metaKpi}</span>
+                          </div>
+                        </div>
+
+                        {/* Team */}
+                        <div className="flex items-center gap-2 text-[9px] pt-2 border-t border-slate-100">
+                          <div className="flex items-center gap-1">
+                            <span
+                              className="w-4 h-4 rounded-full flex items-center justify-center text-[7px] font-black text-white"
+                              style={{ background: relPillarColor }}
+                            >
+                              {relInit.liderNegocio.split(".")[0][0]}
+                            </span>
+                            <span className="text-slate-600 font-medium">{relInit.liderNegocio}</span>
+                          </div>
+                          {relInit.gestionProyecto && (
+                            <>
+                              <span className="text-slate-300">·</span>
+                              <span className="text-slate-500">PM: {relInit.gestionProyecto}</span>
+                            </>
+                          )}
+                        </div>
+
+                        {/* Ficha details if available */}
+                        {relFicha && (
+                          <div className="bg-slate-50 rounded p-2 text-[9px] text-slate-600 leading-relaxed">
+                            <span className="font-semibold text-slate-700">Objetivo:</span> {relFicha.objetivo.substring(0, 100)}
+                            {relFicha.objetivo.length > 100 && "..."}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+              <p className="text-[9px] text-purple-600 mt-3 italic">
+                ℹ️ Iniciativas relacionadas por mismo pilar, líder o grupo de proyecto
+              </p>
+            </div>
+          )}
+
+          {/* Footer metadata */}
+          <div className="flex items-center justify-between text-[9px] text-slate-400 pt-2 border-t border-slate-200">
+            <span>Ficha ID: {ficha.id} · Versión: {ficha.version || "—"}</span>
+            <span>Última actualización: {ficha.ultimaActualizacion || "—"}</span>
+          </div>
+        </div>
+      </td>
+    </tr>
+  )
+}
+
+// ─── Auto-Calculation Functions ──────────────────────────────────────────────
+
+/**
+ * Calcula el avance de actividades basándose en el estado de los hitos
+ */
+function calculateActivityProgress(ficha: InitiativeFicha | undefined): TrafficLight {
+  if (!ficha || !ficha.hitos || ficha.hitos.length === 0) {
+    return "sin-datos"
+  }
+
+  const total = ficha.hitos.length
+  const completados = ficha.hitos.filter(h => h.status === "completado").length
+  const enCurso = ficha.hitos.filter(h => h.status === "en-curso").length
+  const porcentaje = (completados / total) * 100
+
+  // Verde: 80%+ completados
+  // Amarillo: 50%-79% completados O hay actividades en curso
+  // Rojo: <50% completados y sin actividades en curso
+  if (porcentaje >= 80) return "verde"
+  if (porcentaje >= 50 || enCurso > 0) return "amarillo"
+  return "rojo"
+}
+
+/**
+ * Calcula el avance del KPI principal basándose en el progreso real vs meta
+ */
+function calculateKpiProgress(ficha: InitiativeFicha | undefined): { color: TrafficLight; avance: string; meta: string } {
+  if (!ficha || !ficha.kpis || ficha.kpis.length === 0) {
+    return { color: "sin-datos", avance: "-", meta: "-" }
+  }
+
+  // Buscar el KPI principal
+  const kpiPrincipal = ficha.kpis.find(k => k.esPrincipal) || ficha.kpis[0]
+  
+  // Usar statusReal si existe, si no calcular con base en Q1
+  const color = kpiPrincipal.statusReal || "sin-datos"
+  const avance = kpiPrincipal.q1_26 || kpiPrincipal.real2025 || "-"
+  const meta = kpiPrincipal.meta2026 || "-"
+
+  return { color, avance, meta }
+}
+
+/**
+ * Calcula el avance ponderado (60% actividades + 40% KPI)
+ */
+function calculateWeightedProgress(actividadesColor: TrafficLight, kpiColor: TrafficLight): TrafficLight {
+  // Si ambos son sin-datos, retornar sin-datos
+  if (actividadesColor === "sin-datos" && kpiColor === "sin-datos") {
+    return "sin-datos"
+  }
+
+  // Convertir colores a puntuación (verde=3, amarillo=2, rojo=1, sin-datos=0)
+  const scoreMap = { verde: 3, amarillo: 2, rojo: 1, "sin-datos": 0 }
+  const actScore = scoreMap[actividadesColor]
+  const kpiScore = scoreMap[kpiColor]
+
+  // Si uno es sin-datos, usar sólo el otro
+  if (actividadesColor === "sin-datos") return kpiColor
+  if (kpiColor === "sin-datos") return actividadesColor
+
+  // Calcular promedio ponderado (60% actividades, 40% KPI)
+  const weighted = (actScore * 0.6) + (kpiScore * 0.4)
+
+  // Convertir puntuación a color
+  if (weighted >= 2.5) return "verde"
+  if (weighted >= 1.5) return "amarillo"
+  return "rojo"
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function StrategicStatusDashboard() {
@@ -287,6 +853,7 @@ export function StrategicStatusDashboard() {
   const [filterStatus, setFilterStatus] = useState<TrafficLight | "all">("all")
   const [filterPillar, setFilterPillar] = useState<string>("all")
   const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set())
+  const [expandedActivities, setExpandedActivities] = useState<Set<number>>(new Set())
   const [sortField, setSortField] = useState<SortField>("id")
   const [sortDir, setSortDir] = useState<SortDir>("asc")
   const [showLegend, setShowLegend] = useState(true)
@@ -304,6 +871,49 @@ export function StrategicStatusDashboard() {
     })
   }
 
+  const toggleActivities = (id: number) => {
+    setExpandedActivities((prev) => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
+  }
+
+  // ── Auto-calculate values from FICHAS ────────────────────────────────────────
+  const enrichedData = useMemo(() => {
+    return data.map(initiative => {
+      const ficha = FICHAS.find(f => f.id === initiative.fichaId)
+      
+      if (!ficha) {
+        // Si no hay ficha, mantener valores originales
+        return initiative
+      }
+
+      // Calcular avances automáticamente solo si no fueron modificados manualmente
+      const avanceActividades = initiative.manualAvanceActividades 
+        ? initiative.avanceActividades 
+        : calculateActivityProgress(ficha)
+      
+      const kpiInfo = calculateKpiProgress(ficha)
+      const avanceKpiColor = initiative.manualAvanceKpiColor 
+        ? initiative.avanceKpiColor 
+        : kpiInfo.color
+      
+      const avancePonderado = initiative.manualAvancePonderado 
+        ? initiative.avancePonderado 
+        : calculateWeightedProgress(avanceActividades, avanceKpiColor)
+
+      return {
+        ...initiative,
+        avancePonderado,
+        avanceKpi: kpiInfo.avance,
+        metaKpi: kpiInfo.meta,
+        avanceKpiColor,
+        avanceActividades,
+      }
+    })
+  }, [data])
+
   // ── Sort ────────────────────────────────────────────────────────────────────
   const handleSort = (field: SortField) => {
     setSortDir((prev) => (sortField === field ? (prev === "asc" ? "desc" : "asc") : "asc"))
@@ -312,11 +922,11 @@ export function StrategicStatusDashboard() {
 
   // ── Derived state ────────────────────────────────────────────────────────────
   const pillars = useMemo(() => {
-    return ["all", ...Array.from(new Set(data.map((d) => d.pillar)))]
-  }, [data])
+    return ["all", ...Array.from(new Set(enrichedData.map((d) => d.pillar)))]
+  }, [enrichedData])
 
   const sorted = useMemo(() => {
-    const base = data.filter((r) => {
+    const base = enrichedData.filter((r) => {
       const statusMatch = filterStatus === "all" || r.avancePonderado === filterStatus
       const pillarMatch = filterPillar === "all" || r.pillar === filterPillar
       return statusMatch && pillarMatch
@@ -333,14 +943,14 @@ export function StrategicStatusDashboard() {
         ? String(va).localeCompare(String(vb))
         : String(vb).localeCompare(String(va))
     })
-  }, [data, filterStatus, filterPillar, sortField, sortDir])
+  }, [enrichedData, filterStatus, filterPillar, sortField, sortDir])
 
   // ── Summary stats ────────────────────────────────────────────────────────────
-  const total = data.length
-  const countVerde    = data.filter((r) => r.avancePonderado === "verde").length
-  const countAmarillo = data.filter((r) => r.avancePonderado === "amarillo").length
-  const countRojo     = data.filter((r) => r.avancePonderado === "rojo").length
-  const countSinDatos = data.filter((r) => r.avancePonderado === "sin-datos").length
+  const total = enrichedData.length
+  const countVerde    = enrichedData.filter((r) => r.avancePonderado === "verde").length
+  const countAmarillo = enrichedData.filter((r) => r.avancePonderado === "amarillo").length
+  const countRojo     = enrichedData.filter((r) => r.avancePonderado === "rojo").length
+  const countSinDatos = enrichedData.filter((r) => r.avancePonderado === "sin-datos").length
   const pctVerde    = Math.round((countVerde / total) * 100)
   const pctAmarillo = Math.round((countAmarillo / total) * 100)
   const pctRojo     = Math.round((countRojo / total) * 100)
@@ -546,13 +1156,15 @@ export function StrategicStatusDashboard() {
               )}
               {sorted.map((row, idx) => {
                 const isExpanded = expandedRows.has(row.id)
+                const isActivitiesExpanded = expandedActivities.has(row.id)
                 const pillarColor = PILLAR_COLORS[row.pillar] ?? "#64748b"
                 const rowBg = idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"
+                const ficha = FICHAS.find((f) => f.id === row.fichaId)
+                const hasActivities = ficha && ficha.hitos && ficha.hitos.length > 0
 
                 return (
-                  <>
+                  <React.Fragment key={row.id}>
                     <tr
-                      key={row.id}
                       className={`${rowBg} hover:bg-blue-50/40 transition-colors group`}
                     >
                       {/* N° */}
@@ -562,9 +1174,36 @@ export function StrategicStatusDashboard() {
 
                       {/* Title */}
                       <td className="px-3 py-2.5">
-                        <p className="text-[11px] font-semibold text-slate-800 leading-snug">
-                          {row.title}
-                        </p>
+                        <button
+                          onClick={() => hasActivities && toggleActivities(row.id)}
+                          className={`text-left w-full ${
+                            hasActivities
+                              ? "cursor-pointer hover:text-blue-600 transition-colors"
+                              : "cursor-default"
+                          }`}
+                          disabled={!hasActivities}
+                          title={hasActivities ? `Clic para ${isActivitiesExpanded ? "contraer" : "expandir"} actividades` : undefined}
+                        >
+                          <div className="flex items-center gap-2">
+                            {hasActivities && (
+                              <span className={`text-[10px] font-bold transition-all ${
+                                isActivitiesExpanded ? "text-blue-600 rotate-90" : "text-blue-500"
+                              }`}>
+                                ▶
+                              </span>
+                            )}
+                            <p className={`text-[11px] font-semibold leading-snug flex-1 ${
+                              hasActivities ? "text-slate-800 group-hover:text-blue-700" : "text-slate-800"
+                            }`}>
+                              {row.title}
+                            </p>
+                            {hasActivities && (
+                              <span className="text-[8px] font-bold text-blue-600 bg-blue-100 px-1.5 py-0.5 rounded-full shrink-0">
+                                {ficha.hitos.length} act.
+                              </span>
+                            )}
+                          </div>
+                        </button>
                       </td>
 
                       {/* Pillar */}
@@ -582,7 +1221,7 @@ export function StrategicStatusDashboard() {
                         <div className="flex justify-center">
                           <TLButton
                             value={row.avancePonderado}
-                            onChange={(v) => updateRow(row.id, { avancePonderado: v })}
+                            onChange={(v) => updateRow(row.id, { avancePonderado: v, manualAvancePonderado: true })}
                           />
                         </div>
                       </td>
@@ -622,7 +1261,7 @@ export function StrategicStatusDashboard() {
                         <div className="flex justify-center">
                           <TLButton
                             value={row.avanceKpiColor}
-                            onChange={(v) => updateRow(row.id, { avanceKpiColor: v })}
+                            onChange={(v) => updateRow(row.id, { avanceKpiColor: v, manualAvanceKpiColor: true })}
                           />
                         </div>
                       </td>
@@ -632,7 +1271,7 @@ export function StrategicStatusDashboard() {
                         <div className="flex justify-center">
                           <TLButton
                             value={row.avanceActividades}
-                            onChange={(v) => updateRow(row.id, { avanceActividades: v })}
+                            onChange={(v) => updateRow(row.id, { avanceActividades: v, manualAvanceActividades: true })}
                           />
                         </div>
                       </td>
@@ -676,50 +1315,119 @@ export function StrategicStatusDashboard() {
                       </td>
                     </tr>
 
+                    {/* Expanded activities/hitos rows */}
+                    {isActivitiesExpanded && ficha && ficha.hitos && ficha.hitos.length > 0 && (
+                      <>
+                        <tr className="bg-blue-100/30">
+                          <td colSpan={12} className="px-3 py-1.5">
+                            <div className="flex items-center justify-between">
+                              <span className="text-[9px] font-black text-blue-700 uppercase tracking-wider">
+                                📋 Actividades y Procesos
+                              </span>
+                              <span className="text-[8px] text-blue-600 font-semibold">
+                                {ficha.hitos.filter(h => h.status === "completado").length} de {ficha.hitos.length} completadas
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                        {ficha.hitos.map((hito, hitoIdx) => {
+                          const HITO_STATUS_CFG: Record<string, { label: string; cls: string; dot: string; tlValue: TrafficLight }> = {
+                            completado: { label: "Completado", cls: "bg-emerald-50 text-emerald-700 border-emerald-200", dot: "bg-emerald-500", tlValue: "verde" },
+                            "en-curso": { label: "En curso", cls: "bg-blue-50 text-blue-700 border-blue-200", dot: "bg-blue-500", tlValue: "amarillo" },
+                            pendiente: { label: "Pendiente", cls: "bg-amber-50 text-amber-700 border-amber-200", dot: "bg-amber-400", tlValue: "amarillo" },
+                            tbd: { label: "TBD", cls: "bg-slate-50 text-slate-500 border-slate-200", dot: "bg-slate-300", tlValue: "sin-datos" },
+                          }
+                          const statusCfg = HITO_STATUS_CFG[hito.status || "tbd"]
+                          
+                          return (
+                            <tr key={`${row.id}-hito-${hitoIdx}`} className="bg-blue-50/20 border-l-4 border-blue-400 hover:bg-blue-50/40 transition-colors">
+                              {/* Activity number */}
+                              <td className="px-3 py-2.5 text-center">
+                                <div className="flex flex-col items-center gap-0.5">
+                                  <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[7px] font-black text-white ${statusCfg.dot}`}>
+                                    {hitoIdx + 1}
+                                  </span>
+                                </div>
+                              </td>
+
+                              {/* Activity description */}
+                              <td className="px-3 py-2.5" colSpan={2}>
+                                <div className="pl-4">
+                                  <p className="text-[10px] font-semibold text-slate-700 leading-tight mb-1">
+                                    {hito.descripcion}
+                                  </p>
+                                  <div className="flex items-center gap-2 text-[8px] text-slate-500">
+                                    <span className="font-medium">📅 {hito.fechaEsperada}</span>
+                                  </div>
+                                </div>
+                              </td>
+
+                              {/* Status badge */}
+                              <td className="px-3 py-2.5 text-center">
+                                <div className="flex justify-center">
+                                  <TLButton value={statusCfg.tlValue} readonly size="sm" />
+                                </div>
+                              </td>
+
+                              {/* Responsable in KPI column */}
+                              <td className="px-3 py-2.5" colSpan={3}>
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[8px] text-slate-400">Responsable:</span>
+                                  <span className="text-[9px] font-semibold text-slate-700">{hito.responsable}</span>
+                                </div>
+                              </td>
+
+                              {/* Empty columns for alignment */}
+                              <td className="px-3 py-2.5"></td>
+                              <td className="px-3 py-2.5"></td>
+                              
+                              {/* Status label */}
+                              <td className="px-3 py-2.5" colSpan={2}>
+                                <span className={`text-[8px] font-bold px-2 py-1 rounded-full border inline-block ${statusCfg.cls}`}>
+                                  {statusCfg.label}
+                                </span>
+                              </td>
+                              
+                              {/* Empty expand button space */}
+                              <td className="px-3 py-2.5"></td>
+                            </tr>
+                          )
+                        })}
+                        {/* Summary row */}
+                        <tr className="bg-blue-100/30 border-t-2 border-blue-300">
+                          <td colSpan={12} className="px-3 py-1.5">
+                            <div className="flex items-center justify-between text-[9px]">
+                              <div className="flex items-center gap-3">
+                                <span className="text-blue-700 font-bold">
+                                  Total: {ficha.hitos.length} actividades
+                                </span>
+                                <span className="text-slate-500">
+                                  Equipo: {ficha.equipoProyecto}
+                                </span>
+                              </div>
+                              <button
+                                onClick={() => toggleActivities(row.id)}
+                                className="text-blue-600 hover:text-blue-700 font-semibold"
+                              >
+                                ✕ Contraer
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    )}
+
                     {/* Expanded notes row */}
                     {isExpanded && (
-                      <tr key={`${row.id}-notes`} className="bg-blue-50/50">
-                        <td className="pl-4 py-2" />
-                        <td colSpan={11} className="px-3 py-3">
-                          <div className="flex items-start gap-3">
-                            <div className="flex-1">
-                              <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1">Notas / Observaciones</p>
-                              <EditableCell
-                                value={row.notas}
-                                onChange={(v) => updateRow(row.id, { notas: v })}
-                                placeholder="Clic para agregar notas sobre esta iniciativa..."
-                                multiline
-                                className="w-full block text-slate-600"
-                              />
-                            </div>
-                            <div className="shrink-0 space-y-2 pt-5">
-                              <div className="flex items-center gap-2">
-                                <span className="text-[10px] text-slate-400 w-24">Avance Pond.</span>
-                                <TLButton value={row.avancePonderado} onChange={(v) => updateRow(row.id, { avancePonderado: v })} size="lg" />
-                                <span className={`text-[10px] font-bold ${TL_CONFIG[row.avancePonderado].badge} px-2 py-0.5 rounded-full border`}>
-                                  {TL_CONFIG[row.avancePonderado].label}
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <span className="text-[10px] text-slate-400 w-24">Avance KPI</span>
-                                <TLButton value={row.avanceKpiColor} onChange={(v) => updateRow(row.id, { avanceKpiColor: v })} size="lg" />
-                                <span className={`text-[10px] font-bold ${TL_CONFIG[row.avanceKpiColor].badge} px-2 py-0.5 rounded-full border`}>
-                                  {TL_CONFIG[row.avanceKpiColor].label}
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <span className="text-[10px] text-slate-400 w-24">Act. Proyecto</span>
-                                <TLButton value={row.avanceActividades} onChange={(v) => updateRow(row.id, { avanceActividades: v })} size="lg" />
-                                <span className={`text-[10px] font-bold ${TL_CONFIG[row.avanceActividades].badge} px-2 py-0.5 rounded-full border`}>
-                                  {TL_CONFIG[row.avanceActividades].label}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
+                      <ExpandedFichaDetail
+                        row={row}
+                        ficha={FICHAS.find((f) => f.id === row.fichaId)}
+                        pillarColor={pillarColor}
+                        updateRow={updateRow}
+                        allData={data}
+                      />
                     )}
-                  </>
+                  </React.Fragment>
                 )
               })}
             </tbody>
