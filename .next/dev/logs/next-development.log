@@ -74,3 +74,7 @@ Check the render method of `tbody`.  It was passed a child from StrategicStatusD
 [02:20:37.991] Server  LOG     ✓ Compiled in 203ms
 [02:20:58.314] Server  LOG     ✓ Compiled in 208ms
 [02:22:18.875] Server  LOG     ✓ Compiled in 172ms
+[02:22:50.882] Server  LOG     ✓ Compiled in 175ms
+[02:27:12.396] Server  LOG     ✓ Compiled in 334ms
+[02:28:04.180] Server  LOG     ✓ Compiled in 176ms
+[02:29:07.789] Server  LOG     ✓ Compiled in 205ms

@@ -21,10 +21,6 @@ interface StatusInitiative {
   gestionProyecto: string  // editable – PM name
   notas: string            // expandable
   fichaId: string | null   // ID de la ficha ("1.1", "2", etc.)
-  // Manual override flags
-  manualAvancePonderado?: boolean
-  manualAvanceKpiColor?: boolean
-  manualAvanceActividades?: boolean
 }
 
 type SortField = "id" | "title" | "avancePonderado" | "liderNegocio" | "avanceKpiColor" | "avanceActividades"
@@ -441,21 +437,21 @@ function ExpandedFichaDetail({
             <div className="shrink-0 space-y-2">
               <div className="flex items-center gap-2">
                 <span className="text-[10px] text-slate-400 w-24">Avance Pond.</span>
-                <TLButton value={row.avancePonderado} onChange={(v) => updateRow(row.id, { avancePonderado: v, manualAvancePonderado: true })} size="lg" />
+                <TLButton value={row.avancePonderado} onChange={(v) => updateRow(row.id, { avancePonderado: v })} size="lg" />
                 <span className={`text-[10px] font-bold ${TL_CONFIG[row.avancePonderado].badge} px-2 py-0.5 rounded-full border`}>
                   {TL_CONFIG[row.avancePonderado].label}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] text-slate-400 w-24">Avance KPI</span>
-                <TLButton value={row.avanceKpiColor} onChange={(v) => updateRow(row.id, { avanceKpiColor: v, manualAvanceKpiColor: true })} size="lg" />
+                <TLButton value={row.avanceKpiColor} onChange={(v) => updateRow(row.id, { avanceKpiColor: v })} size="lg" />
                 <span className={`text-[10px] font-bold ${TL_CONFIG[row.avanceKpiColor].badge} px-2 py-0.5 rounded-full border`}>
                   {TL_CONFIG[row.avanceKpiColor].label}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] text-slate-400 w-24">Act. Proyecto</span>
-                <TLButton value={row.avanceActividades} onChange={(v) => updateRow(row.id, { avanceActividades: v, manualAvanceActividades: true })} size="lg" />
+                <TLButton value={row.avanceActividades} onChange={(v) => updateRow(row.id, { avanceActividades: v })} size="lg" />
                 <span className={`text-[10px] font-bold ${TL_CONFIG[row.avanceActividades].badge} px-2 py-0.5 rounded-full border`}>
                   {TL_CONFIG[row.avanceActividades].label}
                 </span>
@@ -777,75 +773,6 @@ function ExpandedFichaDetail({
   )
 }
 
-// ─── Auto-Calculation Functions ──────────────────────────────────────────────
-
-/**
- * Calcula el avance de actividades basándose en el estado de los hitos
- */
-function calculateActivityProgress(ficha: InitiativeFicha | undefined): TrafficLight {
-  if (!ficha || !ficha.hitos || ficha.hitos.length === 0) {
-    return "sin-datos"
-  }
-
-  const total = ficha.hitos.length
-  const completados = ficha.hitos.filter(h => h.status === "completado").length
-  const enCurso = ficha.hitos.filter(h => h.status === "en-curso").length
-  const porcentaje = (completados / total) * 100
-
-  // Verde: 80%+ completados
-  // Amarillo: 50%-79% completados O hay actividades en curso
-  // Rojo: <50% completados y sin actividades en curso
-  if (porcentaje >= 80) return "verde"
-  if (porcentaje >= 50 || enCurso > 0) return "amarillo"
-  return "rojo"
-}
-
-/**
- * Calcula el avance del KPI principal basándose en el progreso real vs meta
- */
-function calculateKpiProgress(ficha: InitiativeFicha | undefined): { color: TrafficLight; avance: string; meta: string } {
-  if (!ficha || !ficha.kpis || ficha.kpis.length === 0) {
-    return { color: "sin-datos", avance: "-", meta: "-" }
-  }
-
-  // Buscar el KPI principal
-  const kpiPrincipal = ficha.kpis.find(k => k.esPrincipal) || ficha.kpis[0]
-  
-  // Usar statusReal si existe, si no calcular con base en Q1
-  const color = kpiPrincipal.statusReal || "sin-datos"
-  const avance = kpiPrincipal.q1_26 || kpiPrincipal.real2025 || "-"
-  const meta = kpiPrincipal.meta2026 || "-"
-
-  return { color, avance, meta }
-}
-
-/**
- * Calcula el avance ponderado (60% actividades + 40% KPI)
- */
-function calculateWeightedProgress(actividadesColor: TrafficLight, kpiColor: TrafficLight): TrafficLight {
-  // Si ambos son sin-datos, retornar sin-datos
-  if (actividadesColor === "sin-datos" && kpiColor === "sin-datos") {
-    return "sin-datos"
-  }
-
-  // Convertir colores a puntuación (verde=3, amarillo=2, rojo=1, sin-datos=0)
-  const scoreMap = { verde: 3, amarillo: 2, rojo: 1, "sin-datos": 0 }
-  const actScore = scoreMap[actividadesColor]
-  const kpiScore = scoreMap[kpiColor]
-
-  // Si uno es sin-datos, usar sólo el otro
-  if (actividadesColor === "sin-datos") return kpiColor
-  if (kpiColor === "sin-datos") return actividadesColor
-
-  // Calcular promedio ponderado (60% actividades, 40% KPI)
-  const weighted = (actScore * 0.6) + (kpiScore * 0.4)
-
-  // Convertir puntuación a color
-  if (weighted >= 2.5) return "verde"
-  if (weighted >= 1.5) return "amarillo"
-  return "rojo"
-}
-
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function StrategicStatusDashboard() {
@@ -879,41 +806,6 @@ export function StrategicStatusDashboard() {
     })
   }
 
-  // ── Auto-calculate values from FICHAS ────────────────────────────────────────
-  const enrichedData = useMemo(() => {
-    return data.map(initiative => {
-      const ficha = FICHAS.find(f => f.id === initiative.fichaId)
-      
-      if (!ficha) {
-        // Si no hay ficha, mantener valores originales
-        return initiative
-      }
-
-      // Calcular avances automáticamente solo si no fueron modificados manualmente
-      const avanceActividades = initiative.manualAvanceActividades 
-        ? initiative.avanceActividades 
-        : calculateActivityProgress(ficha)
-      
-      const kpiInfo = calculateKpiProgress(ficha)
-      const avanceKpiColor = initiative.manualAvanceKpiColor 
-        ? initiative.avanceKpiColor 
-        : kpiInfo.color
-      
-      const avancePonderado = initiative.manualAvancePonderado 
-        ? initiative.avancePonderado 
-        : calculateWeightedProgress(avanceActividades, avanceKpiColor)
-
-      return {
-        ...initiative,
-        avancePonderado,
-        avanceKpi: kpiInfo.avance,
-        metaKpi: kpiInfo.meta,
-        avanceKpiColor,
-        avanceActividades,
-      }
-    })
-  }, [data])
-
   // ── Sort ────────────────────────────────────────────────────────────────────
   const handleSort = (field: SortField) => {
     setSortDir((prev) => (sortField === field ? (prev === "asc" ? "desc" : "asc") : "asc"))
@@ -922,11 +814,11 @@ export function StrategicStatusDashboard() {
 
   // ── Derived state ────────────────────────────────────────────────────────────
   const pillars = useMemo(() => {
-    return ["all", ...Array.from(new Set(enrichedData.map((d) => d.pillar)))]
-  }, [enrichedData])
+    return ["all", ...Array.from(new Set(data.map((d) => d.pillar)))]
+  }, [data])
 
   const sorted = useMemo(() => {
-    const base = enrichedData.filter((r) => {
+    const base = data.filter((r) => {
       const statusMatch = filterStatus === "all" || r.avancePonderado === filterStatus
       const pillarMatch = filterPillar === "all" || r.pillar === filterPillar
       return statusMatch && pillarMatch
@@ -943,14 +835,14 @@ export function StrategicStatusDashboard() {
         ? String(va).localeCompare(String(vb))
         : String(vb).localeCompare(String(va))
     })
-  }, [enrichedData, filterStatus, filterPillar, sortField, sortDir])
+  }, [data, filterStatus, filterPillar, sortField, sortDir])
 
   // ── Summary stats ────────────────────────────────────────────────────────────
-  const total = enrichedData.length
-  const countVerde    = enrichedData.filter((r) => r.avancePonderado === "verde").length
-  const countAmarillo = enrichedData.filter((r) => r.avancePonderado === "amarillo").length
-  const countRojo     = enrichedData.filter((r) => r.avancePonderado === "rojo").length
-  const countSinDatos = enrichedData.filter((r) => r.avancePonderado === "sin-datos").length
+  const total = data.length
+  const countVerde    = data.filter((r) => r.avancePonderado === "verde").length
+  const countAmarillo = data.filter((r) => r.avancePonderado === "amarillo").length
+  const countRojo     = data.filter((r) => r.avancePonderado === "rojo").length
+  const countSinDatos = data.filter((r) => r.avancePonderado === "sin-datos").length
   const pctVerde    = Math.round((countVerde / total) * 100)
   const pctAmarillo = Math.round((countAmarillo / total) * 100)
   const pctRojo     = Math.round((countRojo / total) * 100)
@@ -1221,7 +1113,7 @@ export function StrategicStatusDashboard() {
                         <div className="flex justify-center">
                           <TLButton
                             value={row.avancePonderado}
-                            onChange={(v) => updateRow(row.id, { avancePonderado: v, manualAvancePonderado: true })}
+                            onChange={(v) => updateRow(row.id, { avancePonderado: v })}
                           />
                         </div>
                       </td>
@@ -1261,7 +1153,7 @@ export function StrategicStatusDashboard() {
                         <div className="flex justify-center">
                           <TLButton
                             value={row.avanceKpiColor}
-                            onChange={(v) => updateRow(row.id, { avanceKpiColor: v, manualAvanceKpiColor: true })}
+                            onChange={(v) => updateRow(row.id, { avanceKpiColor: v })}
                           />
                         </div>
                       </td>
@@ -1271,7 +1163,7 @@ export function StrategicStatusDashboard() {
                         <div className="flex justify-center">
                           <TLButton
                             value={row.avanceActividades}
-                            onChange={(v) => updateRow(row.id, { avanceActividades: v, manualAvanceActividades: true })}
+                            onChange={(v) => updateRow(row.id, { avanceActividades: v })}
                           />
                         </div>
                       </td>
