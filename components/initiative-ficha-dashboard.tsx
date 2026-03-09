@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TIPOS
@@ -499,6 +499,371 @@ export const FICHAS: InitiativeFicha[] = [
     version: "Nov. 2025",
     ultimaActualizacion: "Marzo 2026",
   },
+  // ─────────────────────────────────────────────────────────────────────────
+  // FICHA 3
+  // ─────────────────────────────────────────────────────────────────────────
+  {
+    id: "3",
+    title: "Ordenar la oferta a clientes",
+    pillar: "Protección y Optimización",
+    pillarColor: "#9b111e",
+    avancePonderado: "amarillo",
+
+    descripcion:
+      "Optimizar la efectividad de nuestras estrategias comerciales y operativas.\nAlcance: Todas las líneas de negocio: Lubricantes, Seg. Industrial y Neumáticos. Dividido en 5 etapas: 1) Diagnóstico, 2) Análisis de data, 3) Definición y aprobación de criterios y segmentos con su propuesta de valor, 4) Adopción y operativización de la segmentación, 5) Captura de valor y seguimiento de las estrategias en base en la segmentación.",
+
+    racionalEstrategico:
+      "Contar con una oferta comercial de acuerdo a la relevancia, potencial y necesidades de nuestros clientes para ofrecerles mayor valor al costo correcto para lograr el margen objetivo.",
+
+    riesgos: [
+      "Falta de consenso para unificar criterios",
+      "Falta de adopción",
+      "Pérdida de clientes / ventas",
+      "Posible sobre-segmentación o subsegmentación",
+    ],
+
+    impacto:
+      "¿Cuál es el impacto potencial cuantificado (ahorros o ventas incrementales en $) por la mejora en el margen bruto?",
+    inversion: "N/A",
+
+    objetivo:
+      "Optimizar la efectividad de nuestras estrategias comerciales y operativas enfocando recursos. Propuesta de segmentación interna (criterios: volumen, complejidad de atención, rentabilidad) y de mercado (entendimiento de las necesidades de compra B2B vs B2C).",
+
+    kpis: [
+      {
+        descripcion: "% de clientes con segmentación actualizada en ERP y CRM",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "75%",
+        q2_26: "100%",
+        q3_26: "-",
+        q4_26: "-",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "% Carteras actualizadas en función de la nueva segmentación",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "75%",
+        q2_26: "100%",
+        q3_26: "-",
+        q4_26: "-",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "% de Cumplimiento de los tiempos de entrega prometidos por segmento",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "-",
+        q2_26: "50%",
+        q3_26: "75%",
+        q4_26: "100%",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "% de cumplimiento de objetivos de rentabilidad por segmento",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "-",
+        q2_26: "-",
+        q3_26: "50%",
+        q4_26: "100%",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "% de categorías con margen bruto de 20% o más (por negocio)",
+        esPrincipal: true,
+        real2025: "TBD",
+        q1_26: "TBD",
+        q2_26: "TBD",
+        q3_26: "TBD",
+        q4_26: "TBD",
+        meta2026: "75%",
+        statusReal: "sin-datos",
+      },
+      {
+        descripcion: "NLS Total Soltrak",
+        esPrincipal: false,
+        real2025: "58%",
+        q1_26: "60%",
+        q2_26: "62%",
+        q3_26: "65%",
+        q4_26: "70%",
+        meta2026: "70%",
+      },
+    ],
+
+    sponsor: "Carlos Sánchez",
+    liderProyecto: "Jorge Céspedes",
+    gestionProyecto: "Raúl Urrunaga (L+N), SI (TBD)",
+    equipoProyecto: "Christian N. / JC. Paz., Supply / Finanzas",
+    frentesTrabajo: "Marketing, Producto, Finanzas, Logística y Comercial",
+
+    hitos: [
+      {
+        descripcion: "Diagnóstico segmentación actual y su aplicación operativa",
+        fechaEsperada: "Feb-26",
+        responsable: "J. Céspedes",
+        status: "completado",
+      },
+      {
+        descripcion: "Actualizar definiciones de criterios de segmentación",
+        fechaEsperada: "Feb-26",
+        responsable: "J. Céspedes | CN | JC. Paz",
+        status: "completado",
+      },
+      {
+        descripcion: "Definir y aprobar nuevos segmentos, perfiles de clientes, standard offer y propuesta de valor",
+        fechaEsperada: "Mar-26",
+        responsable: "J. Céspedes | CN | JC. Paz | GF | LOG",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Reestructurar procesos y org a nuevo modelo de segmentación",
+        fechaEsperada: "Mar-26",
+        responsable: "J. Céspedes | CN | JC. Paz | GF | LOG",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Actualizar segmentación de clientes en ERP, CRM y otros",
+        fechaEsperada: "Mar-26",
+        responsable: "J. Céspedes | CN | JC. Paz | GF | LOG",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Definición del portafolio óptimo",
+        fechaEsperada: "Abr-26",
+        responsable: "J. Céspedes | CN | JC. Paz",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Implementación de propuesta de valor (standard offer)",
+        fechaEsperada: "Ago-26",
+        responsable: "LOG | GF",
+        status: "pendiente",
+      },
+    ],
+
+    version: "Nov. 2025",
+    ultimaActualizacion: "Marzo 2026",
+  },
+  // ─────────────────────────────────────────────────────────────────────────
+  // FICHA 4.1
+  // ─────────────────────────────────────────────────────────────────────────
+  {
+    id: "4.1",
+    title: "Mejora de procesos: Proyecto Contabilidad",
+    pillar: "Habilitadores",
+    pillarColor: "#7c3aed",
+    avancePonderado: "amarillo",
+
+    descripcion:
+      "Mejorar las 9 procesos contables para ser eficiente en los recursos y cumplir con los tiempos de cierre. Reduciendo las operaciones manuales y cumpliendo las normas contables y tributarias.",
+
+    racionalEstrategico:
+      "Ser más ágil en los cierres de estados financieros.",
+
+    riesgos: [
+      "No contar con equipo dedicado al 100% en pruebas SAP (Negocio y corporativo)",
+      "Dificultad para encontrar conocimiento técnico del equipo proveedor TI.",
+    ],
+
+    impacto:
+      "¿Cuál es el ahorro estimado anualizado en $ por la implementación?\n- Reducción de 5 FTEs $20K (liquidaciones)",
+    inversion: "Inv. OPEX $150K SAP, Consultor TPI",
+
+    objetivo:
+      "Mejorar las 9 procesos contables para ser eficiente en los recursos y cumplir con los tiempos de cierre.",
+
+    kpis: [
+      {
+        descripcion: "Implementación de los 9 proyectos (TBD)",
+        esPrincipal: true,
+        real2025: "-",
+        q1_26: "0",
+        q2_26: "0",
+        q3_26: "0",
+        q4_26: "9",
+        meta2026: "9",
+        statusReal: "sin-datos",
+      },
+      {
+        descripcion: "Reducción de días de cierre",
+        esPrincipal: false,
+        real2025: "12",
+        q1_26: "12",
+        q2_26: "10",
+        q3_26: "9",
+        q4_26: "8",
+        meta2026: "8",
+      },
+      {
+        descripcion: "Reducción de personal",
+        esPrincipal: false,
+        real2025: "0",
+        q1_26: "0",
+        q2_26: "0",
+        q3_26: "0",
+        q4_26: "5",
+        meta2026: "5",
+      },
+    ],
+
+    sponsor: "Carlos Sánchez",
+    liderProyecto: "G. Florida",
+    gestionProyecto: "TBD",
+    equipoProyecto: "Contabilidad, MC&Data., TPI",
+    frentesTrabajo: "TPI Corp, TI Soltrak, Contabilidad",
+
+    hitos: [
+      {
+        descripcion: "Revisar las mejoras con el corporativo (TPI + Cont)",
+        fechaEsperada: "Feb-26",
+        responsable: "Conta / MC&P",
+        status: "completado",
+      },
+      {
+        descripcion: "Análisis de flujo de trabajo",
+        fechaEsperada: "Feb-26",
+        responsable: "Conta / MC&P",
+        status: "completado",
+      },
+      {
+        descripcion: "Contratar con un consultor SAP - Contabilidad",
+        fechaEsperada: "Mar-26",
+        responsable: "Conta / MC&P/TPI",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Revisión del equipo de MC & Data - Soluciones SAP / No SAP",
+        fechaEsperada: "Jun-26",
+        responsable: "Conta / MC&P/TPI",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Priorización de implementación",
+        fechaEsperada: "Jul-26",
+        responsable: "Conta / MC&P/TPI",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Implementación - Baja Complejidad",
+        fechaEsperada: "Dic-26",
+        responsable: "Conta / MC&P/TPI",
+        status: "pendiente",
+      },
+    ],
+
+    version: "Nov. 2025",
+    ultimaActualizacion: "Marzo 2026",
+  },
+  // ─────────────────────────────────────────────────────────────────────────
+  // FICHA 4.2
+  // ─────────────────────────────────────────────────────────────────────────
+  {
+    id: "4.2",
+    title: "Mejora de procesos: Proyecto (ADV + Créditos)",
+    pillar: "Habilitadores",
+    pillarColor: "#7c3aed",
+    avancePonderado: "amarillo",
+
+    descripcion:
+      "Mejorar las procesos operativos para ser eficiente en el order to cash, reduciendo el costo de operación a través de menos transacciones e implementación de automatizaciones.",
+
+    racionalEstrategico:
+      "- Reducir el costo de operación (reducción de transacciones y automatizaciones)\n- Incrementar el nivel de servicio.",
+
+    riesgos: [
+      "Dificultad para contar con equipo dedicado al proyecto (Equipo Corp TPI)",
+      "Complejidad en nuestros procesos (Reglas, roles, procedimientos)",
+      "Pricing.",
+    ],
+
+    impacto:
+      "Ahorro anual de $78K en el 2026 y de $130K en el 2027\nReducción de 10 FTEs $70K (liquidaciones)",
+    inversion: "Inv. $100K SAP, Consultor TPI",
+
+    objetivo:
+      "Mejorar las procesos operativos para ser eficiente en el order to cash.",
+
+    kpis: [
+      {
+        descripcion: "Ahorro anual: $130K",
+        esPrincipal: true,
+        real2025: "$0",
+        q1_26: "-",
+        q2_26: "$26K",
+        q3_26: "$52K",
+        q4_26: "$78K",
+        meta2026: "$78K",
+        statusReal: "sin-datos",
+      },
+      {
+        descripcion: "Reducción de Personal",
+        esPrincipal: false,
+        real2025: "-",
+        q1_26: "2",
+        q2_26: "4",
+        q3_26: "6",
+        q4_26: "10",
+        meta2026: "10",
+      },
+    ],
+
+    sponsor: "Carlos Sánchez",
+    liderProyecto: "G. Florida",
+    gestionProyecto: "TBD",
+    equipoProyecto: "Mejora Continua, ADV y Créditos, TPI",
+    frentesTrabajo: "TPI Corp, TI Soltrak, Contabilidad, Comercial y Producto",
+
+    hitos: [
+      {
+        descripcion: "Análisis de flujo de trabajo",
+        fechaEsperada: "Mar-26",
+        responsable: "MC&P/ADV y CxC",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Proyecto de gestor documental - Automatización de procesos (en proceso actualmente)",
+        fechaEsperada: "Mar-26",
+        responsable: "MC&P y GF",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Definir el nuevo perfil del gestor de cobranza",
+        fechaEsperada: "Abr-26",
+        responsable: "MC&P - TPI corp.",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Reducción de las emisión de letras: lineamientos con el negocio",
+        fechaEsperada: "Jun-26",
+        responsable: "MC&P y Negocio",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Reducción de las emisión de letras: evaluación de Implementación software en SAP",
+        fechaEsperada: "Sep-26",
+        responsable: "MC&P - TPI corp.",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Mejora de tiempos en los procesos de gestión de pedidos (Pool de mejoras levantadas del diagnóstico - ADV y Comercial)",
+        fechaEsperada: "Ago-26",
+        responsable: "MC&P - TPI corp.",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Automatización de Orden de compra (proyectos con Equipo de Analítica de la corp. - Mejoras No SAP)",
+        fechaEsperada: "Dic-26",
+        responsable: "Data Soltrak y Corp.",
+        status: "pendiente",
+      },
+    ],
+
+    version: "Nov. 2025",
+    ultimaActualizacion: "Marzo 2026",
+  },
   {
     id: "4.3",
     title: "Mejora de procesos: Proyecto Logístico",
@@ -781,6 +1146,245 @@ export const FICHAS: InitiativeFicha[] = [
         descripcion: "Monitoreo y Operación Sostenible",
         fechaEsperada: "Jun-Dic-26",
         responsable: "GF | CN | JO / TPI Corp",
+        status: "pendiente",
+      },
+    ],
+
+    version: "Nov. 2025",
+    ultimaActualizacion: "Marzo 2026",
+  },
+  // ─────────────────────────────────────────────────────────────────────────────
+  // FICHA 5
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "5",
+    title: "Implementar un proceso de S&OP robusto",
+    pillar: "Habilitadores",
+    pillarColor: "#7c3aed",
+    avancePonderado: "amarillo",
+
+    descripcion:
+      "Implementar el proceso para una gestión óptima del inventario.",
+
+    racionalEstrategico: "xx",
+
+    riesgos: [
+      "Resistencia en la adopción de roles y responsabilidades",
+      "Falta de disciplina",
+      "Dificultad en la obtención de información con calidad y a tiempo de los clientes",
+    ],
+
+    impacto: "xx",
+    inversion: "U$30k (asesoría) + U$60K (Software)",
+
+    objetivo:
+      "Implementar el proceso para una gestión óptima del inventario. Reducir el inventario (MTS) en xx% vs 2025.",
+
+    kpis: [
+      {
+        descripcion: "Reducir el inventario (soles) - MTS",
+        esPrincipal: true,
+        real2025: "85M",
+        q1_26: "-",
+        q2_26: "80M",
+        q3_26: "75M",
+        q4_26: "75M",
+        meta2026: "75M",
+        statusReal: "sin-datos",
+      },
+      {
+        descripcion: "Rotación de inventario",
+        esPrincipal: false,
+        real2025: "2.7x",
+        q1_26: "-",
+        q2_26: "3.3x",
+        q3_26: "3.3x",
+        q4_26: "3.3x",
+        meta2026: "3.3x",
+      },
+      {
+        descripcion: "Forecast Accuracy",
+        esPrincipal: false,
+        real2025: "60%",
+        q1_26: "60%",
+        q2_26: "63%",
+        q3_26: "68%",
+        q4_26: "75%",
+        meta2026: "75%",
+      },
+    ],
+
+    sponsor: "Carlos Sánchez",
+    liderProyecto: "Brenilda Coronel",
+    gestionProyecto: "TBD",
+    equipoProyecto: "Carolina Flores, G. Espinal, TPI, Supply, FFVV",
+    frentesTrabajo: "TPI Corp, TI Soltrak, Logística, Producto, Finanzas",
+
+    hitos: [
+      {
+        descripcion: "Contratación del consultor",
+        fechaEsperada: "Ene-26",
+        responsable: "",
+        status: "completado",
+      },
+      {
+        descripcion: "Kick-off del proyecto",
+        fechaEsperada: "Feb-26",
+        responsable: "",
+        status: "completado",
+      },
+      {
+        descripcion: "1.1. Revisión de RFP y criterios de selección de consultor",
+        fechaEsperada: "Ene-26",
+        responsable: "C. Flores",
+        status: "completado",
+      },
+      {
+        descripcion: "1.2. Evaluación y definición del consultor/proveedor",
+        fechaEsperada: "Mar-26",
+        responsable: "G. Espinal",
+        status: "en-curso",
+      },
+      {
+        descripcion: "1.3. Consultoría y recomendaciones de mejoras procesos y software",
+        fechaEsperada: "Jun-26",
+        responsable: "Consultor",
+        status: "pendiente",
+      },
+      {
+        descripcion: "1.4. Implementación de las recomendaciones (mejoras de procesos S&OP, roles, responsabilidades y cultura)",
+        fechaEsperada: "Dic-26",
+        responsable: "Eq. Negocio y Soporte",
+        status: "pendiente",
+      },
+      {
+        descripcion: "2.1. Revisión de RFP y criterios de selección de software SOP",
+        fechaEsperada: "Abr-26",
+        responsable: "C. Flores",
+        status: "pendiente",
+      },
+      {
+        descripcion: "2.2. Evaluación y definición de proveedor",
+        fechaEsperada: "Jun-26",
+        responsable: "G. Espinal",
+        status: "pendiente",
+      },
+      {
+        descripcion: "2.3. Arranque, levantamiento de información y periodo de prueba (first test)",
+        fechaEsperada: "Ago-26",
+        responsable: "C. Flores",
+        status: "pendiente",
+      },
+      {
+        descripcion: "2.4. Implementación software y go live",
+        fechaEsperada: "Dic-26",
+        responsable: "C. Flores",
+        status: "pendiente",
+      },
+    ],
+
+    version: "Nov. 2025",
+    ultimaActualizacion: "Marzo 2026",
+  },
+  // ─────────────────────────────────────────────────────────────────────────────
+  // FICHA 6
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "6",
+    title: "Implementar un proceso de ventas estándar",
+    pillar: "Habilitadores",
+    pillarColor: "#7c3aed",
+    avancePonderado: "amarillo",
+
+    descripcion:
+      "Definir un proceso formal y robusto de ventas, estándar para todas las líneas de negocio que asegure el mejor resultado posible de forma consistente.\nRevisar el proceso actual incluido el CRM en cada negocio y definir el estándar a implementar en: prospección, gestión de cuentas y modelo de gestión de la fuerza de ventas.\nImplementación a nivel de disciplina, indicadores de gestión relacionados implementados y objetivos de desempeño para ventas.",
+
+    racionalEstrategico: "xx",
+
+    riesgos: [
+      "Resistencia del equipo de ventas a la adopción de la disciplina",
+      "Exceso de carga administrativa",
+    ],
+
+    impacto: "xx",
+    inversion: "Horas hombre del equipo.",
+
+    objetivo:
+      "Definir un proceso formal y robusto de ventas, estándar para todas las líneas de negocio que asegure el mejor resultado posible de forma consistente. Implementar a nivel de disciplina.",
+
+    kpis: [
+      {
+        descripcion: "Definición del proceso estándar y el alcance",
+        esPrincipal: false,
+        real2025: "NA",
+        q1_26: "X",
+        q2_26: "",
+        q3_26: "",
+        q4_26: "",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "Implementación del proceso de prospección",
+        esPrincipal: false,
+        real2025: "NA",
+        q1_26: "",
+        q2_26: "X",
+        q3_26: "",
+        q4_26: "",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "Implementación del proceso de Gestión de cuentas",
+        esPrincipal: false,
+        real2025: "NA",
+        q1_26: "",
+        q2_26: "X",
+        q3_26: "",
+        q4_26: "",
+        meta2026: "100%",
+      },
+      {
+        descripcion: "Implementación del proceso de gestión",
+        esPrincipal: true,
+        real2025: "NA",
+        q1_26: "",
+        q2_26: "",
+        q3_26: "X",
+        q4_26: "",
+        meta2026: "100%",
+        statusReal: "sin-datos",
+      },
+    ],
+
+    sponsor: "Ronald O.",
+    liderProyecto: "Carlos Sánchez",
+    gestionProyecto: "TBD",
+    equipoProyecto: "JC. Paz / Christian Novoa, J. Céspedes",
+    frentesTrabajo: "xx",
+
+    hitos: [
+      {
+        descripcion: "Evaluación del proceso actual",
+        fechaEsperada: "Feb-26",
+        responsable: "CS",
+        status: "completado",
+      },
+      {
+        descripcion: "Definición del estándar a implementar",
+        fechaEsperada: "Mar-26",
+        responsable: "CS",
+        status: "en-curso",
+      },
+      {
+        descripcion: "Implementación del proceso",
+        fechaEsperada: "May-26",
+        responsable: "CS",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Implementación de indicadores de desempeño de FV",
+        fechaEsperada: "Ago-26",
+        responsable: "CS",
         status: "pendiente",
       },
     ],
@@ -1194,7 +1798,7 @@ function FichaMiniCard({
       <div className="flex items-start gap-2">
         <span
           className="text-[11px] font-black px-2 py-0.5 rounded-lg shrink-0 text-white mt-0.5"
-          style={{ background: ficha.pillarColor }}
+          style={{ background: "#9b111e" }}
         >
           {ficha.id}
         </span>
@@ -1229,9 +1833,14 @@ function FichaMiniCard({
 // MAIN COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
 
-export function InitiativeFichaDashboard() {
-  const [selectedId, setSelectedId] = useState<string>(FICHAS[0]?.id ?? "")
+export function InitiativeFichaDashboard({ initialFichaId }: { initialFichaId?: string } = {}) {
+  const [selectedId, setSelectedId] = useState<string>(initialFichaId ?? FICHAS[0]?.id ?? "")
   const [searchQuery, setSearchQuery] = useState("")
+
+  // Auto-select when navigated from the initiatives dashboard
+  useEffect(() => {
+    if (initialFichaId) setSelectedId(initialFichaId)
+  }, [initialFichaId])
 
   const filtered = FICHAS.filter((f) =>
     f.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -1307,9 +1916,6 @@ export function InitiativeFichaDashboard() {
             <div className="mt-2 flex flex-col gap-1.5">
               {[
                 { id: "1.2", label: "Simplificar el negocio" },
-                { id: "2",   label: "Ordenar la oferta" },
-                { id: "4.1", label: "Proyecto Contabilidad" },
-                { id: "4.2", label: "Proyecto ADV + Créditos" },
               ].map((p) => (
                 <div
                   key={p.id}

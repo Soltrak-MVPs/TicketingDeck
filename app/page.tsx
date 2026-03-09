@@ -184,6 +184,7 @@ export default function Home() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true)
   const [selectedArea, setSelectedArea] = useState<Area>("Data")
   const [activeItem, setActiveItem] = useState("General de Data")
+  const [activeFichaId, setActiveFichaId] = useState<string | null>(null)
 
   const handleLogin = (role: string) => {
     setCurrentUser(role)
@@ -202,6 +203,13 @@ export default function Home() {
 
   const handleItemChange = (item: string) => {
     setActiveItem(item)
+    setActiveFichaId(null)
+  }
+
+  const handleNavigateToFicha = (fichaId: string) => {
+    setActiveFichaId(fichaId)
+    setActiveItem("Fichas Iniciativas")
+    setSelectedArea("Procesos")
   }
 
   if (!currentUser) {
@@ -214,10 +222,10 @@ export default function Home() {
     if (!panel) return null
     if (panel.component === "AnalystDashboard") return <AnalystDashboard />
     if (panel.component === "GeneralDataDashboard") return <GeneralDataDashboard />
-    if (panel.component === "StrategicInitiativesDashboard") return <StrategicInitiativesDashboard />
+    if (panel.component === "StrategicInitiativesDashboard") return <StrategicInitiativesDashboard onNavigateToFicha={handleNavigateToFicha} />
     if (panel.component === "StrategicPipelineDashboard") return <StrategicPipelineDashboard />
     if (panel.component === "StrategicStatusDashboard") return <StrategicStatusDashboard />
-    if (panel.component === "InitiativeFichaDashboard") return <InitiativeFichaDashboard />
+    if (panel.component === "InitiativeFichaDashboard") return <InitiativeFichaDashboard initialFichaId={activeFichaId ?? undefined} />
     if (panel.component === "RequesterDashboard")
       return <RequesterDashboard userName={currentUser} />
     return (
