@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useRef, useEffect } from "react"
 import { FICHAS, type InitiativeFicha, type KpiRow, type HitoRow } from "./initiative-ficha-dashboard"
+import { useToast } from "@/hooks/use-toast"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -776,6 +777,7 @@ function ExpandedFichaDetail({
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function StrategicStatusDashboard() {
+  const { toast } = useToast()
   const [data, setData] = useState<StatusInitiative[]>(INITIAL_DATA)
   const [filterStatus, setFilterStatus] = useState<TrafficLight | "all">("all")
   const [filterPillar, setFilterPillar] = useState<string>("all")
@@ -784,6 +786,17 @@ export function StrategicStatusDashboard() {
   const [sortField, setSortField] = useState<SortField>("id")
   const [sortDir, setSortDir] = useState<SortDir>("asc")
   const [showLegend, setShowLegend] = useState(true)
+  
+  // Demo modal state
+  const [demoModal, setDemoModal] = useState<{ open: boolean; initiativeId: number | null; activityIndex: number | null }>({
+    open: false,
+    initiativeId: null,
+    activityIndex: null,
+  })
+  const [demoStage, setDemoStage] = useState<"details" | "upload" | "loading" | "success">("details")
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null)
+  const [loadingProgress, setLoadingProgress] = useState(0)
+  const demoTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // ── Updaters ────────────────────────────────────────────────────────────────
   const updateRow = (id: number, patch: Partial<StatusInitiative>) => {
@@ -804,6 +817,94 @@ export function StrategicStatusDashboard() {
       next.has(id) ? next.delete(id) : next.add(id)
       return next
     })
+  }
+
+  // Open demo modal for activity
+  const openActivityDemo = (initiativeId: number, activityIndex: number) => {
+    setDemoModal({ open: true, initiativeId, activityIndex })
+    setDemoStage("details")
+    setUploadedFile(null)
+    setLoadingProgress(0)
+  }
+
+  // Close demo modal
+  const closeDemoModal = () => {
+    if (demoTimeoutRef.current) {
+      clearTimeout(demoTimeoutRef.current)
+      demoTimeoutRef.current = null
+    }
+    setDemoModal({ open: false, initiativeId: null, activityIndex: null })
+    setDemoStage("details")
+    setUploadedFile(null)
+    setLoadingProgress(0)
+  }
+
+  // Handle file upload in demo
+  const handleDemoFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      setUploadedFile(file)
+      // Auto-progress to loading after 1 second
+      setTimeout(() => {
+        setDemoStage("loading")
+        // Simulate loading progress
+        let progress = 0
+        const interval = setInterval(() => {
+          progress += 10
+          setLoadingProgress(progress)
+          if (progress >= 100) {
+            clearInterval(interval)
+            // Move to success after loading completes
+            setTimeout(() => {
+              setDemoStage("success")
+              // Update activity status to "completado"
+              updateActivityStatus()
+              // Show notifications
+              showDemoNotifications()
+              // Auto-close after 4 seconds
+              demoTimeoutRef.current = setTimeout(() => {
+                closeDemoModal()
+              }, 4000)
+            }, 500)
+          }
+        }, 600) // 6 seconds total for loading (10 steps * 600ms)
+      }, 1000)
+    }
+  }
+
+  // Update activity status to completado
+  const updateActivityStatus = () => {
+    if (demoModal.initiativeId === null || demoModal.activityIndex === null) return
+    
+    const ficha = FICHAS.find(f => {
+      const initiative = data.find(d => d.id === demoModal.initiativeId)
+      return initiative && f.id === initiative.fichaId
+    })
+    
+    if (ficha && ficha.hitos && ficha.hitos[demoModal.activityIndex]) {
+      ficha.hitos[demoModal.activityIndex].status = "completado"
+    }
+  }
+
+  // Show demo notifications
+  const showDemoNotifications = () => {
+    // Status change notification
+    setTimeout(() => {
+      toast({
+        title: "✅ Proceso completado",
+        description: "El documento ha sido validado exitosamente. El proceso ahora está marcado como completado.",
+        duration: 5000,
+      })
+    }, 500)
+
+    // Email notification
+    setTimeout(() => {
+      toast({
+        title: "📧 Notificaciones enviadas",
+        description: "Se ha notificado por correo a CS | GF sobre la actualización del proceso.",
+        duration: 5000,
+      })
+    }, 2000)
   }
 
   // ── Sort ────────────────────────────────────────────────────────────────────
@@ -1070,7 +1171,7 @@ export function StrategicStatusDashboard() {
                           onClick={() => hasActivities && toggleActivities(row.id)}
                           className={`text-left w-full ${
                             hasActivities
-                              ? "cursor-pointer hover:text-blue-600 transition-colors"
+                              ? "cursor-pointer hover:text-red-600 transition-colors"
                               : "cursor-default"
                           }`}
                           disabled={!hasActivities}
@@ -1079,18 +1180,18 @@ export function StrategicStatusDashboard() {
                           <div className="flex items-center gap-2">
                             {hasActivities && (
                               <span className={`text-[10px] font-bold transition-all ${
-                                isActivitiesExpanded ? "text-blue-600 rotate-90" : "text-blue-500"
+                                isActivitiesExpanded ? "text-red-600 rotate-90" : "text-slate-400"
                               }`}>
                                 ▶
                               </span>
                             )}
                             <p className={`text-[11px] font-semibold leading-snug flex-1 ${
-                              hasActivities ? "text-slate-800 group-hover:text-blue-700" : "text-slate-800"
+                              hasActivities ? "text-slate-800 group-hover:text-red-700" : "text-slate-800"
                             }`}>
                               {row.title}
                             </p>
                             {hasActivities && (
-                              <span className="text-[8px] font-bold text-blue-600 bg-blue-100 px-1.5 py-0.5 rounded-full shrink-0">
+                              <span className="text-[8px] font-bold text-red-600 bg-red-50 px-1.5 py-0.5 rounded-full shrink-0">
                                 {ficha.hitos.length} act.
                               </span>
                             )}
@@ -1210,13 +1311,13 @@ export function StrategicStatusDashboard() {
                     {/* Expanded activities/hitos rows */}
                     {isActivitiesExpanded && ficha && ficha.hitos && ficha.hitos.length > 0 && (
                       <>
-                        <tr className="bg-blue-100/30">
-                          <td colSpan={12} className="px-3 py-1.5">
+                        <tr className="bg-slate-50">
+                          <td colSpan={12} className="px-3 py-1.5 border-t-2 border-slate-200">
                             <div className="flex items-center justify-between">
-                              <span className="text-[9px] font-black text-blue-700 uppercase tracking-wider">
+                              <span className="text-[9px] font-black text-slate-700 uppercase tracking-wider">
                                 📋 Actividades y Procesos
                               </span>
-                              <span className="text-[8px] text-blue-600 font-semibold">
+                              <span className="text-[8px] text-slate-600 font-semibold">
                                 {ficha.hitos.filter(h => h.status === "completado").length} de {ficha.hitos.length} completadas
                               </span>
                             </div>
@@ -1230,9 +1331,10 @@ export function StrategicStatusDashboard() {
                             tbd: { label: "TBD", cls: "bg-slate-50 text-slate-500 border-slate-200", dot: "bg-slate-300", tlValue: "sin-datos" },
                           }
                           const statusCfg = HITO_STATUS_CFG[hito.status || "tbd"]
+                          const isClickableDemo = hitoIdx === 0 && hito.status === "en-curso"
                           
                           return (
-                            <tr key={`${row.id}-hito-${hitoIdx}`} className="bg-blue-50/20 border-l-4 border-blue-400 hover:bg-blue-50/40 transition-colors">
+                            <tr key={`${row.id}-hito-${hitoIdx}`} className={`bg-white border-l-4 border-slate-300 hover:bg-slate-50 transition-colors ${isClickableDemo ? 'cursor-pointer' : ''}`}>
                               {/* Activity number */}
                               <td className="px-3 py-2.5 text-center">
                                 <div className="flex flex-col items-center gap-0.5">
@@ -1243,11 +1345,16 @@ export function StrategicStatusDashboard() {
                               </td>
 
                               {/* Activity description */}
-                              <td className="px-3 py-2.5" colSpan={2}>
+                              <td className="px-3 py-2.5" colSpan={2} onClick={() => isClickableDemo && openActivityDemo(row.id, hitoIdx)}>
                                 <div className="pl-4">
-                                  <p className="text-[10px] font-semibold text-slate-700 leading-tight mb-1">
-                                    {hito.descripcion}
-                                  </p>
+                                  <div className="flex items-center gap-2">
+                                    <p className={`text-[10px] font-semibold text-slate-700 leading-tight mb-1 ${isClickableDemo ? 'hover:text-red-600 transition-colors' : ''}`}>
+                                      {hito.descripcion}
+                                    </p>
+                                    {isClickableDemo && (
+                                      <span className="text-[9px] text-red-600 font-bold animate-pulse">👆 DEMO</span>
+                                    )}
+                                  </div>
                                   <div className="flex items-center gap-2 text-[8px] text-slate-500">
                                     <span className="font-medium">📅 {hito.fechaEsperada}</span>
                                   </div>
@@ -1286,11 +1393,11 @@ export function StrategicStatusDashboard() {
                           )
                         })}
                         {/* Summary row */}
-                        <tr className="bg-blue-100/30 border-t-2 border-blue-300">
+                        <tr className="bg-slate-50 border-t border-slate-200">
                           <td colSpan={12} className="px-3 py-1.5">
                             <div className="flex items-center justify-between text-[9px]">
                               <div className="flex items-center gap-3">
-                                <span className="text-blue-700 font-bold">
+                                <span className="text-slate-700 font-bold">
                                   Total: {ficha.hitos.length} actividades
                                 </span>
                                 <span className="text-slate-500">
@@ -1299,7 +1406,7 @@ export function StrategicStatusDashboard() {
                               </div>
                               <button
                                 onClick={() => toggleActivities(row.id)}
-                                className="text-blue-600 hover:text-blue-700 font-semibold"
+                                className="text-red-600 hover:text-red-700 font-semibold transition-colors"
                               >
                                 ✕ Contraer
                               </button>
@@ -1382,6 +1489,229 @@ export function StrategicStatusDashboard() {
           )
         })}
       </div>
+
+      {/* Demo Modal */}
+      {demoModal.open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop with blur */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeDemoModal} />
+          
+          {/* Modal content */}
+          <div className="relative bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-200">
+            {/* Header */}
+            <div className="sticky top-0 bg-black text-white px-6 py-4 rounded-t-lg border-b-4 border-red-600">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-base font-bold tracking-tight">GESTIÓN DE ENTREGABLE</h2>
+                  <p className="text-xs text-slate-400 mt-1">Simplificar el negocio</p>
+                </div>
+                <button
+                  onClick={closeDemoModal}
+                  className="text-slate-400 hover:text-white transition-colors text-2xl font-light leading-none w-8 h-8 flex items-center justify-center"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+
+            {/* Body */}
+            <div className="p-6">
+              {/* Stage: Details */}
+              {demoStage === "details" && (
+                <div className="space-y-4 animate-in fade-in duration-300">
+                  <div className="border border-slate-200 rounded-lg p-5 bg-white">
+                    <div className="flex items-start gap-3 mb-4">
+                      <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center shrink-0">
+                        <span className="text-xl">📋</span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-slate-900 text-sm leading-tight">
+                          Definición de mínimos de ventas / rentabilidad
+                        </h3>
+                      </div>
+                    </div>
+                    <div className="space-y-2.5 text-xs text-slate-600 pl-13">
+                      <div className="flex">
+                        <span className="w-28 font-semibold text-slate-900">Fecha esperada:</span>
+                        <span>Mar-26</span>
+                      </div>
+                      <div className="flex">
+                        <span className="w-28 font-semibold text-slate-900">Responsable:</span>
+                        <span>CS | GF</span>
+                      </div>
+                      <div className="flex">
+                        <span className="w-28 font-semibold text-slate-900">Estado actual:</span>
+                        <span className="inline-block px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[10px] font-bold">EN CURSO</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-l-4 border-red-600 bg-slate-50 p-5">
+                    <h4 className="font-bold text-slate-900 mb-2 text-sm flex items-center gap-2">
+                      <span className="text-base">📄</span>
+                      Entregable requerido
+                    </h4>
+                    <p className="text-xs text-slate-600 mb-4 leading-relaxed">
+                      Para completar este proceso, se requiere cargar el documento con la definición de mínimos de ventas y rentabilidad.
+                    </p>
+                    <button
+                      onClick={() => setDemoStage("upload")}
+                      className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded text-sm transition-colors"
+                    >
+                      CARGAR DOCUMENTO
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Stage: Upload */}
+              {demoStage === "upload" && (
+                <div className="space-y-4 animate-in fade-in duration-300">
+                  <div className="border-2 border-dashed border-slate-300 rounded-lg p-10 text-center bg-slate-50/50">
+                    <div className="mb-4">
+                      <div className="w-16 h-16 bg-slate-100 rounded-lg flex items-center justify-center mx-auto">
+                        <span className="text-4xl">📁</span>
+                      </div>
+                    </div>
+                    <h3 className="font-bold text-slate-900 mb-1 text-sm">Cargar documento de entregable</h3>
+                    <p className="text-xs text-slate-500 mb-6">Selecciona el archivo con la definición de mínimos</p>
+                    
+                    <label className="inline-block">
+                      <input
+                        type="file"
+                        accept=".doc,.docx,.pdf"
+                        onChange={handleDemoFileUpload}
+                        className="hidden"
+                      />
+                      <span className="cursor-pointer bg-black hover:bg-slate-800 text-white font-bold py-2.5 px-6 rounded text-xs transition-colors inline-block">
+                        SELECCIONAR ARCHIVO
+                      </span>
+                    </label>
+                    
+                    {uploadedFile && (
+                      <div className="mt-6 bg-white rounded-lg p-4 flex items-center gap-3 border border-slate-200">
+                        <div className="w-10 h-10 bg-red-50 rounded flex items-center justify-center shrink-0">
+                          <span className="text-xl">📄</span>
+                        </div>
+                        <div className="text-left flex-1">
+                          <p className="text-xs font-bold text-slate-900">{uploadedFile.name}</p>
+                          <p className="text-[10px] text-slate-500">{(uploadedFile.size / 1024).toFixed(1)} KB</p>
+                        </div>
+                        <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center shrink-0">
+                          <span className="text-white text-sm font-bold">✓</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <button
+                    onClick={() => setDemoStage("details")}
+                    className="w-full border border-slate-300 text-slate-700 font-bold py-2 px-4 rounded text-xs hover:bg-slate-50 transition-colors"
+                  >
+                    ← VOLVER
+                  </button>
+                </div>
+              )}
+
+              {/* Stage: Loading */}
+              {demoStage === "loading" && (
+                <div className="space-y-6 animate-in fade-in duration-300 py-8">
+                  <div className="text-center">
+                    <div className="inline-block relative mb-6">
+                      <div className="w-16 h-16 border-4 border-slate-200 border-t-red-600 rounded-full animate-spin"></div>
+                    </div>
+                    <h3 className="font-bold text-slate-900 mb-1 text-sm">VALIDANDO DOCUMENTO</h3>
+                    <p className="text-xs text-slate-500">Verificando contenido y formato...</p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-[10px] text-slate-600 mb-2">
+                      <span className="font-semibold">PROGRESO</span>
+                      <span className="font-bold text-red-600">{loadingProgress}%</span>
+                    </div>
+                    <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                      <div 
+                        className="bg-red-600 h-full transition-all duration-300"
+                        style={{ width: `${loadingProgress}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="border border-slate-200 rounded-lg p-4 space-y-2.5 text-xs">
+                    <div className="flex items-center gap-2.5 text-slate-700">
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center ${loadingProgress >= 20 ? "bg-emerald-500" : "bg-slate-200"}`}>
+                        <span className={`text-[10px] font-bold ${loadingProgress >= 20 ? "text-white" : "text-slate-400"}`}>✓</span>
+                      </div>
+                      <span>Cargando archivo...</span>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-slate-700">
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center ${loadingProgress >= 50 ? "bg-emerald-500" : "bg-slate-200"}`}>
+                        <span className={`text-[10px] font-bold ${loadingProgress >= 50 ? "text-white" : "text-slate-400"}`}>✓</span>
+                      </div>
+                      <span>Verificando formato...</span>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-slate-700">
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center ${loadingProgress >= 80 ? "bg-emerald-500" : "bg-slate-200"}`}>
+                        <span className={`text-[10px] font-bold ${loadingProgress >= 80 ? "text-white" : "text-slate-400"}`}>✓</span>
+                      </div>
+                      <span>Validando contenido...</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Stage: Success */}
+              {demoStage === "success" && (
+                <div className="space-y-6 animate-in fade-in duration-500 py-8 text-center">
+                  <div>
+                    <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mb-4">
+                      <span className="text-5xl">✓</span>
+                    </div>
+                    <h3 className="font-bold text-lg text-slate-900 mb-1">PROCESO COMPLETADO</h3>
+                    <p className="text-xs text-slate-600">El documento ha sido validado exitosamente</p>
+                  </div>
+
+                  <div className="border border-slate-200 rounded-lg p-5 space-y-4 bg-slate-50">
+                    <h4 className="font-bold text-slate-900 text-xs text-left">ACCIONES REALIZADAS:</h4>
+                    
+                    <div className="flex items-start gap-3 text-left">
+                      <div className="w-8 h-8 bg-emerald-500 rounded flex items-center justify-center shrink-0">
+                        <span className="text-white text-sm font-bold">✓</span>
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-bold text-slate-900 text-xs mb-0.5">Estado actualizado</p>
+                        <p className="text-[10px] text-slate-600 leading-relaxed">El proceso ahora está marcado como "Completado"</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 text-left">
+                      <div className="w-8 h-8 bg-slate-800 rounded flex items-center justify-center shrink-0">
+                        <span className="text-white text-sm">📧</span>
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-bold text-slate-900 text-xs mb-0.5">Notificaciones enviadas</p>
+                        <p className="text-[10px] text-slate-600 leading-relaxed">Se ha notificado a CS | GF por correo electrónico</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 text-left">
+                      <div className="w-8 h-8 bg-red-600 rounded flex items-center justify-center shrink-0">
+                        <span className="text-white text-sm">📊</span>
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-bold text-slate-900 text-xs mb-0.5">Dashboard actualizado</p>
+                        <p className="text-[10px] text-slate-600 leading-relaxed">El avance de la iniciativa se ha recalculado automáticamente</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="text-[10px] text-slate-400 italic">Esta ventana se cerrará automáticamente...</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   )

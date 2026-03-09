@@ -78,3 +78,18 @@ Check the render method of `tbody`.  It was passed a child from StrategicStatusD
 [02:27:12.396] Server  LOG     ✓ Compiled in 334ms
 [02:28:04.180] Server  LOG     ✓ Compiled in 176ms
 [02:29:07.789] Server  LOG     ✓ Compiled in 205ms
+[02:36:35.079] Server  LOG     ✓ Compiled in 232ms
+[02:38:59.704] Server  LOG     ✓ Compiled in 197ms
+[02:41:34.405] Server  LOG     ✓ Compiled in 340ms
+[02:42:17.341] Server  LOG     ✓ Compiled in 219ms
+[02:42:19.235] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:42:46.128] Server  LOG     ✓ Compiled in 171ms
+[02:43:35.754] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:47:25.364] Server  LOG     ✓ Compiled in 329ms
+[02:48:00.522] Server  LOG     ✓ Compiled in 346ms
+[02:48:21.568] Server  LOG     ✓ Compiled in 232ms
+[02:48:58.833] Server  LOG     ✓ Compiled in 320ms
+[02:50:08.810] Server  LOG     ✓ Compiled in 318ms
+[02:50:48.702] Server  LOG     ✓ Compiled in 170ms
+[02:51:34.026] Server  LOG     ✓ Compiled in 170ms
+[02:52:43.237] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
