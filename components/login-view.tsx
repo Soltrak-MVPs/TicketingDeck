@@ -63,7 +63,7 @@ export function LoginView({ onLogin }: LoginViewProps) {
         </div>
         <div>
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 leading-none">SOLTRAK</h1>
-          <p className="text-sm font-medium text-slate-500 uppercase tracking-widest mt-1">Data Analytics</p>
+          <p className="text-sm font-medium text-slate-500 uppercase tracking-widest mt-1">MANAGEMENT</p>
         </div>
       </div>
 
