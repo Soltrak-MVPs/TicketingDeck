@@ -51,124 +51,124 @@ function tlRank(t: TrafficLight): number {
 
 const INITIAL_DATA: StatusInitiative[] = [
   {
-    id: 1,  title: "Mejorar márgenes por cliente (Lubricantes y Neumáticos)",
+    id: 1,  title: "Simplificar el negocio",
     pillar: "Protección y Optimización",
-    avancePonderado: "amarillo", kpiPrincipal: "Margen contribución %",
-    avanceKpi: "-", metaKpi: "22%", avanceKpiColor: "rojo",
-    avanceActividades: "verde", liderNegocio: "JC. Paz", gestionProyecto: "", notas: "",
-    fichaId: "1.1",
-  },
-  {
-    id: 2,  title: "Mejorar márgenes por cliente (Seguridad Industrial)",
-    pillar: "Protección y Optimización",
-    avancePonderado: "sin-datos", kpiPrincipal: "Margen contribución %",
-    avanceKpi: "-", metaKpi: "22%", avanceKpiColor: "sin-datos",
-    avanceActividades: "sin-datos", liderNegocio: "C. Novoa", gestionProyecto: "", notas: "",
-    fichaId: "1.2",
-  },
-  {
-    id: 3,  title: "Simplificar el negocio",
-    pillar: "Protección y Optimización",
-    avancePonderado: "sin-datos", kpiPrincipal: "# SKUs / marcas activas",
+    avancePonderado: "sin-datos", kpiPrincipal: "Productos racionalizados",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "C. Sanchez", gestionProyecto: "", notas: "",
+    fichaId: "1",
+  },
+  {
+    id: 2,  title: "Ordenar la oferta a clientes",
+    pillar: "Protección y Optimización",
+    avancePonderado: "sin-datos", kpiPrincipal: "% de clientes con segmentación actualizada",
+    avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
+    avanceActividades: "sin-datos", liderNegocio: "J. Céspedes", gestionProyecto: "", notas: "",
     fichaId: "2",
   },
   {
-    id: 4,  title: "Ordenar la oferta a clientes",
+    id: 3,  title: "Mejora de procesos: Proyecto Contabilidad",
     pillar: "Protección y Optimización",
-    avancePonderado: "sin-datos", kpiPrincipal: "Segmentos definidos",
+    avancePonderado: "sin-datos", kpiPrincipal: "Implementación de 9 proyectos",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
-    avanceActividades: "sin-datos", liderNegocio: "J. Céspedes", gestionProyecto: "", notas: "",
+    avanceActividades: "sin-datos", liderNegocio: "G. Florida", gestionProyecto: "", notas: "",
     fichaId: "3",
   },
   {
-    id: 5,  title: "Mejora de procesos: Proyecto Contabilidad",
+    id: 4,  title: "Mejora de procesos: Proyecto ADV + Créditos",
     pillar: "Protección y Optimización",
-    avancePonderado: "sin-datos", kpiPrincipal: "Ahorro anual ($K)",
-    avanceKpi: "-", metaKpi: "$65K", avanceKpiColor: "sin-datos",
+    avancePonderado: "sin-datos", kpiPrincipal: "Ahorro anualizado: $75K",
+    avanceKpi: "-", metaKpi: "$75K", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "G. Florida", gestionProyecto: "", notas: "",
-    fichaId: "4.1",
+    fichaId: "4",
   },
   {
-    id: 6,  title: "Mejora de procesos: Proyecto ADV + Créditos",
+    id: 5,  title: "Mejora de procesos: Proyecto Logístico - Mejoras SAP y TMS",
     pillar: "Protección y Optimización",
-    avancePonderado: "sin-datos", kpiPrincipal: "Ahorro anual ($K)",
-    avanceKpi: "-", metaKpi: "$130K", avanceKpiColor: "sin-datos",
-    avanceActividades: "sin-datos", liderNegocio: "G. Florida", gestionProyecto: "", notas: "",
-    fichaId: "4.2",
-  },
-  {
-    id: 7,  title: "Mejora de procesos: Proyecto logístico",
-    pillar: "Protección y Optimización",
-    avancePonderado: "sin-datos", kpiPrincipal: "OTIF %",
+    avancePonderado: "sin-datos", kpiPrincipal: "Mejoras SAP y TMS",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
-    avanceActividades: "sin-datos", liderNegocio: "B. Coronel", gestionProyecto: "", notas: "",
-    fichaId: "4.3",
-  },
-  {
-    id: 8,  title: "Mejora de procesos: Modelo de precios",
-    pillar: "Protección y Optimización",
-    avancePonderado: "sin-datos", kpiPrincipal: "Módulo implementado",
-    avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
-    avanceActividades: "sin-datos", liderNegocio: "G. Florida", gestionProyecto: "", notas: "",
-    fichaId: "4.4",
-  },
-  {
-    id: 9,  title: "Implementar proceso de S&OP robusto",
-    pillar: "Protección y Optimización",
-    avancePonderado: "sin-datos", kpiPrincipal: "OTIF / Inv. Excesivo",
-    avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
-    avanceActividades: "sin-datos", liderNegocio: "B. Coronel", gestionProyecto: "", notas: "",
+    avanceActividades: "sin-datos", liderNegocio: "B. Coronel", gestionProyecto: "", notas: "Despriorizado hasta 2S26",
     fichaId: "5",
   },
   {
-    id: 10, title: "Definir nuevo modelo de almacenaje y distribución",
-    pillar: "Transformación",
-    avancePonderado: "sin-datos", kpiPrincipal: "Modelo definido",
+    id: 6,  title: "Mejora de procesos: Modelo de precios",
+    pillar: "Protección y Optimización",
+    avancePonderado: "sin-datos", kpiPrincipal: "Diagnóstico del Modelo de precios",
+    avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
+    avanceActividades: "sin-datos", liderNegocio: "G. Florida", gestionProyecto: "", notas: "",
+    fichaId: "6",
+  },
+  {
+    id: 7,  title: "Implementar proceso de S&OP robusto",
+    pillar: "Protección y Optimización",
+    avancePonderado: "sin-datos", kpiPrincipal: "Rotación de inventario / Forecast Accuracy",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "B. Coronel", gestionProyecto: "", notas: "",
     fichaId: "7",
   },
   {
-    id: 11, title: "Nueva plataforma E-commerce",
-    pillar: "Transformación",
-    avancePonderado: "sin-datos", kpiPrincipal: "Ventas online (S/)",
-    avanceKpi: "-", metaKpi: "S/ 1.5M", avanceKpiColor: "sin-datos",
-    avanceActividades: "sin-datos", liderNegocio: "J. Céspedes", gestionProyecto: "", notas: "",
+    id: 8,  title: "Implementar un proceso para ventas estándar",
+    pillar: "Protección y Optimización",
+    avancePonderado: "sin-datos", kpiPrincipal: "Cumplimiento de Key Account Plans",
+    avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
+    avanceActividades: "sin-datos", liderNegocio: "C. Sanchez", gestionProyecto: "", notas: "",
     fichaId: "8",
   },
   {
-    id: 12, title: "Giatrak 2.0",
+    id: 9,  title: "Giatrak 2.0",
     pillar: "Nuevos Negocios",
-    avancePonderado: "sin-datos", kpiPrincipal: "Plataforma operativa",
-    avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
+    avancePonderado: "sin-datos", kpiPrincipal: "Venta incremental en EPPs $500K (anual)",
+    avanceKpi: "-", metaKpi: "$500K", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "C. Novoa", gestionProyecto: "", notas: "",
-    fichaId: null,
+    fichaId: "9",
   },
   {
-    id: 13, title: "Plan para mejorar la Cultura",
-    pillar: "Habilitadoras",
-    avancePonderado: "sin-datos", kpiPrincipal: "Índice clima laboral",
+    id: 10, title: "Nueva plataforma E-commerce",
+    pillar: "Transformación",
+    avancePonderado: "sin-datos", kpiPrincipal: "Ventas e-commerce (S/K)",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
-    avanceActividades: "sin-datos", liderNegocio: "E. Lescano", gestionProyecto: "", notas: "",
+    avanceActividades: "sin-datos", liderNegocio: "J. Céspedes", gestionProyecto: "", notas: "",
+    fichaId: "10",
+  },
+  {
+    id: 11, title: "Mejorar márgenes por cliente (Lubricantes y Neumáticos)",
+    pillar: "Protección y Optimización",
+    avancePonderado: "amarillo", kpiPrincipal: "Margen operativo directo",
+    avanceKpi: "-", metaKpi: "-", avanceKpiColor: "rojo",
+    avanceActividades: "verde", liderNegocio: "JC. Paz", gestionProyecto: "", notas: "",
     fichaId: "11",
   },
   {
-    id: 14, title: "Implementar un proceso para ventas estándar",
-    pillar: "Transformación",
-    avancePonderado: "sin-datos", kpiPrincipal: "Adopción proceso ventas",
+    id: 12, title: "Mejorar márgenes por cliente (Seguridad Industrial)",
+    pillar: "Protección y Optimización",
+    avancePonderado: "sin-datos", kpiPrincipal: "Margen operativo directo",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
-    avanceActividades: "sin-datos", liderNegocio: "C. Sanchez", gestionProyecto: "", notas: "",
-    fichaId: "6",
+    avanceActividades: "sin-datos", liderNegocio: "C. Novoa", gestionProyecto: "", notas: "",
+    fichaId: "12",
+  },
+  {
+    id: 13, title: "Definir nuevo modelo logístico e inicio de implementación - Centralización y última milla",
+    pillar: "Transformación",
+    avancePonderado: "sin-datos", kpiPrincipal: "Gastos totales de Almacenamiento y Distribución / Ventas",
+    avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
+    avanceActividades: "sin-datos", liderNegocio: "B. Coronel", gestionProyecto: "", notas: "",
+    fichaId: "13",
+  },
+  {
+    id: 14, title: "Plan para mejorar la cultura",
+    pillar: "Habilitadoras",
+    avancePonderado: "sin-datos", kpiPrincipal: "Identificación de posiciones críticas y mapeo de sucesores",
+    avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
+    avanceActividades: "sin-datos", liderNegocio: "E. Lescano", gestionProyecto: "", notas: "",
+    fichaId: "14",
   },
   {
     id: 15, title: "Plan de talento y sucesión",
     pillar: "Habilitadoras",
-    avancePonderado: "sin-datos", kpiPrincipal: "Posiciones críticas cubiertas",
+    avancePonderado: "sin-datos", kpiPrincipal: "Encuesta de clima laboral: dimensión Confianza en los líderes",
     avanceKpi: "-", metaKpi: "-", avanceKpiColor: "sin-datos",
     avanceActividades: "sin-datos", liderNegocio: "E. Lescano", gestionProyecto: "", notas: "",
-    fichaId: "10",
+    fichaId: "15",
   },
 ]
 
@@ -786,6 +786,7 @@ export function StrategicStatusDashboard() {
   const [sortField, setSortField] = useState<SortField>("id")
   const [sortDir, setSortDir] = useState<SortDir>("asc")
   const [showLegend, setShowLegend] = useState(true)
+  const [showInfoModal, setShowInfoModal] = useState(false)
   
   // Demo modal state
   const [demoModal, setDemoModal] = useState<{ open: boolean; initiativeId: number | null; activityIndex: number | null }>({
@@ -967,9 +968,18 @@ export function StrategicStatusDashboard() {
               <span className="text-white font-black text-base">+</span>
             </div>
             <div>
-              <h1 className="text-[17px] font-black text-slate-900 leading-tight tracking-tight">
-                Soltrak — Status de Iniciativas (Directorio)
-              </h1>
+              <div className="flex items-center gap-2 mb-0.5">
+                <h1 className="text-[17px] font-black text-slate-900 leading-tight tracking-tight">
+                  Soltrak — Status de Iniciativas (Directorio)
+                </h1>
+                <button
+                  onClick={() => setShowInfoModal(true)}
+                  title="Ver metodología de cálculo"
+                  className="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center text-[11px] font-black text-slate-500 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-all shrink-0"
+                >
+                  ?
+                </button>
+              </div>
               <p className="text-[12px] text-slate-500 mt-1 leading-snug max-w-2xl">
                 El avance de las iniciativas es{" "}
                 <span className="font-black text-emerald-600">{pctVerde}%</span> en lo esperado,{" "}
@@ -1131,9 +1141,6 @@ export function StrategicStatusDashboard() {
                 <SortTH field="liderNegocio" sortField={sortField} sortDir={sortDir} onSort={handleSort} className="whitespace-nowrap">
                   Líder del<br />Negocio
                 </SortTH>
-                <th className="px-3 py-3 text-left text-[10px] font-black uppercase tracking-[0.12em] bg-slate-900 text-slate-300 whitespace-nowrap">
-                  Gestión del<br />Proyecto
-                </th>
                 <th className="px-3 py-3 text-center text-[10px] font-black uppercase tracking-[0.12em] bg-slate-900 text-slate-300 w-10">
                   +
                 </th>
@@ -1142,7 +1149,7 @@ export function StrategicStatusDashboard() {
             <tbody className="divide-y divide-slate-100">
               {sorted.length === 0 && (
                 <tr>
-                  <td colSpan={12} className="py-12 text-center text-sm text-slate-400 italic">
+                  <td colSpan={11} className="py-12 text-center text-sm text-slate-400 italic">
                     No hay iniciativas con los filtros seleccionados
                   </td>
                 </tr>
@@ -1282,16 +1289,6 @@ export function StrategicStatusDashboard() {
                         </div>
                       </td>
 
-                      {/* Gestión proyecto */}
-                      <td className="px-3 py-2.5">
-                        <EditableCell
-                          value={row.gestionProyecto}
-                          onChange={(v) => updateRow(row.id, { gestionProyecto: v })}
-                          placeholder="Asignar PM"
-                          className="text-slate-500"
-                        />
-                      </td>
-
                       {/* Expand */}
                       <td className="px-3 py-2.5 text-center">
                         <button
@@ -1312,7 +1309,7 @@ export function StrategicStatusDashboard() {
                     {isActivitiesExpanded && ficha && ficha.hitos && ficha.hitos.length > 0 && (
                       <>
                         <tr className="bg-slate-50">
-                          <td colSpan={12} className="px-3 py-1.5 border-t-2 border-slate-200">
+                          <td colSpan={11} className="px-3 py-1.5 border-t-2 border-slate-200">
                             <div className="flex items-center justify-between">
                               <span className="text-[9px] font-black text-slate-700 uppercase tracking-wider">
                                 📋 Actividades y Procesos
@@ -1394,7 +1391,7 @@ export function StrategicStatusDashboard() {
                         })}
                         {/* Summary row */}
                         <tr className="bg-slate-50 border-t border-slate-200">
-                          <td colSpan={12} className="px-3 py-1.5">
+                          <td colSpan={11} className="px-3 py-1.5">
                             <div className="flex items-center justify-between text-[9px]">
                               <div className="flex items-center gap-3">
                                 <span className="text-slate-700 font-bold">
@@ -1708,6 +1705,151 @@ export function StrategicStatusDashboard() {
                   <p className="text-[10px] text-slate-400 italic">Esta ventana se cerrará automáticamente...</p>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Information Modal ── */}
+      {showInfoModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowInfoModal(false)} />
+          
+          {/* Modal content */}
+          <div className="relative bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-200">
+            {/* Header */}
+            <div className="sticky top-0 bg-linear-to-r from-emerald-700 to-emerald-600 text-white px-6 py-4 border-b-2 border-emerald-800">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-lg font-black tracking-tight">Metodología de Cálculo</h2>
+                  <p className="text-xs text-emerald-100 mt-1">Avance Ponderado de Iniciativas</p>
+                </div>
+                <button
+                  onClick={() => setShowInfoModal(false)}
+                  className="text-emerald-100 hover:text-white transition-colors text-2xl font-light leading-none w-8 h-8 flex items-center justify-center"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+
+            {/* Body */}
+            <div className="p-6 space-y-6">
+              {/* Title */}
+              <div className="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded">
+                <p className="text-sm font-black text-slate-900">
+                  El avance de las iniciativas se mide como % de cumplimiento ponderado de los KPIs principales y los hitos/actividades ejecutados al cierre de cada mes
+                </p>
+              </div>
+
+              {/* Section 1: Avance Ponderado de la Iniciativa */}
+              <div className="space-y-3">
+                <h3 className="text-base font-black text-slate-900">Avance Ponderado de la Iniciativa</h3>
+                <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm font-semibold text-slate-700 mb-3">Compuesto por dos componentes (50% cada uno):</p>
+                  <div className="space-y-2">
+                    <div className="flex items-start gap-3">
+                      <span className="inline-block w-2 h-2 rounded-full bg-slate-400 mt-2 shrink-0" />
+                      <span className="text-sm text-slate-600">50% - Avance Ponderado del KPI(s) Principal(es)</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="inline-block w-2 h-2 rounded-full bg-slate-400 mt-2 shrink-0" />
+                      <span className="text-sm text-slate-600">50% - Avance de cumplimiento de Hitos/Actividades</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 p-3 bg-white rounded border border-slate-200 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-emerald-500" />
+                      <span className="text-sm font-semibold text-slate-800">Verde: &gt;90%</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-amber-400" />
+                      <span className="text-sm font-semibold text-slate-800">Amarillo: &le;70% y &le;90%</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-red-500" />
+                      <span className="text-sm font-semibold text-slate-800">Rojo: &lt;70%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 2: Avance Ponderado del KPI */}
+              <div className="space-y-3">
+                <h3 className="text-base font-black text-slate-900">Avance Ponderado del KPI(s) Principal(es)</h3>
+                <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-700 mb-3">
+                    <span className="font-semibold">% Cumplimiento:</span> Real/Meta
+                  </p>
+                  <div className="p-3 bg-white rounded border border-slate-200 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-emerald-500" />
+                      <span className="text-sm font-semibold text-slate-800">Verde: &gt;90%</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-amber-400" />
+                      <span className="text-sm font-semibold text-slate-800">Amarillo: &le;70% y &le;90%</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-red-500" />
+                      <span className="text-sm font-semibold text-slate-800">Rojo: &lt;70%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 3: Avance de cumplimiento de Hitos */}
+              <div className="space-y-3">
+                <h3 className="text-base font-black text-slate-900">Avance de cumplimiento de Hitos/Actividades</h3>
+                <div className="bg-slate-50 rounded-lg p-4 border border-slate-200 space-y-3">
+                  <div>
+                    <p className="font-semibold text-sm text-slate-700 mb-2">Puntaje por actividad:</p>
+                    <ul className="text-sm text-slate-600 space-y-1 ml-4">
+                      <li>• No iniciado: 0</li>
+                      <li>• Parcial: 0.5</li>
+                      <li>• Completo: 1</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <p className="font-semibold text-sm text-slate-700 mb-2">% Cumplimiento: Puntaje real/Total puntos</p>
+                  </div>
+                  
+                  <div className="p-3 bg-white rounded border border-slate-200 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-emerald-500" />
+                      <span className="text-sm font-semibold text-slate-800">Verde: &gt;90%</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-amber-400" />
+                      <span className="text-sm font-semibold text-slate-800">Amarillo: &le;70% y &le;90%</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-red-500" />
+                      <span className="text-sm font-semibold text-slate-800">Rojo: &lt;70%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer note */}
+              <div className="bg-blue-50 border border-blue-200 rounded p-3">
+                <p className="text-xs text-blue-800">
+                  <span className="font-semibold">Nota:</span> Estos cálculos se actualizan automáticamente en tiempo real según los cambios en el avance de KPIs y actividades registrados en el sistema.
+                </p>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="border-t border-slate-200 bg-slate-50 px-6 py-3 flex justify-end">
+              <button
+                onClick={() => setShowInfoModal(false)}
+                className="px-4 py-2 bg-slate-900 text-white rounded-lg font-semibold text-sm hover:bg-slate-800 transition-colors"
+              >
+                Entendido
+              </button>
             </div>
           </div>
         </div>

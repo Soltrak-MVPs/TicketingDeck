@@ -8,6 +8,14 @@ import { useState, useEffect } from "react"
 
 export type TrafficLight = "verde" | "amarillo" | "rojo" | "sin-datos"
 
+export interface DefinicionDimension {
+  descripcion: string
+  racionalEstrategico: string
+  riesgos: string
+  impacto: string
+  inversion: string
+}
+
 export interface KpiRow {
   descripcion: string
   esPrincipal?: boolean
@@ -20,11 +28,33 @@ export interface KpiRow {
   statusReal?: TrafficLight    // color del campo real2025
 }
 
+export interface KpiSeguimiento {
+  descripcion: string
+  esPrincipal?: boolean
+  ene26: string       // Ene-26
+  feb26: string       // Feb-26
+  mar26: string       // Mar-26
+  ytd1q26: string     // YTD 1Q26
+  ytd2q26: string     // YTD 2Q26
+  ytd3q26: string     // YTD 3Q26
+  ytd4q26: string     // YTD 4Q26
+  porcentajeCumplimiento: string
+}
+
 export interface HitoRow {
   descripcion: string
   fechaEsperada: string
   responsable: string
   status?: "completado" | "en-curso" | "pendiente" | "tbd"
+}
+
+export interface HitoSeguimiento {
+  descripcion: string
+  fechaPlan: string
+  fechaAprobada: string
+  noIniciado: boolean
+  parcial: boolean
+  completo: boolean
 }
 
 export interface GanttActivity {
@@ -35,43 +65,273 @@ export interface GanttActivity {
 }
 
 export interface InitiativeFicha {
-  id: string           // "1.1", "1.2", "2", etc.
+  id: string           // "1", "2", etc.
   title: string
   pillar: string
   pillarColor: string
   avancePonderado: TrafficLight
 
-  // ── Sección 1: Definición conceptual ──────────────────────────────────────
-  descripcion: string
-  racionalEstrategico: string
-  riesgos: string[]
-  impacto: string
-  inversion: string
+  // ── FICHA DE INICIATIVA ───────────────────────────────────────────────────
+  
+  // Sección 1: Definición conceptual y dimensiones preliminares
+  definicionConceptual?: DefinicionDimension
 
-  // ── Sección 2: Objetivo y KPIs ────────────────────────────────────────────
-  objetivo: string
-  kpis: KpiRow[]
+  // Sección 2: Objetivo y KPIs
+  objetivo?: string
+  kpis?: KpiRow[]
 
-  // ── Sección 3: Equipo y actividades ───────────────────────────────────────
-  sponsor: string
-  liderProyecto: string
-  gestionProyecto: string
-  equipoProyecto: string
-  frentesTrabajo: string
-  hitos: HitoRow[]
-  ganttActivities?: GanttActivity[]  // Actividades detalladas para el Gantt
+  // Sección 3: Equipo y actividades
+  sponsor?: string
+  liderProyecto?: string
+  gestionProyecto?: string
+  equipoProyecto?: string
+  frentesTrabajo?: string
+  hitos?: HitoRow[]
+  ganttActivities?: GanttActivity[]
+
+  // ── FICHA DE SEGUIMIENTO ──────────────────────────────────────────────────
+  
+  // Descripción del avance
+  descripcionAvance?: string
+  avanceFebreroKpi?: string      // xx%
+  avanceFebreroActividades?: string  // xx%
+  pendientesStoppers?: string
+
+  // KPIs de seguimiento
+  kpisSeguimiento?: KpiSeguimiento[]
+
+  // Cumplimiento de actividades
+  hitosSeguimiento?: HitoSeguimiento[]
 
   // ── Meta ──────────────────────────────────────────────────────────────────
   version?: string
   ultimaActualizacion?: string
   notas?: string
+  descripcion?: string    // Backwards compatibility
+  racionalEstrategico?: string    // Backwards compatibility
+  riesgos?: string[]    // Backwards compatibility
+  impacto?: string    // Backwards compatibility
+  inversion?: string    // Backwards compatibility
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DATOS — FICHA 1.1
+// DATOS — FICHAS
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const FICHAS: InitiativeFicha[] = [
+  {
+    id: "1",
+    title: "Simplificar el negocio (servicios, marcas, productos, talleres)",
+    pillar: "Protección y Optimización",
+    pillarColor: "#059669",
+    avancePonderado: "sin-datos",
+
+    // ── FICHA DE INICIATIVA ─────────────────────────────────────────────────
+    definicionConceptual: {
+      descripcion:
+        "Implementar estrategias para simplificar el negocio: i) Cerrar negocios, productos, servicios u operaciones sin escala o rentabilidad. ii) Reducir transacciones para hacer más eficientes los procesos, reducir inventarios y operaciones complejas. Mejorar el enfoque.",
+      racionalEstrategico:
+        "- Eliminar o reducir los modelos operativos complejos que no generan rentabilidad: consignaciones, productos con transformación, personalización, etiquetados, operaciones en clientes.\n- Eliminar los negocios, talleres, marcas, familias, y SKUs que no cumplen con los criterios de relevancia. Reducir redundancias.\n- Mejorar el enfoque y asegurar la asignación de recursos a negocios rentables.",
+      riesgos:
+        "- Resistencia del equipo de ventas a descartar negocios\n- Pérdida de ventas / clientes / marcas actuales o con potencial futuro\n- Comunicación adecuada a clientes actuales de esta propuesta de valor del cliente",
+      impacto: "TBD",
+      inversion: "Horas hombre del equipo.",
+    },
+
+    objetivo:
+      "- Reducir transacciones para aumentar la eficiencia; cerrando negocios, saliendo de productos, servicios u operaciones, sin escala o rentabilidad. Reducir inventarios y operaciones complejas. Mejorar el enfoque.",
+    
+    kpis: [
+      {
+        descripcion: "Productos racionalizados",
+        esPrincipal: true,
+        real2025: "xx",
+        q1_26: "-",
+        q2_26: "-",
+        q3_26: "-",
+        q4_26: "-",
+        meta2026: "-",
+      },
+      {
+        descripcion: "Stock remanente del 2025 en S/. 0",
+        esPrincipal: true,
+        real2025: "xx",
+        q1_26: "-",
+        q2_26: "-",
+        q3_26: "-",
+        q4_26: "-",
+        meta2026: "0",
+      },
+      {
+        descripcion: "Servicios analizados (6 líneas de servicios)",
+        esPrincipal: true,
+        real2025: "xx",
+        q1_26: "-",
+        q2_26: "6",
+        q3_26: "6",
+        q4_26: "6",
+        meta2026: "6",
+      },
+      {
+        descripcion: "Productos/Marcas analizados (50% de los SKUs que me hacen el 10% de la venta)",
+        esPrincipal: true,
+        real2025: "xx",
+        q1_26: "-",
+        q2_26: "-",
+        q3_26: "xx",
+        q4_26: "xx",
+        meta2026: "xx",
+      },
+      {
+        descripcion: "Modelos complejos (MTOs) analizados",
+        esPrincipal: true,
+        real2025: "xx",
+        q1_26: "-",
+        q2_26: "-",
+        q3_26: "100%",
+        q4_26: "100%",
+        meta2026: "100%",
+      },
+    ],
+
+    sponsor: "Ronald Orrego",
+    liderProyecto: "Carlos Sanchez",
+    gestionProyecto: "Carlos Sanchez",
+    equipoProyecto: "JC. Paz / Christian Novoa, Finanzas",
+    frentesTrabajo: "Finanzas, Logística y Producto",
+
+    hitos: [
+      {
+        descripcion: "Identificación de productos sujetos a salida del portafolio",
+        fechaEsperada: "Abr-26",
+        responsable: "CS | GF",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Ejecutar plan de salida para productos identificados (2025)",
+        fechaEsperada: "Jun-26",
+        responsable: "CS | GF",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Definición de planes de acción para ejecutar salida",
+        fechaEsperada: "Jun-26",
+        responsable: "CS | GF",
+        status: "pendiente",
+      },
+      {
+        descripcion: "Ejecución de planes de salida del portafolio (2026)",
+        fechaEsperada: "Dic-26",
+        responsable: "CS | GF",
+        status: "pendiente",
+      },
+    ],
+
+    // ── FICHA DE SEGUIMIENTO ────────────────────────────────────────────────
+    descripcionAvance:
+      "- Cumplimiento KPI principal al xx%\n- Cumplimiento actividades/hitos al xx%",
+    avanceFebreroKpi: "xx%",
+    avanceFebreroActividades: "xx%",
+    pendientesStoppers: "",
+
+    kpisSeguimiento: [
+      {
+        descripcion: "Productos racionalizados",
+        esPrincipal: true,
+        ene26: "",
+        feb26: "",
+        mar26: "",
+        ytd1q26: "xx / -",
+        ytd2q26: "xx / -",
+        ytd3q26: "xx / -",
+        ytd4q26: "xx / -",
+        porcentajeCumplimiento: "-",
+      },
+      {
+        descripcion: "Stock remanente del 2025 en S/. 0",
+        esPrincipal: true,
+        ene26: "",
+        feb26: "",
+        mar26: "",
+        ytd1q26: "xx / -",
+        ytd2q26: "xx / -",
+        ytd3q26: "xx / -",
+        ytd4q26: "xx / 0",
+        porcentajeCumplimiento: "-",
+      },
+      {
+        descripcion: "Servicios analizados (6 líneas de servicios)",
+        esPrincipal: false,
+        ene26: "",
+        feb26: "",
+        mar26: "6",
+        ytd1q26: "xx / 6",
+        ytd2q26: "xx / 6",
+        ytd3q26: "xx / 6",
+        ytd4q26: "xx / 6",
+        porcentajeCumplimiento: "-",
+      },
+      {
+        descripcion: "Productos/Marcas analizados (50% de los SKUs que me hacen el 10% de la venta)",
+        esPrincipal: false,
+        ene26: "",
+        feb26: "",
+        mar26: "",
+        ytd1q26: "xx / -",
+        ytd2q26: "xx / -",
+        ytd3q26: "xx / xx",
+        ytd4q26: "xx / xx",
+        porcentajeCumplimiento: "-",
+      },
+      {
+        descripcion: "Modelos complejos (MTOs) analizados",
+        esPrincipal: false,
+        ene26: "",
+        feb26: "",
+        mar26: "-",
+        ytd1q26: "- / -",
+        ytd2q26: "- / -",
+        ytd3q26: "100% / 100%",
+        ytd4q26: "100% / 100%",
+        porcentajeCumplimiento: "-",
+      },
+    ],
+
+    hitosSeguimiento: [
+      {
+        descripcion: "Identificación de productos sujetos a salida del portafolio",
+        fechaPlan: "Abr-26",
+        fechaAprobada: "",
+        noIniciado: true,
+        parcial: false,
+        completo: false,
+      },
+      {
+        descripcion: "Ejecutar plan de salida para productos identificados (2025)",
+        fechaPlan: "Jun-26",
+        fechaAprobada: "",
+        noIniciado: true,
+        parcial: false,
+        completo: false,
+      },
+      {
+        descripcion: "Definición de planes de acción para ejecutar salida",
+        fechaPlan: "Jun-26",
+        fechaAprobada: "",
+        noIniciado: true,
+        parcial: false,
+        completo: false,
+      },
+      {
+        descripcion: "Ejecución de planes de salida del portafolio (2026)",
+        fechaPlan: "Dic-26",
+        fechaAprobada: "",
+        noIniciado: true,
+        parcial: false,
+        completo: false,
+      },
+    ],
+  },
   {
     id: "1.1",
     title: "Mejorar los márgenes por cliente L+N",
@@ -3077,7 +3337,7 @@ function FichaDetail({ ficha }: { ficha: InitiativeFicha }) {
                 <span className="text-[10px] font-black text-white uppercase tracking-wide">Riesgos</span>
               </div>
               <ul className="px-3 py-3 space-y-1.5">
-                {ficha.riesgos.map((r, i) => (
+                {ficha.riesgos?.map((r, i) => (
                   <li key={i} className="flex items-start gap-1.5 text-[11px] text-slate-600 leading-snug">
                     <span className="mt-1 w-1 h-1 rounded-full bg-red-400 shrink-0" />
                     {r}
@@ -3165,12 +3425,12 @@ function FichaDetail({ ficha }: { ficha: InitiativeFicha }) {
               </tr>
             </thead>
             <tbody>
-              {ficha.kpis.map((kpi, idx) => (
+              {ficha.kpis?.map((kpi, idx) => (
                 <tr key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"}>
                   {idx === 0 && (
                     <td
                       className="border border-slate-200 px-3 py-2 text-slate-700 text-[11px] leading-relaxed align-top"
-                      rowSpan={ficha.kpis.length}
+                      rowSpan={ficha.kpis?.length ?? 0}
                     >
                       <p className="text-[10.5px] text-slate-600 leading-relaxed">
                         {ficha.objetivo}
@@ -3250,7 +3510,7 @@ function FichaDetail({ ficha }: { ficha: InitiativeFicha }) {
               </tr>
             </thead>
             <tbody>
-              {ficha.hitos.map((hito, idx) => {
+              {ficha.hitos?.map((hito, idx) => {
                 const statusCfg = HITO_STATUS[hito.status ?? "pendiente"]
                 const isTbd = hito.status === "tbd"
                 return (
@@ -3258,7 +3518,7 @@ function FichaDetail({ ficha }: { ficha: InitiativeFicha }) {
                     {idx === 0 && (
                       <td
                         className="border border-slate-200 px-3 py-3 align-top"
-                        rowSpan={ficha.hitos.length}
+                        rowSpan={ficha.hitos?.length ?? 0}
                       >
                         <ul className="space-y-1.5 text-[11px] text-slate-600">
                           <li><span className="font-bold text-slate-800">Sponsor:</span> {ficha.sponsor}</li>
@@ -3276,7 +3536,7 @@ function FichaDetail({ ficha }: { ficha: InitiativeFicha }) {
                     {idx === 0 && (
                       <td
                         className="border border-slate-200 px-3 py-3 align-middle text-center"
-                        rowSpan={ficha.hitos.length}
+                        rowSpan={ficha.hitos?.length ?? 0}
                       >
                         <div
                           className="inline-block rounded-lg px-3 py-2 text-[11px] font-black text-white text-center"
@@ -3346,8 +3606,8 @@ function FichaMiniCard({
   onClick: () => void
 }) {
   const tlCfg = TL_CONFIG[ficha.avancePonderado]
-  const completedHitos = ficha.hitos.filter((h) => h.status === "completado").length
-  const pct = Math.round((completedHitos / ficha.hitos.length) * 100)
+  const completedHitos = ficha.hitos?.filter((h) => h.status === "completado").length ?? 0
+  const pct = ficha.hitos ? Math.round((completedHitos / ficha.hitos.length) * 100) : 0
 
   return (
     <button
@@ -3379,7 +3639,7 @@ function FichaMiniCard({
               <span className={`w-2 h-2 rounded-full ${tlCfg.bg}`} />
               <span className={`text-[9px] font-semibold ${tlCfg.text}`}>{tlCfg.label}</span>
             </div>
-            <span className="text-[9px] text-slate-400 font-medium">{completedHitos}/{ficha.hitos.length} hitos</span>
+            <span className="text-[9px] text-slate-400 font-medium">{completedHitos}/{ficha.hitos?.length ?? 0} hitos</span>
           </div>
           {/* mini progress */}
           <div className="mt-1.5 h-1 bg-slate-100 rounded-full overflow-hidden">
@@ -3415,9 +3675,9 @@ export function InitiativeFichaDashboard({ initialFichaId }: { initialFichaId?: 
 
   const selectedFicha = FICHAS.find((f) => f.id === selectedId) ?? FICHAS[0]
 
-  const totalHitos = FICHAS.reduce((s, f) => s + f.hitos.length, 0)
+  const totalHitos = FICHAS.reduce((s, f) => s + (f.hitos?.length ?? 0), 0)
   const completedHitos = FICHAS.reduce(
-    (s, f) => s + f.hitos.filter((h) => h.status === "completado").length, 0
+    (s, f) => s + (f.hitos?.filter((h) => h.status === "completado").length ?? 0), 0
   )
 
   return (

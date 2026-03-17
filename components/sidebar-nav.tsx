@@ -122,6 +122,13 @@ const NAV_PROCESOS_ANALYST: NavGroup[] = [
         analystOnly: true,
       },
       {
+        icon: "💼",
+        label: "Unimaq Status",
+        sublabel: "Ejemplo: Vista alternativa con KPIs expandibles",
+        href: "#",
+        analystOnly: true,
+      },
+      {
         icon: "🗺️",
         label: "Pipeline 2026",
         sublabel: "Mapa de avance · Visión gerencial",

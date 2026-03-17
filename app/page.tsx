@@ -11,6 +11,7 @@ import { GeneralDataDashboard } from "@/components/general-data-dashboard"
 import { StrategicInitiativesDashboard } from "@/components/strategic-initiatives-dashboard"
 import { StrategicPipelineDashboard } from "@/components/strategic-pipeline-dashboard"
 import { StrategicStatusDashboard } from "@/components/strategic-status-dashboard"
+import { UnimaqStatusDashboard } from "@/components/unimaq-status-dashboard"
 import { InitiativeFichaDashboard } from "@/components/initiative-ficha-dashboard"
 
 // ─── Metadatos de cada panel ─────────────────────────────────────────────────
@@ -24,7 +25,7 @@ interface PanelMeta {
   tags?: string[]
   area: Area
   /** Si tiene componente propio, se renderiza en lugar del PanelCanvas */
-  component?: "AnalystDashboard" | "RequesterDashboard" | "GeneralDataDashboard" | "StrategicInitiativesDashboard" | "StrategicPipelineDashboard" | "StrategicStatusDashboard" | "InitiativeFichaDashboard"
+  component?: "AnalystDashboard" | "RequesterDashboard" | "GeneralDataDashboard" | "StrategicInitiativesDashboard" | "StrategicPipelineDashboard" | "StrategicStatusDashboard" | "UnimaqStatusDashboard" | "InitiativeFichaDashboard"
 }
 
 const PANEL_REGISTRY: Record<string, PanelMeta> = {
@@ -138,6 +139,13 @@ const PANEL_REGISTRY: Record<string, PanelMeta> = {
     area: "Procesos",
     component: "InitiativeFichaDashboard",
   },
+  "Unimaq Status": {
+    title: "[Ejemplo] Unimaq — Status iniciativas",
+    subtitle: "Vista de ejemplo con expansión de KPIs · Formato alternativo",
+    icon: "💼",
+    area: "Procesos",
+    component: "UnimaqStatusDashboard",
+  },
   "Portafolio de Proyectos": {
     title: "Portafolio de Proyectos",
     subtitle: "Módulo Loussiana · Gestión de portafolio · Desviaciones",
@@ -225,6 +233,7 @@ export default function Home() {
     if (panel.component === "StrategicInitiativesDashboard") return <StrategicInitiativesDashboard onNavigateToFicha={handleNavigateToFicha} />
     if (panel.component === "StrategicPipelineDashboard") return <StrategicPipelineDashboard />
     if (panel.component === "StrategicStatusDashboard") return <StrategicStatusDashboard />
+    if (panel.component === "UnimaqStatusDashboard") return <UnimaqStatusDashboard />
     if (panel.component === "InitiativeFichaDashboard") return <InitiativeFichaDashboard initialFichaId={activeFichaId ?? undefined} />
     if (panel.component === "RequesterDashboard")
       return <RequesterDashboard userName={currentUser} />
